@@ -15,7 +15,7 @@ import java.security.SignatureException;
 * */
 
 public class MD5 {
-
+//哈哈
     /**
      * 签名字符串
      * @param text 需要签名的字符串
