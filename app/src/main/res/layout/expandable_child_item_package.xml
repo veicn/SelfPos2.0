@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/adapterview_dialog_category_layout"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y50">
+
+        <TextView
+            android:id="@+id/adapterview_dialog_category_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="酱爆花生"
+            android:layout_centerVertical="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/x26"/>
+
+
+        <TextView
+            android:id="@+id/adapterview_dialog_category_tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@+id/adapterview_dialog_category_tv"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/x26"/>
+
+
+        <TextView
+            android:id="@+id/child_dish_count_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x200"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/x26"/>
+
+
+        <TextView
+            android:id="@+id/adapterview_dialog_option_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:layout_toRightOf="@+id/adapterview_dialog_category_tv2"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/x30"/>
+
+        <TextView
+
+            android:id="@+id/adapterview_dialog_option_true_price_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x20"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/x30"/>
+    </RelativeLayout>
+</LinearLayout>

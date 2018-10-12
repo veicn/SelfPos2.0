@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/x10"
+    android:layout_marginLeft="@dimen/x10"
+    android:layout_marginRight="@dimen/x10"
+    android:background="@color/colorSecondary"
+    android:foreground="?android:selectableItemBackground"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y460">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/x300">
+
+                <!--<com.jaydenxiao.common.commonwidget.RatioLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--app:rlRatio="1.5"-->
+                <!--app:rlRelative="height">-->
+
+                <ImageView
+                    android:id="@+id/dish_photo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    />
+                <!--</com.jaydenxiao.common.commonwidget.RatioLayout>-->
+
+                <!--<LinearLayout-->
+                <!--android:id="@+id/member_layout"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_gravity="right|bottom"-->
+                <!--android:layout_marginLeft="@dimen/x10"-->
+                <!--android:layout_marginRight="@dimen/x10"-->
+                <!--android:layout_marginTop="@dimen/y10"-->
+                <!--android:orientation="vertical">-->
+
+                <!---->
+                <!--</LinearLayout>-->
+
+                <FrameLayout
+                    android:id="@+id/order_right_shouqinlayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/shouqin_img"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_diancai_shouqin"
+                        />
+                </FrameLayout>
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/y5"
+                android:layout_marginTop="@dimen/x10"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/x20">
+
+
+                <TextView
+                    android:id="@+id/dish_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:ellipsize="end"
+                    android:gravity="bottom|left"
+                    android:lines="2"
+                    android:textColor="@color/colorPrimaryText"
+                    android:textSize="@dimen/x30"/>
+
+                <RelativeLayout
+                    android:id="@+id/price_ly"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/dish_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/x22"/>
+
+                    <TextView
+                        android:id="@+id/dish_memberprice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="@dimen/x20"
+                        android:text="￥0.01"
+                        android:textColor="@color/colorSecondaryText"
+                        android:textSize="@dimen/x38"/>
+
+                    <TextView
+                        android:id="@+id/dish_memberprice_vip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/dish_memberprice"
+                        android:text="VIP "
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/x38"/>
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/statu_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:visibility="gone"
+            android:id="@+id/view"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/x10"
+            android:layout_gravity="bottom"
+            android:background="@color/colorPrimary"></View>
+    </FrameLayout>
+</LinearLayout>
+

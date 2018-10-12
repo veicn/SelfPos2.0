@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:background="@drawable/bg_color_white_with_10_corner"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_cancer"
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/x60"
+        android:layout_gravity="right"
+        android:padding="@dimen/x20"
+        android:src="@mipmap/close_back"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y20"
+        android:gravity="center_horizontal"
+        android:text="支付宝支付"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/x35"/>
+
+    <ImageView
+        android:id="@+id/iv_qr"
+        android:layout_width="@dimen/x300"
+        android:layout_height="@dimen/y300"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y40"/>
+
+
+    <TextView
+        android:id="@+id/tv_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y40"
+        android:text="支付金额 ￥100"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/x25"/>
+
+
+    <TextView
+        android:layout_marginTop="@dimen/y40"
+        android:id="@+id/pay_qr_tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="@dimen/y15"
+        android:text="剩余支付时间30s"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/x25"/>
+
+    <TextView
+        android:layout_marginTop="@dimen/y40"
+        android:id="@+id/pay_tips"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="请输入支付密码"
+        android:textColor="@color/main_color_red"
+        android:textSize="@dimen/x25"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/btn_cancle"
+        android:layout_width="390dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="@dimen/y20"
+        android:layout_marginTop="@dimen/y20"
+        android:background="@drawable/btn_orange_nocorner_selector"
+        android:text="取消"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

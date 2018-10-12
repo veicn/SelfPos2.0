@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="@dimen/x800"
+              android:layout_height="@dimen/y1150"
+              android:background="@drawable/bg_color_fcf6e6"
+              android:orientation="vertical"
+              android:padding="@dimen/x25">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/x30"
+            android:text="美团验券"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/x35"/>
+
+        <ImageView
+            android:id="@+id/iv_cancer"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginTop="@dimen/x10"
+            android:src="@mipmap/close_back"/>
+    </RelativeLayout>
+
+
+    <com.acewill.slefpos.orderui.main.ui.widget.NumberInputView
+        android:id="@+id/quanma_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:tips_text="请将美团券码二维码放到下方扫码处或输入券码"
+        app:type="1"></com.acewill.slefpos.orderui.main.ui.widget.NumberInputView>
+</LinearLayout>

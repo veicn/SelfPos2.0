@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@+id/view"
+              xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="1dp"
+              android:background="@color/colorSecondary"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?selectableItemBackground"
+        android:gravity="center_vertical"
+        android:minHeight="@dimen/y250"
+        android:orientation="horizontal"
+        android:padding="@dimen/x20">
+
+        <!--android:layout_width="@dimen/x280"-->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y210"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="7">
+
+            <ImageView
+                android:id="@+id/dish_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@mipmap/default_img"/>
+        </FrameLayout>
+
+        <!-- 这个宽度x550不能再小，不然价格会换行-->
+        <!--android:layout_width="@dimen/x450"-->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="13"
+            android:orientation="vertical"
+            android:padding="@dimen/x10">
+
+            <TextView
+                android:id="@+id/dish_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/x38"/>
+
+            <TextView
+                android:id="@+id/dish_option"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/x28"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/dish_subitemlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/x28"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/dish_market"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:textColor="@color/main_color_red"
+                android:textSize="@dimen/x38"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y10"
+                android:textColor="@color/colorPrimaryText"
+                android:textSize="@dimen/x38"/>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="6"
+            android:gravity="right"
+            android:orientation="vertical">
+
+
+            <!--这里显示的实收，包括定制项的价格-->
+            <TextView
+                android:id="@+id/dish_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/y20"
+                android:text="￥123.00"
+                android:textColor="@color/main_color_red"
+                android:textSize="@dimen/x38"/>
+
+            <TextView
+                android:id="@+id/dish_discountamount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dish_cost"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/y10"
+                android:text="￥123.00"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/x28"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/y20"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:padding="@dimen/x8"
+                    android:id="@+id/iv_minus_counts"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/y50"
+                    android:layout_marginRight="@dimen/x10"
+                    android:background="@drawable/shape_four"
+                    android:src="@mipmap/icon_minus_light"/>
+
+                <!--<View-->
+                <!--android:layout_width="@dimen/x1"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/main_goods_name"/>-->
+
+                <TextView
+                    android:id="@+id/dish_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/x10"
+                    android:gravity="center"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:text="1"
+                    android:textColor="@color/main_tv_black"
+                    android:textSize="@dimen/x42"/>
+
+                <!--<View-->
+                <!--android:layout_width="@dimen/x1"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:background="@color/main_goods_name"/>-->
+
+                <ImageView
+                    android:id="@+id/iv_plus_counts"
+                    android:layout_width="@dimen/x50"
+                    android:layout_height="@dimen/y50"
+                    android:layout_marginRight="@dimen/x10"
+                    android:padding="@dimen/x8"
+                    android:background="@drawable/shape_four"
+                    android:src="@mipmap/icon_plus_deep"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="@dimen/y1"-->
+        <!--android:background="@color/half_transparent"></View>-->
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@+id/bg"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/iv_splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg"/>
+
+    <TextView
+        android:id="@+id/system_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/y500"
+        android:text="@string/system_name"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/x100"/>
+
+    <ImageView
+        android:id="@+id/screen_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/y320"
+        android:scaleType="fitXY"
+        android:visibility="invisible"/>
+
+    <Button
+        android:id="@+id/btn_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/y100"
+        android:background="@drawable/bg_color_white_with_60_corner"
+        android:paddingBottom="@dimen/y20"
+        android:paddingLeft="@dimen/x50"
+        android:paddingRight="@dimen/x50"
+        android:paddingTop="@dimen/y20"
+        android:text="@string/system_set"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/x80"/>
+
+    <TextView
+        android:id="@+id/left_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/x30"
+        android:layout_marginTop="@dimen/y30"
+        android:background="@drawable/bg_color_half_trans_with_60_corner"
+        android:paddingBottom="@dimen/y30"
+        android:paddingLeft="@dimen/x20"
+        android:paddingRight="@dimen/x20"
+        android:paddingTop="@dimen/y30"
+        android:text="剩余3s"
+        android:textColor="@color/main_color_white"
+        android:textSize="@dimen/x30"/>
+</RelativeLayout>

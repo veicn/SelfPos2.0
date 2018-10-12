@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.acewill.slefpos.widgetlibrary.MyGridView
+            android:id="@+id/coupon_type_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/x20"
+            android:horizontalSpacing="@dimen/x30"
+            android:numColumns="4"
+            android:verticalSpacing="@dimen/y15">
+        </com.acewill.slefpos.widgetlibrary.MyGridView>
+
+        <RelativeLayout
+            android:id="@+id/fra_coupon_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <com.aspsine.irecyclerview.IRecyclerView
+                android:id="@+id/irc"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/y100"
+                app:loadMoreEnabled="false"
+                app:refreshEnabled="false"
+                app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"/>
+
+            <com.jaydenxiao.common.commonwidget.LoadingTip
+                android:id="@+id/loadedTip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/orderdetail_bottom_layout"
+        layout="@layout/item_bottom_layout"></include>
+
+</FrameLayout>

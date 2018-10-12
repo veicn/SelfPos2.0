@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorSecondary"
+                android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y420"
+        android:background="@color/white"
+        android:foreground="?attr/selectableItemBackground">
+
+        <!--<com.jaydenxiao.common.commonwidget.RatioLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--app:rlRatio="1.5"-->
+        <!--app:rlRelative="height">-->
+
+        <ImageView
+            android:id="@+id/dish_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:transitionName="dishphoto"
+            />
+        <!--</com.jaydenxiao.common.commonwidget.RatioLayout>-->
+
+        <TextView
+            android:id="@android:id/text1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#fff"/>
+
+    </FrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/dish_name"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y250"
+        android:layout_below="@id/banner_contain">
+
+        <ImageView
+            android:id="@+id/activity_taocan_food_iv"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y150"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x95"
+            android:src="@mipmap/default_img"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x250"
+            android:layout_toRightOf="@id/activity_taocan_food_iv"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/please_choose"/>
+
+            <TextView
+                android:id="@+id/activity_taocan_food_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y5"
+                android:text="@string/hello_world"
+                android:textColor="@color/black"
+                android:textSize="@dimen/x26"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/activity_taocan_food_description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y2"
+                android:text="这是一段描述的语言"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/activity_taocan_food_cost_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x90"
+            android:textColor="@color/red"
+            android:textSize="@dimen/x26"/>
+
+    </RelativeLayout>
+
+    <com.acewill.slefpos.widgetlibrary.MyGridView
+        android:id="@+id/tab_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/dish_name"
+        android:horizontalSpacing="@dimen/x10"
+        android:numColumns="8"
+        android:verticalSpacing="@dimen/y15">
+    </com.acewill.slefpos.widgetlibrary.MyGridView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tab_list"
+        android:layout_marginBottom="@dimen/y250">
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.acewill.slefpos.widgetlibrary.MyGridView
+                android:id="@+id/dish_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:horizontalSpacing="@dimen/x35"
+                android:numColumns="4"
+                android:padding="@dimen/x35"
+                android:verticalSpacing="@dimen/y15">
+            </com.acewill.slefpos.widgetlibrary.MyGridView>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/y90"
+        android:layout_marginLeft="@dimen/x10"
+        android:layout_marginRight="@dimen/x10"
+        android:layout_marginTop="@dimen/y5"
+        android:background="@drawable/bg_color_white_with_5px_color_fbe6d3_stroke"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/arrow_layout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y35">
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="@dimen/x20"
+                android:text="已选商品列表"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/x28"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/tv1"
+                android:paddingLeft="@dimen/x20"
+                android:text="(长按可删除已选商品)"
+                android:textColor="@color/red"
+                android:textSize="@dimen/x14"/>
+
+            <ImageView
+                android:id="@+id/arrow_down"
+                android:layout_width="@dimen/x35"
+                android:layout_height="@dimen/y27"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x20"
+                android:src="@mipmap/arrow_down_n"/>
+        </RelativeLayout>
+
+
+        <com.acewill.slefpos.widgetlibrary.MyGridView
+            android:id="@+id/choose_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tab_list"
+            android:horizontalSpacing="@dimen/x35"
+            android:numColumns="7"
+            android:paddingBottom="@dimen/y10"
+            android:paddingLeft="@dimen/x20"
+            android:paddingRight="@dimen/x20"
+            android:paddingTop="@dimen/y10"
+            android:verticalSpacing="@dimen/y15">
+        </com.acewill.slefpos.widgetlibrary.MyGridView>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+
+        <ImageView
+            android:id="@+id/btn_bottom_layout_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/x30"
+            android:paddingRight="@dimen/x30"
+            android:src="@mipmap/icon_back2"/>
+
+
+        <Button
+            android:id="@+id/btn_bottom_layout_gopay"
+            android:layout_width="@dimen/x200"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/btn_orange_nocorner_selector"
+            android:gravity="center"
+            android:text="选好了"
+            android:textColor="@color/white"
+            android:textSize="@dimen/x30"/>
+
+        <!--<TextView-->
+        <!--android:visibility="gone"-->
+        <!--android:id="@+id/tv_resmoney"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_toLeftOf="@id/btn_bottom_layout_gopay"-->
+        <!--android:textSize="@dimen/sp20"/>-->
+
+    </RelativeLayout>
+</RelativeLayout>

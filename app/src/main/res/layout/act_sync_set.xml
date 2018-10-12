@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/init_ly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/system_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="公司系统编码"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"/>
+
+        <EditText
+            android:id="@+id/install_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="安装授权码"
+            android:textColor="@android:color/black"
+            android:textSize="30sp"/>
+
+        <Button
+            android:id="@+id/init"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="初始化"/>
+    </LinearLayout>
+
+    <RelativeLayout
+
+        android:id="@+id/shop_list_ly"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+
+        <com.aspsine.irecyclerview.IRecyclerView
+            android:id="@+id/irc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/y110"
+            app:loadMoreEnabled="false"
+            app:refreshEnabled="false"
+            app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header"/>
+
+        <com.jaydenxiao.common.commonwidget.LoadingTip
+            android:id="@+id/loadedTip"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </RelativeLayout>
+</RelativeLayout>

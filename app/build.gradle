@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.acewill.slefpos"
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 27
+        versionName "20180927"
+        multiDexEnabled = true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    //添加appCompat
+    testCompile 'junit:junit:4.12'
+    compile project(':library:common')
+    compile project(':library:irecyclerview')
+    compile project(':library:selectordialog')
+    compile 'org.litepal.android:core:2.0.0'
+    compile project(':library:widgetlibrary')
+    //    ++++++++++++++++++++++++++++++++++++++++++++
+    compile files('libs/commons-httpclient-3.0.1.jar')
+    compile files('libs/commons-logging-1.1.1.jar')
+    compile files('libs/jaxen-1.1-beta-6.jar')
+    compile files('libs/jg_filter_sdk_1.1.jar')
+    //    compile files('libs/org.slf4j.api_1.6.4.jar')
+    compile files('libs/xstream-1.4.5.jar')
+    compile files('libs/classes.jar')
+    compile files('libs/dom4j-1.6.1.jar')
+    //    ++++++++++++++++++++++++++++
+    compile project(':pswtext')
+    compile project(path: ':pswtext')
+}

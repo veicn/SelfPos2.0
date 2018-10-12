@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="1280dp"
+              android:background="@drawable/bg_color_fcf6e6_with_10_corner"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dialog_recomendpackage_showtype_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/x30"
+            android:text="套餐推荐"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/x30"/>
+
+        <ImageView
+            android:id="@+id/dialog_recomendpackage_close_back"
+            android:layout_width="@dimen/x50"
+            android:layout_height="@dimen/x50"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginTop="@dimen/x10"
+            android:src="@mipmap/close_back"/>
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x50"
+        android:layout_marginRight="@dimen/x50"
+        android:padding="@dimen/x10"
+        android:text="@string/zhushi"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/x26"/>
+
+    <LinearLayout
+        android:id="@+id/dialog_recomendpackage_dishlayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y150"
+        android:layout_marginBottom="@dimen/y10"
+        android:layout_marginLeft="@dimen/x50"
+        android:layout_marginRight="@dimen/x50"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3">
+
+            <ImageView
+                android:id="@+id/dish_photo"
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/y150"
+                android:layout_centerVertical="true"
+                />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="4">
+
+            <TextView
+                android:padding="@dimen/x5"
+                android:id="@+id/dish_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/x26"
+                android:textStyle="bold"/>
+
+
+            <TextView
+                android:padding="@dimen/x5"
+                android:layout_alignParentRight="true"
+                android:id="@+id/dish_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/x26"
+                android:textColor="@color/main_color_red"/>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/dialog_recomendpackage_type_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x50"
+        android:layout_marginRight="@dimen/x50"
+        android:padding="@dimen/x10"
+        android:text="@string/ourrecomend"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/x26"/>
+
+    <com.aspsine.irecyclerview.IRecyclerView
+        android:id="@+id/dialog_recomendpackage_xre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/x50"
+        android:layout_marginRight="@dimen/x50"
+        android:layout_marginTop="@dimen/y20"></com.aspsine.irecyclerview.IRecyclerView>
+</LinearLayout>

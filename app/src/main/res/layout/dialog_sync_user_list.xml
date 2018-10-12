@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bg_color_sync_black_with_5px_color_sync_gray_stroke"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_cancer"
+            android:layout_width="@dimen/x60"
+            android:layout_height="@dimen/y60"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/x10"
+            android:src="@mipmap/close_back"/>
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/y50"
+            android:text="请选择账号登录"
+            android:textColor="@color/main_color_white"
+            android:textSize="@dimen/x38"/>
+    </RelativeLayout>
+
+    <com.aspsine.irecyclerview.IRecyclerView
+        android:id="@+id/dialog_user_xre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/x50"
+        android:layout_marginRight="@dimen/x50"
+        android:layout_marginTop="@dimen/y20"></com.aspsine.irecyclerview.IRecyclerView>
+</LinearLayout>

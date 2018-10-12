@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorlayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <FrameLayout
+                android:id="@+id/kind_contain"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2"></FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/dish_contain"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="9"></FrameLayout>
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y100"
+            android:layout_gravity="bottom"
+           android:background="@color/colorPrimary"
+            >
+            <!--android:background="@color/colorPrimary"-->
+            <LinearLayout
+                android:layout_centerVertical="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true">
+
+                <FrameLayout
+                    android:id="@+id/iv_back"
+                    android:layout_width="@dimen/x120"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/img_back"
+                        android:layout_width="@dimen/x45"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/icon_back"/>
+                </FrameLayout>
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/paybtn"
+                android:layout_width="@dimen/x280"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:text="结算"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x48"
+                android:visibility="gone"/>
+
+            <LinearLayout
+                android:id="@+id/total_ly"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/x300"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="@dimen/x20"
+                    android:text="合计:"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/x38"/>
+
+                <TextView
+                    android:id="@+id/paymoney"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="￥10.00"
+                    android:textColor="@color/main_color_red"
+                    android:textSize="@dimen/x48"/>
+
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/shop_cart_ly"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y150"
+            android:layout_gravity="bottom|left"
+            android:layout_marginBottom="@dimen/y40"
+            android:layout_marginLeft="@dimen/x105">
+
+            <ImageView
+                android:id="@+id/dot_ly_bg"
+                android:layout_width="@dimen/x150"
+                android:layout_height="@dimen/y150"
+                android:src="@mipmap/icon_shop_cart_empty"/>
+
+            <FrameLayout
+                android:id="@+id/dot_ly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/x18"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="@dimen/x75"
+                    android:layout_height="@dimen/x75"
+                    android:src="@drawable/icon_dot_orange"/>
+
+                <TextView
+                    android:id="@+id/dot_count_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/x20"/>
+            </FrameLayout>
+            <!--<RelativeLayout-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:background="@drawable/icon_dot_orange">-->
+
+            <!--<TextView-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:text="1"-->
+            <!--android:textColor="@color/white"/>-->
+            <!--</RelativeLayout>-->
+
+        </RelativeLayout>
+    </FrameLayout>
+
+
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:layout_marginBottom="@dimen/y80"
+        android:layout_marginLeft="@dimen/x100"
+        android:src="@mipmap/icon_shop_cart2"
+        android:visibility="gone"
+        app:backgroundTint="@color/colorPrimary"
+        app:layout_behavior="com.acewill.slefpos.widget.ScrollAwareFABBehavior"/>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+    <!--android:id="@+id/fab"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/x10"-->
+    <!--app:backgroundTint="@color/main_color"-->
+    <!--android:src="@mipmap/ic_arrow_upward"-->
+    <!--app:layout_behavior="com.jaydenxiao.androidfire.widget.ScrollAwareFABBehavior"/>-->
+</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y70"
+        >
+
+        <TextView
+            android:id="@+id/adapterview_dialog_dishname_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            android:textSize="@dimen/x30"/>
+
+
+        <TextView
+            android:id="@+id/adapter_dialog_item_totalcount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x200"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/x26"/>
+
+
+        <TextView
+            android:id="@+id/adapterview_dialog_dishprice_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/x20"
+            android:textColor="@color/colorPrimaryText"
+            android:textSize="@dimen/x30"/>
+    </RelativeLayout>
+</LinearLayout>

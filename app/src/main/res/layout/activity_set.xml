@@ -1,0 +1,683 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#eaeaea"
+            android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/y60"
+            android:background="@color/black">
+
+            <TextView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="@dimen/x30"
+                android:paddingRight="@dimen/x30"
+                android:text="@string/back"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x28"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#eaeaea"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/y20"
+            android:paddingLeft="@dimen/x32"
+            android:paddingRight="@dimen/x32"
+            android:paddingTop="@dimen/y10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y24"
+                android:paddingTop="@dimen/y24">
+
+                <LinearLayout
+                    android:id="@+id/ll_bind"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/x10"
+                        android:text="@string/bind_terminal"
+                        android:textSize="@dimen/x38"/>
+
+                    <TextView
+                        android:id="@+id/tv_bind_status"
+                        style="@style/system_set_text_select"
+                        android:layout_marginRight="@dimen/x10"
+                        android:text="@string/nobind"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/store_info_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/y10"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/store_info_tv"
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="@dimen/x10"
+                        android:textSize="@dimen/x30"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y24"
+                android:paddingTop="@dimen/y24">
+
+                <LinearLayout
+                    android:id="@+id/ll_store_ip"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:layout_marginTop="0dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/current_environment"/>
+
+                    <TextView
+                        android:id="@+id/store_ip"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_set_jiyejia_ip"
+                    style="@style/system_set_linear"
+                    android:paddingLeft="@dimen/x20"
+                    >
+
+                    <EditText
+                        android:id="@+id/et_createorder_ip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/jiyejia_host_ip"
+                        android:padding="0dp"
+                        android:textColor="@color/colorSecondaryText"
+                        android:textColorHint="@color/main_goods_name"
+                        android:textSize="@dimen/x30"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_set_canxingjian_ip"
+                    style="@style/system_set_linear"
+                    android:paddingLeft="@dimen/x20"
+                    >
+
+                    <EditText
+                        android:id="@+id/et_canxingjian_host_ip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:hint="@string/canxingjian_host_ip"
+                        android:padding="0dp"
+                        android:textColor="@color/colorSecondaryText"
+                        android:textColorHint="@color/main_goods_name"
+                        android:textSize="@dimen/x30"/>
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/ll_set_jiyejia_ip_view"
+                    style="@style/vertical_divide_view"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_updata_layout"
+                    style="@style/system_set_linear"
+                    android:layout_marginTop="0dp">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/update_version"/>
+
+                    <TextView
+                        android:id="@+id/updata_tv"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_upload_catalog"
+                    style="@style/system_set_linear"
+                    android:layout_marginTop="0dp">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/upload_logs"/>
+
+                    <TextView
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_clear_catalog"
+                    style="@style/system_set_linear"
+                    android:layout_marginTop="0dp">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/clear_cache"/>
+
+                    <TextView
+                        android:id="@+id/tv_cache_size"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--<LinearLayout-->
+            <!--android:id="@+id/ll_store_ip"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="@dimen/dp20"-->
+            <!--android:background="@drawable/bg_color_white_with_10_corner"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:padding="@dimen/dp24">-->
+
+            <!--<TextView-->
+            <!--style="@style/system_set_text"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_weight="1"-->
+            <!--android:text="APP端口号"-->
+            <!--android:textSize="@dimen/sp30"/>-->
+
+            <!--<TextView-->
+            <!--android:id="@+id/store_ip"-->
+            <!--style="@style/system_set_text_select"-->
+            <!--android:drawableRight="@null"/>-->
+            <!---->
+            <!--</LinearLayout>-->
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/y24"
+                android:paddingTop="@dimen/y24">
+
+                <LinearLayout
+                    android:id="@+id/ll_print_select"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:layout_marginTop="0dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/choose_printer"/>
+
+                    <TextView
+                        android:id="@+id/tv_print_type"
+                        style="@style/system_set_text_select"
+                        android:text="@string/the_second_printer"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"
+                    android:visibility="gone"/>
+
+
+                <LinearLayout
+                    android:id="@+id/btn_set_print"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/printer_set"/>
+
+                    <TextView
+                        android:id="@+id/tv_print_id"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"/>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_set_inner_print"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/inner_printer_set"/>
+
+                    <TextView
+                        android:id="@+id/tv_inner_print_id"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_set_qr_init_layout"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:text="@string/init_barcode_scanning_gun"/>
+
+                    <TextView
+                        android:id="@+id/tv_qr_init"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/ll_pay_type_view"
+                    style="@style/vertical_divide_view"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_pay_type"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/choose_paytype"/>
+
+                    <TextView
+                        android:id="@+id/tv_pay_type"
+                        style="@style/system_set_text_select"
+                        android:text="@string/credit_card_payment"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/ll_show_table_num_view"
+                    style="@style/vertical_divide_view"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_show_table_num"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/show_table_num"/>
+
+                    <TextView
+                        android:id="@+id/tv_show_table_num"
+                        style="@style/system_set_text_select"
+                        />
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_download_videos"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/download_video"/>
+
+                    <TextView
+                        android:id="@+id/tv_download"
+                        style="@style/system_set_text_select"
+                        />
+                </LinearLayout>
+
+
+                <View
+                    style="@style/vertical_divide_view"
+                    android:visibility="gone"/>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_show_banner"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/show_banner_or_video"/>
+
+                    <TextView
+                        android:id="@+id/tv_show_banner"
+                        style="@style/system_set_text_select"
+                        />
+                </LinearLayout>
+
+
+                <View
+                    style="@style/vertical_divide_view"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_set_scantype"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/scanguntype"/>
+
+                    <TextView
+                        android:id="@+id/tv_scantype"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/ll_set_validate_memberno_view"
+                    style="@style/vertical_divide_view"
+                    android:visibility="visible"/>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_set_validate_memberno"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="能否通过输入会员号验证会员"/>
+
+                    <TextView
+                        android:id="@+id/tv_validate_memberno"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/ll_set_start_callnumber_view"
+                    style="@style/vertical_divide_view"
+                    android:visibility="visible"/>
+
+
+                <LinearLayout
+                    android:id="@+id/ll_set_start_callnumber"
+                    style="@style/system_set_linear"
+                    >
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="设置取餐号起始前缀"/>
+
+                    <TextView
+                        android:id="@+id/tv_set_start_callnumber"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_set_textviewtype"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="文字是否滚动"/>
+
+                    <TextView
+                        android:id="@+id/tv_textviewtype"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_set_checkorder"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/checkOrder"/>
+
+                    <TextView
+                        android:id="@+id/tv_checkorder"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/print_test"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="测试打印"/>
+
+                    <TextView
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"
+                    android:visibility="gone"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_set_changelanguage"
+                    style="@style/system_set_linear"
+                    android:layout_marginLeft="@dimen/x24"
+                    android:layout_marginRight="@dimen/x24"
+                    android:visibility="gone">
+
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/select_language"/>
+
+                    <TextView
+                        android:id="@+id/tv_changelanguage"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/test_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y20"
+                android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y90"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/x20"
+                        android:text="是否启用手机测试"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/x35"/>
+
+                    <FrameLayout
+                        android:layout_width="@dimen/x120"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x5">
+
+                        <ToggleButton
+                            android:id="@+id/phone_test_swift"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:button="@drawable/toggle_btn"
+                            android:checked="false"
+                            android:gravity="center"
+                            android:text=""
+                            android:textOff=""
+                            android:textOn=""/>
+                    </FrameLayout>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/y90"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="@dimen/x20"
+                        android:text="支付宝支付"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/x35"/>
+
+                    <FrameLayout
+                        android:layout_width="@dimen/x120"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x5">
+
+                        <ToggleButton
+                            android:id="@+id/ali_payset_swift"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:button="@drawable/toggle_btn"
+                            android:checked="false"
+                            android:gravity="center"
+                            android:text=""
+                            android:textOff=""
+                            android:textOn=""/>
+                    </FrameLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/ll_finish"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/y30"
+                android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+                android:padding="@dimen/x24">
+
+
+                <TextView
+                    android:id="@+id/tv_finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/login_out"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/x38"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/arrow_right_gray"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

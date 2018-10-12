@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="#E0F2F1">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y120"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/colorPrimary">
+
+        <FrameLayout
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/x120"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="@dimen/x45"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_back"/>
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/select_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/x20"
+                android:paddingRight="@dimen/x20"
+                android:text="选好了"
+                android:textColor="@color/white"
+                android:textSize="@dimen/x48"/>
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

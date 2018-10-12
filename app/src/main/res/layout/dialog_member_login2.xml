@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="@dimen/x800"
+              android:layout_height="@dimen/y1150"
+              android:background="@drawable/bg_color_fcf6e6"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/tab_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/scan_qrcode_login"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/selector_memberlogin_btn"
+                android:gravity="center"
+                android:paddingBottom="@dimen/y20"
+                android:paddingTop="@dimen/y20"
+                android:text="扫码登录"
+                android:textColor="@color/text_color_selector"
+                android:textSize="@dimen/x48"/>
+
+            <TextView
+                android:id="@+id/phone_login"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/selector_memberlogin_btn"
+                android:gravity="center"
+                android:paddingBottom="@dimen/y20"
+                android:paddingTop="@dimen/y20"
+                android:text="账号登录"
+                android:textColor="@color/text_color_selector"
+                android:textSize="@dimen/x48"/>
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/memberlogin_tips_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/y20"
+                    android:layout_weight="4"
+                    android:orientation="horizontal"
+                    android:paddingLeft="@dimen/x50"
+                    android:paddingRight="@dimen/x50"
+                    android:paddingTop="@dimen/y30">
+
+                    <ImageView
+                        android:id="@+id/membership_iv"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
+
+                    <ImageView
+                        android:id="@+id/iv_tips1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone"/>
+
+                    <ImageView
+                        android:id="@+id/iv_tips2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:visibility="gone"/>
+                </LinearLayout>
+                <!--➀➁➂➃➄➅➆➇➈-->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_weight="4"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/y30">
+
+                    <TextView
+                        android:id="@+id/tips1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/y15"
+                        android:text="@string/sync_memberlogin_tip1"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/x38"/>
+
+                    <TextView
+                        android:id="@+id/tips2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/y15"
+                        android:text="@string/sync_memberlogin_tip2"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/x38"/>
+
+                    <TextView
+                        android:id="@+id/tips3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:paddingBottom="@dimen/y15"
+                        android:text="@string/sync_memberlogin_tip3"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/x38"/>
+
+                    <TextView
+                        android:id="@+id/tips4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="left"
+                        android:text="@string/sync_memberlogin_tip4"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/x38"/>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/nomember"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_green"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/x40"
+                    android:paddingRight="@dimen/x40"
+                    android:text="我不是会员，跳过登录"
+                    android:textColor="@color/main_color_white"
+                    android:textSize="@dimen/x38"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.acewill.slefpos.orderui.main.ui.widget.NumberInputView
+                    android:id="@+id/memberlogin_phone_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="8"
+                    android:visibility="gone"
+                    app:tips_text="请将会员二维码放到下方扫码处或输入手机号登录"
+                    app:type="0"></com.acewill.slefpos.orderui.main.ui.widget.NumberInputView>
+
+
+                <TextView
+                    android:id="@+id/nomember2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_green"
+                    android:gravity="center"
+                    android:paddingLeft="@dimen/x40"
+                    android:paddingRight="@dimen/x40"
+                    android:text="我不是会员，跳过登录"
+                    android:textColor="@color/main_color_white"
+                    android:textSize="@dimen/x38"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

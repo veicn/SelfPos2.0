@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:orientation="vertical">
+
+    <com.jaydenxiao.common.commonwidget.NewBanner
+        android:id="@+id/ad_banner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <RelativeLayout
+        android:layout_gravity="bottom"
+        android:id="@+id/member_info_ly"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y80"
+        android:background="@color/half_transparent">
+
+        <TextView
+            android:id="@+id/member_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/x20"
+            android:textColor="@color/main_color_white"
+            android:textSize="@dimen/x24"/>
+    </RelativeLayout>
+</FrameLayout>

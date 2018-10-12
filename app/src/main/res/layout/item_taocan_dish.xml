@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="@dimen/x200"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/rl_dish_image_layout"
+            android:layout_width="@dimen/x200"
+            android:layout_height="@dimen/y250"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_width="@dimen/x200"
+                android:layout_height="@dimen/y150">
+
+                <ImageView
+                    android:id="@+id/iv_dish_image"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="@dimen/y150"
+                    android:scaleType="centerCrop"/>
+
+                <ImageView
+                    android:id="@+id/iv_dish_image_bg"
+                    android:layout_width="@dimen/x200"
+                    android:layout_height="@dimen/y150"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_select"
+                    android:visibility="invisible"/>
+
+                <RelativeLayout
+                    android:id="@+id/add_price_layout"
+                    android:layout_width="@dimen/x64"
+                    android:layout_height="@dimen/y64"
+                    android:layout_gravity="right|bottom">
+
+                    <ImageView
+                        android:id="@+id/iv_add_price"
+                        android:layout_width="@dimen/x100"
+                        android:layout_height="@dimen/y100"
+                        android:scaleType="centerCrop"
+                        android:src="@mipmap/icon_place_add_price"/>
+
+                    <TextView
+                        android:id="@+id/tv_extra_price"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="@dimen/x9"
+                        android:text="+￥10"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/x16"/>
+                </RelativeLayout>
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:text="糖醋里脊"
+                android:textColor="@color/main_tv_black"
+                android:textSize="@dimen/x26"/>
+
+            <LinearLayout
+                android:id="@+id/add_count_ly"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/half_transparent"
+                android:orientation="horizontal"
+                android:visibility="invisible">
+
+                <FrameLayout
+                    android:id="@+id/iv_minus_counts"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="34">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/icon_diancai_jian_n"/>
+                </FrameLayout>
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/white"/>
+
+                <TextView
+                    android:id="@+id/tv_counts"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="30"
+                    android:clickable="false"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/colorSecondaryText"
+                    android:textSize="@dimen/x38"/>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/color_divide"/>
+
+                <FrameLayout
+                    android:id="@+id/iv_plus_counts"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="34">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_weight="34"
+                        android:src="@mipmap/icon_diancai_jia_n"/>
+                </FrameLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</LinearLayout>

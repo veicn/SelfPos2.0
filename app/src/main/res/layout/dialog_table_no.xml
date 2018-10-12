@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_color_fcf6e6_with_10_corner"
+        android:orientation="vertical"
+        android:padding="@dimen/x25">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/input_table_num"
+                android:textColor="@color/colorSecondaryText"
+                android:textSize="@dimen/x40"/>
+
+            <TextView
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:id="@+id/tv_table"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/x30"
+                android:layout_toRightOf="@id/tv_title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/x50"/>
+
+            <TextView
+                android:id="@+id/tv_tips"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/red"
+                android:layout_marginTop="@dimen/y60"
+                android:layout_marginBottom="@dimen/y20"
+                android:text="(输入餐牌号与实际的不符将影响服务员送餐!)"
+                android:textSize="@dimen/x20"/>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_1"
+                        style="@style/table_text"
+                        android:text="1"/>
+
+                    <TextView
+                        android:id="@+id/tv_2"
+                        style="@style/table_text"
+                        android:text="2"/>
+
+                    <TextView
+                        android:id="@+id/tv_3"
+                        style="@style/table_text"
+                        android:text="3"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_4"
+                        style="@style/table_text"
+                        android:text="4"/>
+
+                    <TextView
+                        android:id="@+id/tv_5"
+                        style="@style/table_text"
+                        android:text="5"/>
+
+                    <TextView
+                        android:id="@+id/tv_6"
+                        style="@style/table_text"
+                        android:text="6"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_7"
+                        style="@style/table_text"
+                        android:text="7"/>
+
+                    <TextView
+                        android:id="@+id/tv_8"
+                        style="@style/table_text"
+                        android:text="8"/>
+
+                    <TextView
+                        android:id="@+id/tv_9"
+                        style="@style/table_text"
+                        android:text="9"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_0"
+                        style="@style/table_text"
+                        android:layout_width="wrap_content"
+                        android:text="0"/>
+
+                    <TextView
+                        android:id="@+id/tv_c"
+                        style="@style/table_text"
+                        android:text="@string/clear_input"
+                        android:textColor="@color/red"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_delete"
+                    style="@style/table_text2"
+                    android:text="@string/delete_tv"/>
+
+                <TextView
+                    android:id="@+id/tv_skip"
+                    style="@style/table_text2"
+                    android:text="@string/not_a_member"/>
+
+                <TextView
+                    android:id="@+id/tv_ok"
+                    style="@style/table_text2"
+                    android:background="@drawable/border_orange_with_10xp_corner_selector"
+                    android:text="@string/input_complete"
+                    android:textColor="#fff"/>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_cancer"
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/x60"
+        android:layout_gravity="right"
+        android:padding="@dimen/x10"
+        android:src="@mipmap/close_back"/>
+</FrameLayout>

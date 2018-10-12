@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- dark -->
+    <color name="colorPrimary">#FF9100</color>
+    <color name="colorSecondPrimary">#69B076</color>
+    <color name="colorPrimaryDark">#c56200</color>
+    <color name="colorPrimaryLight">#ffc246</color>
+    <!-- Dialog背景颜色 -->
+    <color name="colorSecondary">#fcf6e6</color>
+    <color name="colorSecondSecondary">#6669B076</color>
+    <color name="bg_color_1">#ffeeeeee</color>
+    <color name="bg_color_2">#ffffffff</color>
+    <color name="colorSecondaryDark">#c7b800</color>
+    <color name="colorSecondaryLight">#ffff56</color>
+    <color name="color_fbe6d3">#fbe6d3</color>
+    <color name="colorAccent">#CDDC39</color>
+    <color name="colorAccentLight">#55CDDC39</color>
+    <color name="colorPrimaryText">#333333</color>
+    <color name="colorSecondaryText">#5b5b5b</color>
+    <!--与主题色一致的字体颜色-->
+    <color name="colorStatuText">#99ef7f1a</color>
+    <color name="icons">#212121</color>
+    <color name="divider">#eeeeee</color>
+    <color name="color_divide">#e6e6e6</color>
+    <color name="main_color_white">#FFFFFF</color>
+    <color name="main_tv_black">#333333</color>
+    <color name="main_color_red">#ff3238</color>
+    <color name="main_color_red_light">#ccff3238</color>
+    <color name="main_line_grey">#eeeeee</color>
+    <color name="main_goods_name">#666666</color>
+    <color name="main_bg_grey">#f5f5f5</color>
+    <color name="main_transparent">#00000000</color>
+    <color name="half_transparent">#44000000</color>
+    <color name="deep_transparent">#11FF9100</color>
+    <color name="color_999999">#999999</color>
+    <color name="sync_dialog_black">#262626</color>
+    <color name="sync_dialog_gray">#3c3e40</color>
+</resources>

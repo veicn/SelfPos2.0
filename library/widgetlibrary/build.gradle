@@ -1,0 +1,46 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.3"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.beloo.widget:ChipsLayoutManager:0.3.7@aar'
+    compile project(':library:common')
+    compile files('libs/printerlibs.jar')
+    compile files('libs/rd_printersdk.jar')
+    compile files('libs/zxing.jar')
+    compile files('libs/d2xx.jar')
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'com.github.donkingliang:GroupedRecyclerViewAdapter:1.2.2'
+    compile 'com.eftimoff:android-pathview:1.0.8@aar'
+}

@@ -1,0 +1,3 @@
+<resources>
+    <item name="act_eatmethod" type="layout">@layout/act_eatmethod_land</item>
+</resources>

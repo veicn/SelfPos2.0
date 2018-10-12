@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+              android:orientation="vertical"
+              android:padding="@dimen/x25">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y5"
+        android:text="@string/bind_terminal"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/x40"/>
+
+    <EditText
+        android:id="@+id/et_code"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y40"
+        android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+        android:hint="@string/please_input"
+        android:paddingBottom="@dimen/x20"
+        android:paddingLeft="@dimen/x10"
+        android:paddingTop="@dimen/x20"
+        android:textColor="@color/colorSecondaryText"
+        android:textSize="@dimen/x35"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/y40"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y75"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_weight="1"
+            android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+            android:text="@string/cancle"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/x35"/>
+
+        <Button
+            android:id="@+id/btn_yes"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y75"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_weight="1"
+            android:background="@drawable/btn_orange_nocorner_selector"
+            android:text="@string/bind1"
+            android:textColor="@color/main_color_white"
+            android:textSize="@dimen/x35"/>
+    </LinearLayout>
+</LinearLayout>
