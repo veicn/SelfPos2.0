@@ -531,7 +531,7 @@ public class SyncDataProvider {
 				List<UITasteOption> uiTasteOptions = new ArrayList<>();
 				uiTasteOptions.add(option2);
 
-				UIOptionCategory       uiOptionCategory   = new UIOptionCategory("888888", "规格", 1, false, 1, uiTasteOptions,"");
+				UIOptionCategory       uiOptionCategory   = new UIOptionCategory("888888", "规格", 1, false, 1, uiTasteOptions, "");
 				List<UIOptionCategory> uiOptionCategories = new ArrayList<>();
 				uiOptionCategories.add(uiOptionCategory);
 				uiDish.setOptionCategoryList(uiOptionCategories);
@@ -574,7 +574,7 @@ public class SyncDataProvider {
 								}
 							}
 
-							UIOptionCategory uiOptionCategory = new UIOptionCategory("888888", "规格", 1, false, 1, cloneOptions,"");
+							UIOptionCategory uiOptionCategory = new UIOptionCategory("888888", "规格", 1, false, 1, cloneOptions, "");
 							list1.add(uiOptionCategory);
 							uiDish.setOptionCategoryList(list1);
 						} else {
@@ -586,7 +586,7 @@ public class SyncDataProvider {
 								}
 							}
 
-							UIOptionCategory uiOptionCategory = new UIOptionCategory("888888", "规格", 1, false, 1, cloneOptions,"");
+							UIOptionCategory uiOptionCategory = new UIOptionCategory("888888", "规格", 1, false, 1, cloneOptions, "");
 
 							list1.remove(0);
 							list1.add(0, uiOptionCategory);
@@ -604,7 +604,7 @@ public class SyncDataProvider {
 					List<UITasteOption> uiTasteOptions = new ArrayList<>();
 					uiTasteOptions.add(option2);
 
-					UIOptionCategory       uiOptionCategory   = new UIOptionCategory("888888", "规格", 1, false, 1, uiTasteOptions,"");
+					UIOptionCategory       uiOptionCategory   = new UIOptionCategory("888888", "规格", 1, false, 1, uiTasteOptions, "");
 					List<UIOptionCategory> uiOptionCategories = new ArrayList<>();
 					uiOptionCategories.add(uiOptionCategory);
 					uiDish.setOptionCategoryList(uiOptionCategories);
@@ -719,8 +719,8 @@ public class SyncDataProvider {
 					tasteOptionsM.add(new UITasteOption(mix.getOuid(), mix.getSeqOrder(), mix
 							.getSkuMixId(), mix
 							.getName(), mix
-							.getPrice(), false, String
-							.valueOf(10000), "M", mix.getSkuMixKindOuid()));
+							.getPrice(), false, mix.getSkuMixKindOuid(), "M", mix
+							.getSkuMixKindOuid()));
 				} else if (feSkuComposite.getSourceType().equals("F")) {
 					//口味
 					FeSkuFeature feture = getDishFeSkuFeture(feSkuComposite.getSourceOuid());
@@ -770,20 +770,60 @@ public class SyncDataProvider {
 						.get(i), getFeskuFeatureKindNameById(feKindOuid
 						.get(i)), 0, isUIOptionCategoryMix(feKindOuid
 						.get(i)), isFeatureMuti(feKindOuid
-						.get(i)) ? arrayList.size() : 1, arrayList,getFeskuFeatureMemoById(feKindOuid.get(i)));
+						.get(i)) ? arrayList
+						.size() : 1, arrayList, getFeskuFeatureMemoById(feKindOuid.get(i)));
 				uiOptionCategories.add(category222);
 			}
 		}
 
+		//		if (tasteOptionsM.size() > 0) {
+		//			UIOptionCategory category111 = new UIOptionCategory(String
+		//					.valueOf(10000), "加料", 0, true, tasteOptionsM.size(), tasteOptionsM,"");
+		//			uiOptionCategories.add(category111);
+		//		}
+
+
+		List<String> mixKindOuid = new ArrayList<>();
+
 		if (tasteOptionsM.size() > 0) {
-			UIOptionCategory category111 = new UIOptionCategory(String
-					.valueOf(10000), "加料", 0, true, tasteOptionsM.size(), tasteOptionsM,"");
-			uiOptionCategories.add(category111);
+			for (UITasteOption feature : tasteOptionsM) {
+				if (!mixKindOuid.contains(feature.getKindOuid()))
+					mixKindOuid.add(feature.getKindOuid());
+			}
+			for (int i = 0; i < mixKindOuid.size(); i++) {
+				ArrayList<UITasteOption> arrayList = new ArrayList<>();
+				for (UITasteOption option : tasteOptionsM) {
+					if (option.getCategoryId().equals(mixKindOuid.get(i))) {
+						arrayList.add(option);
+					}
+				}
+				UIOptionCategory category222 = new UIOptionCategory(mixKindOuid
+						.get(i), getFeskuMixKindNameById(mixKindOuid
+						.get(i)), 0, isUIOptionCategoryMix(mixKindOuid
+						.get(i)), arrayList.size(), arrayList, getFeskuMixMemoById(mixKindOuid
+						.get(i)));
+				uiOptionCategories.add(category222);
+			}
 		}
+
+
 		if (uiOptionCategories.size() > 0)
 			return uiOptionCategories;
 		return null;
 	}
+
+	private static String getFeskuMixMemoById(String ouid) {
+		List<FeSkuMixKind> list = getFeSkuMixKindList();
+		if (list == null)
+			return null;
+		for (FeSkuMixKind li : list) {
+			if (li.getOuid().equals(ouid)) {
+				return li.getMemo();
+			}
+		}
+		return null;
+	}
+
 	private static String getFeskuFeatureMemoById(String ouid) {
 		List<FeSkuFeatureKind> list = getFeSkuFeatureKindList();
 		if (list == null)
@@ -795,6 +835,7 @@ public class SyncDataProvider {
 		}
 		return null;
 	}
+
 	private static String getFeskuFeatureKindNameById(String ouid) {
 		List<FeSkuFeatureKind> list = getFeSkuFeatureKindList();
 		if (list == null)
@@ -825,7 +866,7 @@ public class SyncDataProvider {
 		return false;
 	}
 
-	private String getFeskuMixKindNameById(String ouid) {
+	private static String getFeskuMixKindNameById(String ouid) {
 		List<FeSkuMixKind> list = getFeSkuMixKindList();
 		if (list == null)
 			return null;

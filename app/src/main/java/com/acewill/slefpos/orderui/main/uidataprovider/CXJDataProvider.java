@@ -290,9 +290,11 @@ public class CXJDataProvider {
 				for (CxjSetmealGroupModel setmealGroupModel : cxjDishModel.setmealGroup) {
 					List<UIPackageOptionItem> list1 = new ArrayList<>();
 					for (CxjDishModel setmeal : setmealGroupModel.setmeals) {
-						UIPackageOptionItem item = new UIPackageOptionItem(setmeal.did, setmeal.name, cxjDishModel.did, setmeal.price, "0", Integer.MAX_VALUE, Integer
+						UIPackageOptionItem item = new UIPackageOptionItem(String
+								.valueOf(setmealGroupModel.groupnum), setmeal.name, setmeal.did, setmeal.price, setmeal.price, Integer.MAX_VALUE, Integer
 								.parseInt(setmeal.dishUnitId), setmeal.dishUnit, "", String
 								.valueOf(cxjDishModel.diskKind), "");
+						item.setExtraCost(Float.parseFloat(setmeal.price));
 						list1.add(item);
 					}
 					UIPackageItem uiPackageItem = new UIPackageItem(getUIPackageItemName(list1
@@ -382,6 +384,7 @@ public class CXJDataProvider {
 				cook.cookPrice = rawQuery1.getDouble(rawQuery1.getColumnIndex("price"));
 				dishCookList.add(cook);
 			}
+			rawQuery1.close();
 
 			for (CxjDishCookCategory category : categoriesLis2t) {
 				CxjDishCookCategory category1 = new CxjDishCookCategory();

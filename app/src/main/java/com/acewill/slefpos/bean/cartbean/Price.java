@@ -91,10 +91,10 @@ public class Price {
 									.multiply(String.valueOf(bean.getPrice()), bean.getQuantity()));
 					}
 				}
-				if (SystemConfig.isSyncSystem) {
+				if (SystemConfig.isSyncSystem ) {
 					bigDecimal = PriceUtil.multiply(PriceUtil.add(bigDecimal, item.getPrice()), item
 							.getQuantity());
-				} else if (SystemConfig.isSmarantSystem) {
+				} else if (SystemConfig.isSmarantSystem|| SystemConfig.isCanXingJianSystem) {
 					bigDecimal = PriceUtil.multiply(PriceUtil
 							.add(bigDecimal, new BigDecimal(item.getExtraCost())), item
 							.getQuantity());

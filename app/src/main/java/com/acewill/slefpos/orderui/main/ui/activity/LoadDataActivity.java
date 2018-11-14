@@ -120,7 +120,7 @@ public class LoadDataActivity extends BaseActivity<LoadDataPresenter, LoadDataMo
 			currentTime--;
 			if (currentTime == 0) {
 				if (BaseConfigure.isInit()) {
-					startProgressDialog("正在下载更新菜品数据，请稍后...");
+					startProgressDialog("请稍后...");
 					mPresenter.goLoadData(SPUtils.getSharedIntData(mContext, "baseInit"));
 					mHandler.removeCallbacks(mRunnable);
 				} else {
@@ -138,7 +138,7 @@ public class LoadDataActivity extends BaseActivity<LoadDataPresenter, LoadDataMo
 			@Override
 			public void call(Object kind) {
 				if (BaseConfigure.isInit()) {
-					startProgressDialog("正在下载更新菜品数据，请稍后...");
+					startProgressDialog("请稍后...");
 					mPresenter.goLoadData(SPUtils.getSharedIntData(mContext, "baseInit"));
 				} else {
 					ToastUitl.showLong(mContext, "请绑定终端!");

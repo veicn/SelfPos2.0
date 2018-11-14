@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+
+              android:background="@drawable/bg_color_white_with_10_corner"
+              android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/iv_cancer"
+        android:layout_width="@dimen/x60"
+        android:layout_height="@dimen/x60"
+        android:layout_gravity="right"
+        android:padding="@dimen/x20"
+        android:src="@mipmap/close_back"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y50"
+        android:gravity="center_horizontal"
+        android:text="是否更新菜品数据？"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/x35"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y50"
+        android:gravity="center_horizontal"
+        android:text="是否更新菜品数据？"
+        android:textColor="@color/colorPrimaryText"
+        android:textSize="@dimen/x35"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/y50"
+        android:layout_marginTop="@dimen/y40"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y75"
+            android:layout_marginLeft="@dimen/x30"
+            android:layout_marginRight="@dimen/x10"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_weight="1"
+            android:background="@drawable/bg_color_white_with_5px_color_black_stroke"
+            android:text="暂不更新"
+            android:textColor="@color/colorSecondaryText"
+            android:textSize="@dimen/x35"/>
+
+        <Button
+            android:id="@+id/btn_yes"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/y75"
+            android:layout_marginLeft="@dimen/x10"
+            android:layout_marginRight="@dimen/x30"
+            android:layout_marginTop="@dimen/y10"
+            android:layout_weight="1"
+            android:background="@drawable/btn_orange_nocorner_selector"
+            android:text="马上更新"
+            android:textColor="@color/main_color_white"
+            android:textSize="@dimen/x35"/>
+    </LinearLayout>
+
+</LinearLayout>

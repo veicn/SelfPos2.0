@@ -4,56 +4,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class CxjDishModel implements Serializable {
-	public  String dishUnit;
-	public  String dishUnitId;
+	public String dishUnit;
+	public String dishUnitId;
 
 	public CxjDishModel() {
 	}
 
-	public CxjDishModel(CxjDishModel dish) {
-		count = 1;
-		name = dish.name;
-		did = dish.did;
-		dishUnit = dish.dishUnit;
-		dishUnitId = dish.dishUnitId;
-		price = dish.price;
-		diskKind = dish.diskKind;
-		setmealGroup = dish.setmealGroup;
-		setmeals = new ArrayList<CxjDishModel>();
-		for (CxjSetmealGroupModel item : dish.setmealGroup) {
-			if (item.groupnum < 0) {
-				setmeals.addAll(item.setmeals);
-			} else {
-				for (CxjDishModel dishModel : item.setmeals) {
-					if (dishModel.count > 0) {
-						setmeals.add(dishModel);
-					}
-				}
-			}
-		}
-	}
-
-	public CxjDishModel(String did, String price, String duid, int count) {
-		this.did = did;
-		this.price = price;
-		this.duid = duid;
-		this.count = count;
-	}
-
-	public CxjDishModel(String did, String price, String duid, int count,
-	                    ArrayList<CxjDishModel> setmeals) {
-		this.did = did;
-		this.price = price;
-		this.diskKind = 1;
-		this.duid = duid;
-		this.setmeals = setmeals;
-		this.count = count;
-	}
 
 	public String type;
 	public String name;
 	public String alias;// 汉语拼音首字母，快速查找用
-	public String price;
+	public String price;//套餐加价
 	/**
 	 * 1：正常
 	 */
@@ -95,12 +56,11 @@ public class CxjDishModel implements Serializable {
 	/**
 	 * 已选套餐
 	 */
-	public ArrayList<CxjDishModel>      setmeals;
+	public ArrayList<CxjDishModel>         setmeals;
 	/**
 	 * 套餐项
 	 */
 	public ArrayList<CxjSetmealGroupModel> setmealGroup;
-
 
 
 	public ArrayList<CxjDishCookCategory> dishCookCategory;
@@ -108,8 +68,8 @@ public class CxjDishModel implements Serializable {
 	 * 套餐: 选择的位置
 	 */
 	public int setmealIndex = -1;
-	public int    selnum;
-	public int    bdefaultsetmeal;
+	public int selnum;
+	public int bdefaultsetmeal;
 
 	public String toString() {
 		return "ptid = " + type + "&label = " + name + "alias = " + alias

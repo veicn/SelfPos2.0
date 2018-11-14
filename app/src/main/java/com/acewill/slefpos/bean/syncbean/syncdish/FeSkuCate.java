@@ -32,6 +32,7 @@ public class FeSkuCate {
 	private String skuCateMajorOuid;
 	private String skuCateType;
 	private String stockType;
+	private String memo;
 
 	public String getOuid() {
 		return ouid;
@@ -119,5 +120,13 @@ public class FeSkuCate {
 
 	public void setStockType(String stockType) {
 		this.stockType = stockType;
+	}
+
+	public String getMemo() {
+		return memo;
+	}
+
+	public void setMemo(String memo) {
+		this.memo = memo;
 	}
 }

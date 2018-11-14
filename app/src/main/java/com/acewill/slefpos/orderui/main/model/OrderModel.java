@@ -59,7 +59,7 @@ public class OrderModel extends OrderContract.Model {
 				.aliPayShuaKa(Api.getCacheControl(),
 						BaseConfigure.getAppid(), BaseConfigure.getBrandid(), BaseConfigure
 								.getStoreid(), payModel.getOutTradeNo(),
-						payModel.getAuthCode(), payModel.getStore_name(), payModel
+						payModel.getAuthCode(), payModel.getSubject(), payModel
 								.getTotalAmount(), String.valueOf(1), payModel.getPaymentStr())
 				.map(new Func1<BaseAliPayResult, BaseAliPayResult>() {
 					@Override
@@ -96,7 +96,7 @@ public class OrderModel extends OrderContract.Model {
 				.aliPaySaoMa(Api.getCacheControl(),
 						BaseConfigure.getAppid(), BaseConfigure.getBrandid(), BaseConfigure
 								.getStoreid(), payModel.getOutTradeNo(),
-						payModel.getAuthCode(), payModel.getStore_name(), payModel
+						payModel.getAuthCode(), payModel.getSubject(), payModel
 								.getTotalAmount(), String.valueOf(1), TerminalConfigure
 								.getTerminalmac(), payModel.getPaymentStr())
 				.map(new Func1<BaseAliPayResult, BaseAliPayResult>() {

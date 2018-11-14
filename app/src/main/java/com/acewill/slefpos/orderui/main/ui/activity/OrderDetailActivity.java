@@ -232,7 +232,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 	 */
 	private int     closePayTime       = 0;//这个只有在in_pay_progress状态下才会开始计时
 	private boolean firstGetInProgress = true;
-	private int     timeout            = 30;
+	private int     timeout            = 60;
 	private int     payType            = -1;//这个是用户选择的支付方式，是微信还是支付宝用户点了才知道
 
 	private PayDialog             mPayDialog;

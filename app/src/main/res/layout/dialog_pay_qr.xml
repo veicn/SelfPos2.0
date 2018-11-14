@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingBottom="@dimen/y15"
-        android:text="剩余支付时间30s"
+        android:text="剩余支付时间60s"
         android:textColor="@color/colorPrimaryText"
         android:textSize="@dimen/x25"/>
 

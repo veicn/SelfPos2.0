@@ -5,6 +5,7 @@ import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
@@ -406,12 +407,16 @@ public class OptionDialog extends BaseDialog {
 		if (SystemConfig.isSmarantSystem) {
 			mix_ly.setVisibility(View.GONE);
 		} else if (SystemConfig.isSyncSystem) {
-			boolean hasMixLayout = false;
+
+			boolean hasMixLayout = false;//判斷是否顯示加料的那個 加減控件
 			for (UIOptionCategory category : dish.getOptionCategoryList()) {
-				if (category.getId().equals(String
-						.valueOf(10000))) {
-					hasMixLayout = true;
+				if (hasMixLayout)
 					break;
+				for (UITasteOption option : category.getOptionList()) {
+					if (option.getSourceType().equals("M")) {
+						hasMixLayout = true;
+						break;
+					}
 				}
 			}
 			if (!hasMixLayout) {
@@ -434,7 +439,12 @@ public class OptionDialog extends BaseDialog {
 		RecyclerView irc         = (RecyclerView) chip_layout.findViewById(R.id.irc);
 		TextView tv_taste_category = (TextView) chip_layout
 				.findViewById(R.id.tv_taste_category);
+		TextView tv_taste_category_memo = (TextView) chip_layout
+				.findViewById(R.id.tv_taste_category_memo);
 		tv_taste_category.setText(optionCategory.getOptionCategoryName());
+		if (!TextUtils.isEmpty(optionCategory.getOptionCategoryMemo()))
+			tv_taste_category_memo.setText("(" + optionCategory.getOptionCategoryMemo() + ")");
+
 		//		if (optionCategory.getMinimalOptions() == 0 && optionCategory.getMaximalOptions() == 1) {
 		//			tv_taste_category
 		//					.setText("单选");

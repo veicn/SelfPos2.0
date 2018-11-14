@@ -16,6 +16,9 @@
  */
 package com.acewill.slefpos.emuee;
 
+/**
+ * 发布新版本时候，要将 false 改成true
+ */
 public class HostType {
 
 
@@ -102,12 +105,15 @@ public class HostType {
 	/**
 	 * 同步时测试服务器
 	 */
-	public static final int SYNC_TEST_HOSTS2   = 18;
+	public static final int SYNC_TEST_HOSTS2       = 18;
 
 	/**
 	 * 同步时测试服务器
 	 */
-	public static final int SYNC_NORMAL_HOSTS2   = 19;
+	public static final int SYNC_NORMAL_HOSTS2 = 19;
 
-
+	/**
+	 * 同步时测试服务器
+	 */
+	public static final int LOCAL_HOST = 20;
 }

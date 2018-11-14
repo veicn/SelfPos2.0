@@ -361,7 +361,7 @@ public class Order {
 		} else {
 			mPayModel.setTotalAmount(String.valueOf(Price.getInstance().getTotal()));
 		}
-		mPayModel.setStore_name(StoreConfigure.getSname());
+		mPayModel.setStore_name("门店名称");
 		mPayModel.setSubject("订单主题");
 		mPayModel.setBody("订单内容");
 		mPayModel.setAuthCode(authCode);

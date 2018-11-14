@@ -293,7 +293,8 @@ public class SyncSetActivity extends BaseActivity<SyncMainPresenter, SyncMainMod
 				initList(storeshop);
 			} else {
 				stopProgressDialog();
-				ToastUitl.showLong(mContext, data.getCode() + "");
+				ToastUitl.showLong(mContext, data.getMessage());
+				SPUtils.setSharedStringData(mContext, "instanceSid","");
 			}
 		} else {
 			stopProgressDialog();

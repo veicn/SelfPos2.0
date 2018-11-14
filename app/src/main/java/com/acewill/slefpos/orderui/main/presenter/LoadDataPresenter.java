@@ -216,7 +216,7 @@ public class LoadDataPresenter extends LoadDataContract.Presenter {
 								if (object instanceof ResponseBody) {
 									try {
 										ResponseBody body = (ResponseBody) object;
-										InputStream is = body.byteStream();
+										InputStream  is   = body.byteStream();
 										File file = new File(FileUtil
 												.getSyncFoldPath(), "syncdata.zip");
 										FileOutputStream    fos    = new FileOutputStream(file);
@@ -318,7 +318,7 @@ public class LoadDataPresenter extends LoadDataContract.Presenter {
 				Observable<ResponseBody> canxingjian_response = mModel
 						.downLoadCanxingjianData();
 				mRxManage.add(Observable
-						.merge(cxjUserLogin, selfposConfigurationdata2, imageList2, payTypeList2, canxingjian_response)
+						.merge(cxjUserLogin, selfposConfigurationdata2, imageList2, payTypeList2,canxingjian_response)
 						.subscribeOn(Schedulers.io())
 						.subscribe(new RxSubscriber<Object>(mContext, false) {
 							@Override
@@ -375,6 +375,8 @@ public class LoadDataPresenter extends LoadDataContract.Presenter {
 										InputStream  is   = body.byteStream();
 										File file = new File(FileUtil
 												.getCanXingJianFoldPath(), "menu.db");
+										if (file != null && file.exists())
+											file.delete();
 										FileOutputStream    fos    = new FileOutputStream(file);
 										BufferedInputStream bis    = new BufferedInputStream(is);
 										byte[]              buffer = new byte[1024];
@@ -386,7 +388,7 @@ public class LoadDataPresenter extends LoadDataContract.Presenter {
 										fos.close();
 										bis.close();
 										is.close();
-										CXJDataProvider.initMenuResp();
+
 										new Thread(new Runnable() {
 											@Override
 											public void run() {
@@ -411,6 +413,8 @@ public class LoadDataPresenter extends LoadDataContract.Presenter {
 									} catch (Exception e) {
 										FileLog.log("餐行健解压异常.." + e.getMessage());
 										e.printStackTrace();
+									} finally {
+										CXJDataProvider.initMenuResp();
 									}
 								}
 							}

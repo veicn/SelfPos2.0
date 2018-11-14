@@ -1176,7 +1176,8 @@ public class OrderPresenter extends OrderContract.Presenter {
 
 	@Override
 	public void wshCreateDeal(WshCreateDeal.Request request) {
-		Log.e(TAG, "微生活会员交易预览的结果>" + new Gson().toJson(request));
+		Log.d(TAG, ("微生活预交易的参数>" + new Gson().toJson(request)));
+		FileLog.log("微生活预交易的参数>" + new Gson().toJson(request));
 		mRxManage.add(mModel.wshCreateDeal(request)
 				.subscribe(new RxSubscriber<CreateDealRes>(mContext, false) {
 					@Override

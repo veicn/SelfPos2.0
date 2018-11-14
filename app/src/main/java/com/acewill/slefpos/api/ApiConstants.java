@@ -19,10 +19,21 @@ package com.acewill.slefpos.api;
 import com.acewill.slefpos.emuee.HostType;
 
 public class ApiConstants {
+
+	/**
+	 * 本地服务测试
+	 */
+	public static final boolean USE_LOCAL_HOST = false;
+
+	/**
+	 * 本地服务测试
+	 */
+	public static final String LOCAL_HOST = "http://192.168.1.118:8080/";
 	/**
 	 * 智慧快餐测试后台
 	 */
-	public static final String TEST_HOST      = "http://sz.canxingjian.com/";
+	public static final String TEST_HOST  = USE_LOCAL_HOST ? LOCAL_HOST : "http://sz.canxingjian.com";
+
 	/**
 	 * 智慧快餐正式后台
 	 */
@@ -40,7 +51,7 @@ public class ApiConstants {
 	/**
 	 * 同步时正式后台2
 	 */
-	public static final String SYNC_NORMAL_HOST2 = "http://syncapi.syncpo.com/";
+	public static final  String SYNC_NORMAL_HOST2        = "http://syncapi.syncpo.com/";
 	/**
 	 * 同步时正式后台
 	 */
@@ -139,6 +150,9 @@ public class ApiConstants {
 		switch (hostType) {
 			case HostType.TEST_HOST:
 				host = TEST_HOST;
+				break;
+			case HostType.LOCAL_HOST:
+				host = LOCAL_HOST;
 				break;
 			case HostType.NORMAL_HOST:
 				host = NORMAL_HOST;

@@ -297,7 +297,8 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 		} else {
 			fra_main_tel_iv.setImageDrawable(getResources().getDrawable(R.mipmap.bottom_ad));
 		}
-		tv_version.setText(DownLoadAPPUtils.getInstance(this).getAPPVersionCode2());
+		tv_version.setText(TerminalConfigure.getTerminalmac() +" "+ DownLoadAPPUtils.getInstance(this)
+				.getAPPVersionCode2());
 		initListener();
 	}
 
@@ -586,6 +587,7 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 		String today = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 		//是不是同一天
 		if (!today.equals(lastUploadTime)) {
+
 			File log = FileUtil.getUploadLog(1);
 			uploadLog2(log);
 		}

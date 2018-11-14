@@ -12,7 +12,7 @@ public class TimeConfigure {
 	public static final int  MAX                = Integer.MAX_VALUE;
 	public static final int  TIMEOUTGAP         = 1000;//倒计时间隔时间 ms
 	public static final int  TIMEOUTEND         = 0;//倒计时间终点s
-	public static final int  TIMEOUTSTART       = 30;//倒计时间起始时间s
+	public static final int  TIMEOUTSTART       = 60;//倒计时间起始时间s
 	public static final long ORDER_SUCCESS_TIME = 5000;//支付成功后停留界面的时间
 	public static       int  SCREEMPROTECTTIME  = 180;//屏保时间,单位s
 

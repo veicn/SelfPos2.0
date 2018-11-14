@@ -55,6 +55,7 @@
         </activity>
         <activity android:name=".orderui.main.ui.activity.SmarantCouponActivity"></activity>
         <activity android:name=".orderui.main.ui.activity.LoadDataActivity"></activity>
+        <activity android:name=".orderui.main.ui.activity.EmptyActivity"></activity>
         <activity
             android:name=".orderui.main.ui.activity.EatMethodActivity"
             android:launchMode="singleTask"></activity>

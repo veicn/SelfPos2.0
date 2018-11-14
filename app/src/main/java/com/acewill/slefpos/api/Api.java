@@ -220,7 +220,7 @@ public class Api {
 			//					.contains("getAllTemplates") && !sUrl.contains("getPrinters") && !sUrl
 			//					.contains("getKichenStalls") && !sUrl.contains("getKDSes") && !sUrl
 			//					.contains("getStoreConfiguration") &&
-
+			//&& sUrl.contains("getMemberInfo"))
 			if (sUrl
 					.contains("data.action") || sUrl.contains("terminal/dishmenu") || sUrl
 					.contains("terminal/dishKind") || sUrl
@@ -230,8 +230,8 @@ public class Api {
 					.contains("terminal/getOtherfiles") || sUrl
 					.contains("terminal/market") || sUrl
 					.contains("getKichenStalls")
-					|| (SystemConfig.isSmarantSystem && sUrl.contains("getMemberInfo")) || sUrl
-					.contains("downloadSqliteFile")) {
+					|| (SystemConfig.isSmarantSystem || sUrl
+					.contains("downloadSqliteFile"))) {
 				FileLog
 						.log("Res", "", "onResponse", "", "url>" + sUrl + ";\n");
 			} else {

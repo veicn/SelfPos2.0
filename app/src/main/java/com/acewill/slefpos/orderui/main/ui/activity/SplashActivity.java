@@ -19,8 +19,6 @@ import com.acewill.slefpos.configure.StoreConfigure;
 import com.acewill.slefpos.configure.SystemConfig;
 import com.acewill.slefpos.configure.TerminalConfigure;
 import com.acewill.slefpos.emuee.HostType;
-import com.acewill.slefpos.okhttp.OkHttpUtils;
-import com.acewill.slefpos.okhttp.callback.StringCallback;
 import com.acewill.slefpos.orderui.main.ui.syncactivity.SyncSetActivity;
 import com.acewill.slefpos.system.ui.CommonSetActivity;
 import com.acewill.slefpos.utils.DownLoadAPPUtils;
@@ -33,7 +31,6 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import okhttp3.Call;
 
 /**
  * Author：Anch
@@ -133,53 +130,39 @@ public class SplashActivity extends BaseActivity {
 
 	private void init() {
 		int type = SPUtils.getSharedIntData(this, "baseInit");
+
+
 		if (SPUtils.getSharedIntData(this, "baseInit") != 0) {
 			if (type == SystemConfig.System_Smarant) {
 				SystemConfig.isSmarantSystem = true;
+				initOther(type);
 			} else if (type == SystemConfig.System_Sync) {
+				initOther(type);
 				SystemConfig.isSyncSystem = true;
 			} else if (type == SystemConfig.System_CanXingJian) {
 				SystemConfig.isCanXingJianSystem = true;
-				checkDbUpdate();
+				startActivity(new Intent(SplashActivity.this, EmptyActivity.class));
 			}
-			if ((type == SystemConfig.System_Smarant || type == SystemConfig.System_CanXingJian) && !isBind()) {
-				startActivity(CommonSetActivity.class);
-			} else if (type == SystemConfig.System_Sync && TextUtils
-					.isEmpty(SPUtils.getSharedStringData(mContext, "instanceSid"))) {
-				ApiConstants
-						.setType(HostType.IS_SYNC_DEBUG ? HostType.SYNC_TEST_HOSTS : HostType.SYNC_NORMAL_HOSTS);
-				startActivity(SyncSetActivity.class);
-			} else {
-				startActivity(new Intent(SplashActivity.this, LoadDataActivity.class));
-			}
-			finish();
+		} else {
+			initOther(type);
 		}
+
 	}
 
-	private void checkDbUpdate() {
-		OkHttpUtils
-				.post()
-				.url(getSqliteUpadateUrl())
-				.addParams("timestamp", (System.currentTimeMillis() / 1000) + "")
-				.build()
-				.execute(new StringCallback() {
-					@Override
-					public void onError(Call call, Exception e, int id) {
-						Log.e(TAG, "checkDbUpdate_onError");
-					}
-
-					@Override
-					public void onResponse(String response, int id) {
-						Log.e(TAG, "checkDbUpdate_onResponse");
-					}
-				});
+	private void initOther(int type) {
+		if ((type == SystemConfig.System_Smarant || type == SystemConfig.System_CanXingJian) && !isBind()) {
+			startActivity(CommonSetActivity.class);
+		} else if (type == SystemConfig.System_Sync && TextUtils
+				.isEmpty(SPUtils.getSharedStringData(mContext, "instanceSid"))) {
+			ApiConstants
+					.setType(HostType.IS_SYNC_DEBUG ? HostType.SYNC_TEST_HOSTS : HostType.SYNC_NORMAL_HOSTS);
+			startActivity(SyncSetActivity.class);
+		} else {
+			startActivity(new Intent(SplashActivity.this, LoadDataActivity.class));
+		}
+		finish();
 	}
 
-	private String getSqliteUpadateUrl() {
-		return "http://"
-				+ SPUtils.getSharedStringData(mContext, "canxingjian_ip_address")
-				+ "/order/api/api.php?do=isSqliteFileUpdated&app=ClientNewAndroidMobile";
-	}
 
 	private void saveDeviceInfo() {
 		DisplayMetrics dm = new DisplayMetrics();
