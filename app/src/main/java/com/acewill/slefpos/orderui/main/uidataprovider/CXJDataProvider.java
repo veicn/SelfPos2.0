@@ -295,12 +295,14 @@ public class CXJDataProvider {
 								.parseInt(setmeal.dishUnitId), setmeal.dishUnit, "", String
 								.valueOf(cxjDishModel.diskKind), "");
 						item.setExtraCost(Float.parseFloat(setmeal.price));
+						item.setImageName(FileUtil.getCanXingJianImagePath(setmeal.did));
 						list1.add(item);
 					}
 					UIPackageItem uiPackageItem = new UIPackageItem(getUIPackageItemName(list1
 							.size(), setmealGroupModel.max), String
 							.valueOf(setmealGroupModel.groupnum),
-							list1.size() == 1 ? 1 : 0, setmealGroupModel.max, setmealGroupModel.max, 0, list1, true, 0);
+							list1.size() == 1 ? 1 : 0, setmealGroupModel.max, setmealGroupModel.max, list1
+							.size() == setmealGroupModel.max ? 1 : 0, list1, true, 0);
 					packageItems.add(uiPackageItem);
 				}
 				uiDish.setPackageItems(packageItems);

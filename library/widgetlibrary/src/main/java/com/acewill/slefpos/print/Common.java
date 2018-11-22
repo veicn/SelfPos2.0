@@ -35,10 +35,12 @@ public class Common {//假设配置
 	public static       boolean printer2Init     = false;
 	public final static String  errmsg           = "网络异常!";
 
+	//	public static int totalSpace = 48;
+	//	public static int leftSpace  = 32;
+	//	public static int rightSpace = 41;
 	public static int totalSpace = 48;
 	public static int leftSpace  = 32;
 	public static int rightSpace = 41;
-
 
 	/**
 	 * 是否启用debug模式 true 分钱 false 实价付款

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+    <ImageView
+        android:id="@+id/market_ad_img"
+        android:layout_width="@dimen/x30"
+        android:layout_height="@dimen/y30"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/x20"
+        android:src="@mipmap/default_img"/>
+
+    <TextView
+        android:textColor="@color/colorSecondaryText"
+        android:id="@+id/market_ad_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/market_ad_img"
+        android:ellipsize="end"
+        android:paddingLeft="@dimen/x10"
+        android:singleLine="true"
+        android:textSize="18sp"/>
+</RelativeLayout>

@@ -52,7 +52,7 @@ public class LoadDataModel extends LoadDataContract.Model {
 		return Api.getDefault(HostType.IS_SMARANT_DEBUG ? HostType.TEST_HOST : HostType.NORMAL_HOST)
 				.market(Api.getCacheControl(), BaseConfigure.getAppid(), BaseConfigure
 						.getBrandid(), BaseConfigure
-						.getStoreid(), BaseConfigure.getToken())
+						.getStoreid(), "1", BaseConfigure.getToken())
 				.map(new Func1<MarketData, MarketData>() {
 					@Override
 					public MarketData call(MarketData data) {
@@ -159,7 +159,6 @@ public class LoadDataModel extends LoadDataContract.Model {
 					}
 				}).compose(RxSchedulers.<ResponseBody>io_main());
 	}
-
 
 
 	@Override

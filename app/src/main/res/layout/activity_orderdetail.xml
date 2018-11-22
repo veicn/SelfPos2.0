@@ -245,35 +245,7 @@
                                     />
                             </RelativeLayout>
 
-                            <RelativeLayout
-                                android:id="@+id/orderdetail_packagecost_layout"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:visibility="gone"
-                                >
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerVertical="true"
-
-                                    android:paddingLeft="@dimen/x20"
-
-                                    android:text="打包费"
-                                    android:textSize="@dimen/x28"/>
-
-                                <TextView
-                                    android:id="@+id/orderdetail_packagecost"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerVertical="true"
-                                    android:layout_marginRight="@dimen/x40"
-                                    android:textColor="@color/colorPrimaryText"
-                                    android:textSize="@dimen/x35"
-                                    />
-                            </RelativeLayout>
 
                             <RelativeLayout
                                 android:id="@+id/price_danju_ly"

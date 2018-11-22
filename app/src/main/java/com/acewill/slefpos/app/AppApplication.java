@@ -6,7 +6,6 @@ import android.support.multidex.MultiDex;
 import com.acewill.slefpos.api.ApiConstants;
 import com.acewill.slefpos.base.BaseApplication;
 import com.acewill.slefpos.emuee.HostType;
-import com.acewill.slefpos.print.ticketprint.SmarantTicketPrintHandler;
 import com.acewill.slefpos.system.crash.CrashHandler;
 import com.jaydenxiao.common.BuildConfig;
 import com.jaydenxiao.common.baserx.RxManager;
@@ -25,8 +24,6 @@ public class AppApplication extends BaseApplication {
 		//初始化logger
 		LogUtils.logInit(BuildConfig.LOG_DEBUG);
 		CrashHandler.getInstance().init(getApplicationContext());
-		SmarantTicketPrintHandler.getInstance().initdotLint();
-		//		SyncTicketPrintHandler.getInstance().initdotLint();
 		ApiConstants
 				.setType(HostType.IS_SYNC_DEBUG ? HostType.SYNC_TEST_HOSTS : HostType.SYNC_NORMAL_HOSTS);
 		registManager();

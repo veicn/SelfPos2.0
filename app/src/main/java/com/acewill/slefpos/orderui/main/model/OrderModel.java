@@ -253,10 +253,31 @@ public class OrderModel extends OrderContract.Model {
 
 	@Override
 	public Observable<NewOrderRes> pushOrder(NewOrderReq req) {
+
+		RequestBody body = RequestBody
+				.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), new Gson()
+						.toJson(req));
 		return Api.getDefault(HostType.IS_SMARANT_DEBUG ? HostType.TEST_HOST : HostType.NORMAL_HOST)
-				.pushOrder(Api.getCacheControl(),
+				.pushOrder2(Api.getCacheControl(),
 						BaseConfigure.getAppid(), BaseConfigure.getBrandid(), BaseConfigure
-								.getStoreid(), new Gson().toJson(req), BaseConfigure.getToken())
+								.getStoreid(), body)
+				.map(new Func1<NewOrderRes, NewOrderRes>() {
+					@Override
+					public NewOrderRes call(NewOrderRes res) {
+						return res;
+					}
+				}).compose(RxSchedulers.<NewOrderRes>io_main());
+	}
+
+	@Override
+	public Observable<NewOrderRes> pushOrderToJYJ(NewOrderReq req) {
+		RequestBody body = RequestBody
+				.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), new Gson()
+						.toJson(req));
+		return Api.getDefault(HostType.PUSH_ORDER_TO_JYJ)
+				.pushOrder2(Api.getCacheControl(),
+						BaseConfigure.getAppid(), BaseConfigure.getBrandid(), BaseConfigure
+								.getStoreid(), body)
 				.map(new Func1<NewOrderRes, NewOrderRes>() {
 					@Override
 					public NewOrderRes call(NewOrderRes res) {
@@ -638,7 +659,7 @@ public class OrderModel extends OrderContract.Model {
 	public Observable<ResponseBody> queryCXJPayResult(int oid, String payType, String total, long orderidentify) {
 		return Api
 				.getDefault(HostType.CANXINGJIAIN_IP_ADRESS)
-				.checkOnLinePay(oid, orderidentify, payType,total)
+				.checkOnLinePay(oid, orderidentify, payType, total)
 				.map(new Func1<ResponseBody, ResponseBody>() {
 					@Override
 					public ResponseBody call(ResponseBody res) {

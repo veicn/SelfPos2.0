@@ -115,5 +115,7 @@ public class HostType {
 	/**
 	 * 同步时测试服务器
 	 */
-	public static final int LOCAL_HOST = 20;
+	public static final int LOCAL_HOST   = 20;
+
+
 }

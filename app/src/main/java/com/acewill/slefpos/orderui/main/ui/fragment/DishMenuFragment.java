@@ -28,9 +28,11 @@ import com.acewill.slefpos.base.BaseFragment;
 import com.acewill.slefpos.bean.cartbean.Cart;
 import com.acewill.slefpos.bean.cartbean.CartDish;
 import com.acewill.slefpos.bean.cartbean.Price;
+import com.acewill.slefpos.configure.SystemConfig;
 import com.acewill.slefpos.orderui.main.ui.activity.CartActivity;
 import com.acewill.slefpos.orderui.main.ui.activity.OrderDetailActivity;
 import com.acewill.slefpos.orderui.main.uidataprovider.SyncDataProvider;
+import com.acewill.slefpos.utils.priceutils.PriceUtil;
 import com.acewill.slefpos.utils.uiutils.BezierEvaluator;
 import com.acewill.slefpos.utils.uiutils.CircularAnimUtil;
 import com.jaydenxiao.common.commonutils.NetWorkUtils;
@@ -58,12 +60,16 @@ public class DishMenuFragment extends BaseFragment {
 
 	@Bind(R.id.dot_count_tv)
 	TextView       dot_count_tv;
+	@Bind(R.id.special_money)
+	TextView       special_money;
 	@Bind(R.id.dot_ly_bg)
 	ImageView      dot_ly_bg;
 	@Bind(R.id.dot_ly)
 	FrameLayout    dot_ly;
 	@Bind(R.id.shop_cart_ly)
 	RelativeLayout shop_cart_ly;
+	@Bind(R.id.special_money_ly)
+	LinearLayout   special_money_ly;
 
 	@OnClick(R.id.shop_cart_ly)
 	public void onFabClick() {
@@ -163,10 +169,10 @@ public class DishMenuFragment extends BaseFragment {
 		});
 
 
-//		Typeface typeFace1 = Typeface
-//				.createFromAsset(getActivity().getAssets(), "fonts/kaitifan.ttf");
-//		payBtn.setTypeface(typeFace1);
-//		tv_1.setTypeface(typeFace1);
+		//		Typeface typeFace1 = Typeface
+		//				.createFromAsset(getActivity().getAssets(), "fonts/kaitifan.ttf");
+		//		payBtn.setTypeface(typeFace1);
+		//		tv_1.setTypeface(typeFace1);
 	}
 
 	private boolean isFirstRefresh = true;
@@ -174,6 +180,32 @@ public class DishMenuFragment extends BaseFragment {
 	private void refreshUI() {
 		dot_count_tv.setText(Cart.getInstance().getCartCount() + "");
 		paymoney.setText("￥" + Price.getInstance().getTotal() + "");
+
+		if (SystemConfig.isSmarantSystem) {
+			if (Price.getInstance().getActualCost() != null && Float
+					.parseFloat(Price.getInstance().getActualCost()) != 0 && PriceUtil
+					.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+							.getActualCost()).floatValue() != 0) {
+				special_money_ly.setVisibility(View.VISIBLE);
+				special_money.setText("￥" + PriceUtil
+						.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+								.getActualCost()).toString());
+			} else {
+				special_money_ly.setVisibility(View.GONE);
+			}
+		} else if (SystemConfig.isSyncSystem) {
+			if (Price.getInstance().getTotalDiscountAmount() != 0) {
+				special_money_ly.setVisibility(View.VISIBLE);
+				special_money.setText("￥" + PriceUtil
+						.formatPrice(Price.getInstance().getTotalDiscountAmount()));
+			} else {
+				special_money_ly.setVisibility(View.GONE);
+			}
+		} else {
+			special_money_ly.setVisibility(View.GONE);
+		}
+
+
 		//		dot_ly_bg
 
 		if (isFirstRefresh && Cart.getInstance().getCartCount() > 0) {

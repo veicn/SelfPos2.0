@@ -3,7 +3,7 @@ package com.acewill.slefpos.bean.uibean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.acewill.slefpos.bean.smarantstorebean.Market;
+import com.acewill.slefpos.orderui.main.market.MarketObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -92,15 +92,14 @@ public class UIDish implements Serializable, Parcelable {
 	private int                    dishPublicity;
 	private String                 dishPublicityStr;
 	private int                    weighted;
-	private int                    temp_priced;
 	private String                 englishName;
 	private String                 marketPrice;
 	private String                 marketName;
 	private List<UIPackageItem>    packageItems;
 	private List<UIOptionCategory> optionCategoryList;
-	private List<Market>           marketList;
+	private List<MarketObject>     marketList;
 	private List<UIRecommand>      recommandList;
-	private Integer dealId;
+	private Integer                dealId;
 
 	/**
 	 * 同步时独有菜品的规格id
@@ -113,6 +112,18 @@ public class UIDish implements Serializable, Parcelable {
 	private List<UITasteOption>       optionList;//这个菜的定制项
 	private List<UIPackageOptionItem> subItemList;//这个菜的套餐项
 
+
+	public static final Creator<UIDish> CREATOR = new Creator<UIDish>() {
+		@Override
+		public UIDish createFromParcel(Parcel in) {
+			return new UIDish(in);
+		}
+
+		@Override
+		public UIDish[] newArray(int size) {
+			return new UIDish[size];
+		}
+	};
 
 	public UIDish myclone() {
 		UIDish outer = null;
@@ -356,13 +367,7 @@ public class UIDish implements Serializable, Parcelable {
 		this.weighted = weighted;
 	}
 
-	public int getTemp_priced() {
-		return temp_priced;
-	}
 
-	public void setTemp_priced(int temp_priced) {
-		this.temp_priced = temp_priced;
-	}
 
 	public String getEnglishName() {
 		return englishName;
@@ -404,11 +409,11 @@ public class UIDish implements Serializable, Parcelable {
 		this.optionCategoryList = optionCategoryList;
 	}
 
-	public List<Market> getMarketList() {
+	public List<MarketObject> getMarketList() {
 		return marketList;
 	}
 
-	public void setMarketList(List<Market> marketList) {
+	public void setMarketList(List<MarketObject> marketList) {
 		this.marketList = marketList;
 	}
 
@@ -487,7 +492,6 @@ public class UIDish implements Serializable, Parcelable {
 		dest.writeInt(this.dishPublicity);
 		dest.writeString(this.dishPublicityStr);
 		dest.writeInt(this.weighted);
-		dest.writeInt(this.temp_priced);
 		dest.writeString(this.englishName);
 		dest.writeString(this.marketPrice);
 		dest.writeString(this.marketName);
@@ -533,13 +537,12 @@ public class UIDish implements Serializable, Parcelable {
 		this.dishPublicity = in.readInt();
 		this.dishPublicityStr = in.readString();
 		this.weighted = in.readInt();
-		this.temp_priced = in.readInt();
 		this.englishName = in.readString();
 		this.marketPrice = in.readString();
 		this.marketName = in.readString();
 		this.packageItems = in.createTypedArrayList(UIPackageItem.CREATOR);
 		this.optionCategoryList = in.createTypedArrayList(UIOptionCategory.CREATOR);
-		this.marketList = in.createTypedArrayList(Market.CREATOR);
+		this.marketList = in.createTypedArrayList(MarketObject.CREATOR);
 		this.recommandList = in.createTypedArrayList(UIRecommand.CREATOR);
 		this.dishKindStr = in.readString();
 		this.quantity = in.readInt();
@@ -547,17 +550,6 @@ public class UIDish implements Serializable, Parcelable {
 		this.subItemList = in.createTypedArrayList(UIPackageOptionItem.CREATOR);
 	}
 
-	public static final Creator<UIDish> CREATOR = new Creator<UIDish>() {
-		@Override
-		public UIDish createFromParcel(Parcel source) {
-			return new UIDish(source);
-		}
-
-		@Override
-		public UIDish[] newArray(int size) {
-			return new UIDish[size];
-		}
-	};
 	private boolean visible;
 
 	public void setVisible(boolean visible) {

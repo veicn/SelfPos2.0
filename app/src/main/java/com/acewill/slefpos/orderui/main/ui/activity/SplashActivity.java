@@ -130,39 +130,39 @@ public class SplashActivity extends BaseActivity {
 
 	private void init() {
 		int type = SPUtils.getSharedIntData(this, "baseInit");
-
-
 		if (SPUtils.getSharedIntData(this, "baseInit") != 0) {
 			if (type == SystemConfig.System_Smarant) {
 				SystemConfig.isSmarantSystem = true;
-				initOther(type);
+				if (isBind())
+					startActivity(LoadDataActivity.class);
+				else
+					startActivity(CommonSetActivity.class);
+
+				finish();
 			} else if (type == SystemConfig.System_Sync) {
-				initOther(type);
 				SystemConfig.isSyncSystem = true;
+				if (type == SystemConfig.System_Sync && !TextUtils
+						.isEmpty(SPUtils.getSharedStringData(mContext, "instanceSid"))) {
+					ApiConstants
+							.setType(HostType.IS_SYNC_DEBUG ? HostType.SYNC_TEST_HOSTS : HostType.SYNC_NORMAL_HOSTS);
+					if (isBind())
+						startActivity(LoadDataActivity.class);
+					else
+						startActivity(CommonSetActivity.class);
+
+					finish();
+				}
 			} else if (type == SystemConfig.System_CanXingJian) {
 				SystemConfig.isCanXingJianSystem = true;
-				startActivity(new Intent(SplashActivity.this, EmptyActivity.class));
+				if (isBind())
+					startActivity(EmptyActivity.class);
+				else
+					startActivity(CommonSetActivity.class);
+
+				finish();
 			}
-		} else {
-			initOther(type);
 		}
-
 	}
-
-	private void initOther(int type) {
-		if ((type == SystemConfig.System_Smarant || type == SystemConfig.System_CanXingJian) && !isBind()) {
-			startActivity(CommonSetActivity.class);
-		} else if (type == SystemConfig.System_Sync && TextUtils
-				.isEmpty(SPUtils.getSharedStringData(mContext, "instanceSid"))) {
-			ApiConstants
-					.setType(HostType.IS_SYNC_DEBUG ? HostType.SYNC_TEST_HOSTS : HostType.SYNC_NORMAL_HOSTS);
-			startActivity(SyncSetActivity.class);
-		} else {
-			startActivity(new Intent(SplashActivity.this, LoadDataActivity.class));
-		}
-		finish();
-	}
-
 
 	private void saveDeviceInfo() {
 		DisplayMetrics dm = new DisplayMetrics();

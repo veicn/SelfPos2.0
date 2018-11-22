@@ -16,7 +16,9 @@
  */
 package com.acewill.slefpos.api;
 
+import com.acewill.slefpos.app.AppApplication;
 import com.acewill.slefpos.emuee.HostType;
+import com.jaydenxiao.common.commonutils.SPUtils;
 
 public class ApiConstants {
 
@@ -32,7 +34,7 @@ public class ApiConstants {
 	/**
 	 * 智慧快餐测试后台
 	 */
-	public static final String TEST_HOST  = USE_LOCAL_HOST ? LOCAL_HOST : "http://sz.canxingjian.com";
+	public static final String TEST_HOST  = USE_LOCAL_HOST ? LOCAL_HOST : "http://sz.canxingjian.com/";
 
 	/**
 	 * 智慧快餐正式后台
@@ -114,7 +116,7 @@ public class ApiConstants {
 	}
 
 
-	private static String jyjAddress = "";
+	//	private static String jyjAddress = "";
 
 
 	private static String kds = "";
@@ -131,13 +133,13 @@ public class ApiConstants {
 
 	private static int type = 0;
 
-	public static String getJyjAddress() {
-		return jyjAddress;
-	}
-
-	public static void setJyjAddress(String jyjAddress) {
-		jyjAddress = jyjAddress;
-	}
+	//	public static String getJyjAddress() {
+	//		return jyjAddress;
+	//	}
+	//
+	//	public static void setJyjAddress(String jyjAddress) {
+	//		jyjAddress = jyjAddress;
+	//	}
 
 	/**
 	 * 获取对应的host
@@ -194,7 +196,7 @@ public class ApiConstants {
 				host = SYNC_WECHAT_PAY_NORMAL;
 				break;
 			case HostType.PUSH_ORDER_TO_JYJ:
-				host = getJyjAddress();
+				host = SPUtils.getSharedStringData(AppApplication.getContext(), "jyjAddress");
 				break;
 			case HostType.SYNC_MEMBER:
 				host = SYNC_MEMBER_LOGIN;
@@ -210,6 +212,7 @@ public class ApiConstants {
 			case HostType.SYNC_NORMAL_HOSTS2:
 				host = SYNC_NORMAL_HOST2;
 				break;
+
 			default:
 				host = "";
 				break;

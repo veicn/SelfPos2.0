@@ -54,13 +54,8 @@ import com.acewill.slefpos.bean.wshbean.CXJWshCreateDeal;
 import com.acewill.slefpos.bean.wshbean.CommitWshDealRes;
 import com.acewill.slefpos.bean.wshbean.CreateDealRes;
 import com.acewill.slefpos.bean.wshbean.WshCreateDeal;
-import com.acewill.slefpos.configure.BaseConfigure;
-import com.acewill.slefpos.configure.StoreConfigure;
 import com.acewill.slefpos.kds.kdsbean.KDSRes;
 import com.acewill.slefpos.kds.kdsbean.KdsOrderBean;
-import com.acewill.slefpos.okhttp.OkHttpUtils;
-import com.acewill.slefpos.okhttp.callback.GenericsCallback;
-import com.acewill.slefpos.okhttp.callback.JsonGenericsSerializator;
 import com.acewill.slefpos.orderui.main.contract.OrderContract;
 import com.acewill.slefpos.print.Common;
 import com.acewill.slefpos.utils.httputils.GsonUtils;
@@ -75,7 +70,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import okhttp3.Call;
 import okhttp3.ResponseBody;
 import rx.Observable;
 import rx.Subscriber;
@@ -699,7 +693,7 @@ public class OrderPresenter extends OrderContract.Presenter {
 
 	@Override
 	public void pushOrder(final NewOrderReq req) {
-		FileLog.log("智慧快餐下单参数>" + req);
+		FileLog.log("智慧快餐下单参数>" + new Gson().toJson(req));
 		Log.e(TAG, new Gson().toJson(req));
 		mRxManage.add(mModel.pushOrder(req)
 				.subscribe(new RxSubscriber<NewOrderRes>(mContext, false) {
@@ -1035,26 +1029,56 @@ public class OrderPresenter extends OrderContract.Presenter {
 
 	@Override
 	public void pushOrderToJYJ(NewOrderReq req) {
-		OkHttpUtils.post()
-				.url(StoreConfigure.getJyjAddress() + "/api/orders")
-				.addParams("appId", BaseConfigure.getAppid())
-				.addParams("brandId", String.valueOf(BaseConfigure.getBrandid()))
-				.addParams("storeId", String.valueOf(BaseConfigure.getStoreid()))
-				.addParams("order", new Gson().toJson(req)).build()
-				.connTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)
-				.writeTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS).
-				readTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)
-				.execute(new GenericsCallback<NewOrderRes>(new JsonGenericsSerializator()) {
+
+
+
+
+
+
+
+
+//		OkHttpUtils.post()
+//				.url(StoreConfigure.getJyjAddress() + "/api/orders")
+//				.addParams("appId", BaseConfigure.getAppid())
+//				.addParams("brandId", String.valueOf(BaseConfigure.getBrandid()))
+//				.addParams("storeId", String.valueOf(BaseConfigure.getStoreid()))
+//				.addParams("order", new Gson().toJson(req)).build()
+//				.connTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)
+//				.writeTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS).
+//				readTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)
+//				.execute(new GenericsCallback<NewOrderRes>(new JsonGenericsSerializator()) {
+//					@Override
+//					public void onError(Call call, Exception e, int id) {
+//						mView.returnPushOrderToJYJ(null);
+//					}
+//
+//					@Override
+//					public void onResponse(NewOrderRes response, int id) {
+//						mView.returnPushOrderToJYJ(response);
+//					}
+//				});
+		mRxManage.add(mModel.pushOrderToJYJ(req)
+				.subscribe(new RxSubscriber<NewOrderRes>(mContext, false) {
 					@Override
-					public void onError(Call call, Exception e, int id) {
+					protected void _onNext(NewOrderRes res) {
+						mView.returnPushOrderToJYJ(res);
+					}
+
+					@Override
+					protected void _onError(String message) {
 						mView.returnPushOrderToJYJ(null);
 					}
 
 					@Override
-					public void onResponse(NewOrderRes response, int id) {
-						mView.returnPushOrderToJYJ(response);
+					protected void _onTimeOut() {
+						mView.returnPushOrderToJYJ(null);
 					}
-				});
+				}));
+
+
+
+
+
 	}
 
 	@Deprecated

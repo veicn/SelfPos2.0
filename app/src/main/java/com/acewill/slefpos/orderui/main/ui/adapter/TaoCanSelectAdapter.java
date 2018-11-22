@@ -24,13 +24,13 @@ import java.util.Iterator;
  * Desc：
  */
 public class TaoCanSelectAdapter extends BaseAdapter {
-	private Context                        mContext;
+	private  RxManager mRxManager;
+	private Context mContext;
 	private ArrayList<UIPackageOptionItem> datas;
-	private RxManager                      mManager;
 
-	public TaoCanSelectAdapter(Context context) {
+	public TaoCanSelectAdapter(Context context,RxManager rxManager) {
 		mContext = context;
-		mManager = new RxManager();
+		mRxManager = rxManager;
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class TaoCanSelectAdapter extends BaseAdapter {
 		if (datas == null)
 			datas = new ArrayList<>();
 		datas.add(bean);
-		mManager.post(AppConstant.TAOCANSELCETDISHCOUNT, datas.size());
+		mRxManager.post(AppConstant.TAOCANSELCETDISHCOUNT, datas.size());
 		notifyDataSetChanged();
 	}
 
@@ -109,7 +109,7 @@ public class TaoCanSelectAdapter extends BaseAdapter {
 				break;
 			}
 		}
-		mManager.post(AppConstant.TAOCANSELCETDISHCOUNT, datas.size());
+		mRxManager.post(AppConstant.TAOCANSELCETDISHCOUNT, datas.size());
 		notifyDataSetChanged();
 	}
 
@@ -125,7 +125,7 @@ public class TaoCanSelectAdapter extends BaseAdapter {
 
 	public void setData(ArrayList<UIPackageOptionItem> data) {
 		this.datas = data;
-		mManager.post(AppConstant.TAOCANSELCETDISHCOUNT, datas.size());
+		mRxManager.post(AppConstant.TAOCANSELCETDISHCOUNT, datas.size());
 		notifyDataSetChanged();
 	}
 }

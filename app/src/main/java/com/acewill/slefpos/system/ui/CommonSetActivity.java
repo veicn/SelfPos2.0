@@ -92,6 +92,8 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 	TextView     tv_changelanguage;
 	@Bind(R.id.tv_inner_print_id)
 	TextView     tv_inner_print_id;
+	@Bind(R.id.tv_printticket_type)
+	TextView     tv_printticket_type;
 	@Bind(R.id.tv_print_type)
 	TextView     tv_print_type;
 	@Bind(R.id.store_ip)
@@ -114,6 +116,8 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 	LinearLayout ll_set_jiyejia_ip;
 	@Bind(R.id.ll_set_canxingjian_ip)
 	LinearLayout ll_set_canxingjian_ip;
+	@Bind(R.id.ll_set_printticket_type)
+	LinearLayout ll_set_printticket_type;
 	@Bind(R.id.store_info_tv)
 	TextView     store_info_tv;
 	@Bind(R.id.tv_validate_memberno)
@@ -230,6 +234,7 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 		findViewById(R.id.ll_set_inner_print).setOnClickListener(this);
 		findViewById(R.id.ll_set_validate_memberno).setOnClickListener(this);
 		findViewById(R.id.ll_set_start_callnumber).setOnClickListener(this);
+		findViewById(R.id.ll_set_printticket_type).setOnClickListener(this);
 		findViewById(R.id.print_test).setOnClickListener(this);
 	}
 
@@ -266,6 +271,12 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 				.getStringArray(R.array.validate_member)[SPUtils
 				.getSharedIntData(this, "validatememberno")]);
 
+
+		tv_printticket_type.setText(getResources()
+				.getStringArray(R.array.printtickettype)[SPUtils
+				.getSharedIntData(this, "printtickettype")]);
+
+
 		if (SPUtils.getSharedIntData(mContext, "call_number") != 0)
 			tv_set_start_callnumber
 					.setText("起始前缀 " + SPUtils.getSharedIntData(mContext, "call_number"));
@@ -285,6 +296,7 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 			ll_set_start_callnumber.setVisibility(View.GONE);
 			ll_set_start_callnumber_view.setVisibility(View.GONE);
 			ll_set_canxingjian_ip.setVisibility(View.GONE);
+			ll_set_printticket_type.setVisibility(View.GONE);
 		} else if (SystemConfig.isSyncSystem) {
 			ll_set_canxingjian_ip.setVisibility(View.GONE);
 			ll_show_table_num.setVisibility(View.GONE);
@@ -303,6 +315,7 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 			ll_set_start_callnumber_view.setVisibility(View.GONE);
 			ll_set_validate_memberno.setVisibility(View.GONE);
 			ll_set_validate_memberno_view.setVisibility(View.GONE);
+			ll_set_printticket_type.setVisibility(View.GONE);
 		}
 
 	}
@@ -387,11 +400,20 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 					case AppConstant.INNER_PRINTER_TYPE:
 						setInnerPrinter(position);
 						break;
+					case AppConstant.PRINT_TICKET_TYPE:
+						setPrintTiketType(position);
+						break;
 					default:
 						break;
 				}
 			}
 		});
+	}
+
+	private void setPrintTiketType(int position) {
+		tv_printticket_type
+				.setText(getResources().getStringArray(R.array.printtickettype)[position]);
+		SPUtils.setSharedIntData(mContext, "printtickettype", position);
 	}
 
 	private void setStartCallNumber(int position) {
@@ -451,7 +473,7 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 				break;
 			case R.id.print_test:
 				//				printImageTest();
-				print58Ticket();
+				//				print58Ticket();
 				break;
 			case R.id.ll_set_validate_memberno:
 				showSetDialog(getResources()
@@ -524,6 +546,10 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 				showSetDialog(getResources()
 						.getStringArray(R.array.textviewtype), AppConstant.TEXTVIEWTYPE);
 				break;
+			case R.id.ll_set_printticket_type:
+				showSetDialog(getResources()
+						.getStringArray(R.array.printtickettype), AppConstant.PRINT_TICKET_TYPE);
+				break;
 			case R.id.ll_set_inner_print:
 				showSetDialog(getResources()
 						.getStringArray(R.array.innerprinter), AppConstant.INNER_PRINTER_TYPE);
@@ -556,16 +582,16 @@ public class CommonSetActivity extends BaseActivity<CommonSetPresenter, CommonSe
 	 *
 	 *
 	 */
-	private void print58Ticket() {
-		PrintManager.size1();
-		PrintManager.bold();
-		PrintManager.center();
-		PrintManager.printlnText("" + "\n");
-		//桌牌号和堂食外带
-		PrintManager.size1();
-		PrintManager.left();
-		PrintManager.normal();
-	}
+	//	private void print58Ticket() {
+	//		PrintManager.size1();
+	//		PrintManager.bold();
+	//		PrintManager.center();
+	//		PrintManager.printlnText("" + "\n");
+	//		//桌牌号和堂食外带
+	//		PrintManager.size1();
+	//		PrintManager.left();
+	//		PrintManager.normal();
+	//	}
 
 	/**
 	 * 测试打印二位图

@@ -152,7 +152,7 @@ public class PackageFragmentNew extends BaseFragment {
 
 
 	private void initListViewAndAdapter() {
-		mSelectAdapter = new TaoCanSelectAdapter(mContext);
+		mSelectAdapter = new TaoCanSelectAdapter(mContext,mRxManager);
 		choose_list.setAdapter(mSelectAdapter);
 		mTaoCanDishAdapter = new TaoCanDishAdapter(mContext);
 		dish_list.setAdapter(mTaoCanDishAdapter);
@@ -229,7 +229,11 @@ public class PackageFragmentNew extends BaseFragment {
 				bean.setSelectOk(true);//没有必选项
 			}
 		}
-		mSelectAdapter.notifyDataSetChanged();
+
+		if (mSelectAdapter.getCount()>0){
+			seleced_ly.setVisibility(View.VISIBLE);
+			mSelectAdapter.notifyDataSetChanged();
+		}
 		initTabView(mUIPackageItems);
 		initDishView(mUIPackageItems.get(0));
 		initSelectView();

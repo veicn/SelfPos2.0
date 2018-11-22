@@ -24,41 +24,48 @@
             android:layout_weight="4"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:visibility="gone"
-                android:id="@+id/marquee_layout"
+
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:background="@color/white">
-
-                <ViewFlipper
-                    android:id="@+id/marquee_view"
+                >
+                <RelativeLayout
+                    android:id="@+id/marquee_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:autoStart="true"
-                    android:background="#fff"
-                    android:flipInterval="2500"
-                    android:inAnimation="@anim/anim_marquee_in"
-                    android:outAnimation="@anim/anim_marquee_out">
-                </ViewFlipper>
+                    android:background="@color/white"
+                    android:visibility="gone">
 
-                <TextView
-                    android:id="@+id/marquee_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/x40"
-                    android:drawablePadding="@dimen/x10"
-                    android:drawableRight="@mipmap/arrow_down"
-                    android:gravity="center"
-                    android:paddingLeft="@dimen/x30"
-                    android:paddingRight="@dimen/x30"
-                    android:textColor="@color/colorPrimaryText"
-                    android:textSize="@dimen/x28"/>
-            </RelativeLayout>
+                    <ViewFlipper
+                        android:id="@+id/marquee_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:autoStart="true"
+                        android:background="#fff"
+                        android:flipInterval="2500"
+                        android:inAnimation="@anim/anim_marquee_in"
+                        android:outAnimation="@anim/anim_marquee_out">
+                    </ViewFlipper>
 
+                    <TextView
+                        android:id="@+id/marquee_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/x40"
+                        android:drawablePadding="@dimen/x10"
+                        android:drawableRight="@mipmap/arrow_down"
+                        android:gravity="center"
+                        android:paddingLeft="@dimen/x30"
+                        android:paddingRight="@dimen/x30"
+                        android:textColor="@color/colorPrimaryText"
+                        android:textSize="@dimen/x28"/>
+                </RelativeLayout>
+
+
+            </FrameLayout>
 
             <FrameLayout
                 android:id="@+id/content_contain"

@@ -8,8 +8,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Fade;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,11 +24,13 @@ import com.acewill.slefpos.bean.cartbean.CartDishHelper;
 import com.acewill.slefpos.bean.cartbean.Price;
 import com.acewill.slefpos.bean.uibean.GroupEntity;
 import com.acewill.slefpos.bean.uibean.UIDish;
+import com.acewill.slefpos.configure.SystemConfig;
 import com.acewill.slefpos.orderui.main.trasition.DetailsTransition;
 import com.acewill.slefpos.orderui.main.ui.activity.OrderDetailActivity;
 import com.acewill.slefpos.orderui.main.ui.adapter.NoFooterAdapter;
 import com.acewill.slefpos.orderui.main.ui.dialog.OptionDialog;
 import com.acewill.slefpos.orderui.main.uidataprovider.SmarantDataProvider;
+import com.acewill.slefpos.utils.priceutils.PriceUtil;
 import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
 import com.donkingliang.groupedadapter.holder.BaseViewHolder;
 import com.donkingliang.groupedadapter.widget.StickyHeaderLayout;
@@ -48,9 +52,13 @@ public class CartFragmentNew extends BaseFragment {
 	private StickyHeaderLayout stickyLayout;
 
 	@Bind(R.id.paymoney)
-	TextView paymoney;
+	TextView     paymoney;
+	@Bind(R.id.special_money_ly)
+	LinearLayout special_money_ly;
+	@Bind(R.id.special_money)
+	TextView     special_money;
 	@Bind(R.id.paybtn)
-	Button   payBtn;
+	Button       payBtn;
 
 	@OnClick(R.id.clear_cart)
 	public void clearCart() {
@@ -198,6 +206,31 @@ public class CartFragmentNew extends BaseFragment {
 	 */
 	private void total() {
 		paymoney.setText("￥" + String.valueOf(Price.getInstance().getTotal()));
+
+		if (SystemConfig.isSmarantSystem) {
+			if (Price.getInstance().getActualCost() != null && Float
+					.parseFloat(Price.getInstance().getActualCost()) != 0 && PriceUtil
+					.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+							.getActualCost()).floatValue() != 0) {
+				special_money_ly.setVisibility(View.VISIBLE);
+				special_money.setText("￥" + PriceUtil
+						.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+								.getActualCost()).toString());
+			} else {
+				special_money_ly.setVisibility(View.GONE);
+			}
+		} else if (SystemConfig.isSyncSystem) {
+			if (Price.getInstance().getTotalDiscountAmount() != 0) {
+				special_money_ly.setVisibility(View.VISIBLE);
+				special_money.setText("￥" + PriceUtil
+						.formatPrice(Price.getInstance().getTotalDiscountAmount()));
+			} else {
+				special_money_ly.setVisibility(View.GONE);
+			}
+		} else {
+			special_money_ly.setVisibility(View.GONE);
+		}
+
 	}
 
 
@@ -218,17 +251,17 @@ public class CartFragmentNew extends BaseFragment {
 			}
 		});
 
-//		mRxManager.on(AppConstant.ON_CART_ITEM_CHANGE, new Action1<String>() {
-//			@Override
-//			public void call(String o) {
-//				if (Cart.getInstance().getCartCount() == 0)
-//					clearCart();
-//				else {
-//					total();
-//					mAdapter.notifyDataSetChanged();
-//				}
-//			}
-//		});
+		//		mRxManager.on(AppConstant.ON_CART_ITEM_CHANGE, new Action1<String>() {
+		//			@Override
+		//			public void call(String o) {
+		//				if (Cart.getInstance().getCartCount() == 0)
+		//					clearCart();
+		//				else {
+		//					total();
+		//					mAdapter.notifyDataSetChanged();
+		//				}
+		//			}
+		//		});
 		mRxManager.on(AppConstant.ON_CART_ITEM_CHANGE_OPTIONDIALOG, new Action1<String>() {
 			@Override
 			public void call(String o) {

@@ -32,7 +32,7 @@ public class AppConstant {
 	public static final String ALIPAY                            = "ALIPAY";
 	public static final String START_PACKAGEFRAGMENT             = "START_PACKAGEFRAGMENT";
 	public static final String MEMBERID                          = "MEMBERID";
-	public static final String MEITUANYANQUAN                          = "MEITUANYANQUAN";
+	public static final String MEITUANYANQUAN                    = "MEITUANYANQUAN";
 	public static final String SKIPMEMBERLOGIN                   = "SKIPMEMBERLOGIN";
 	public static final String ON_CART_ITEM_CHANGE_OPTIONDIALOG  = "ON_CART_ITEM_CHANGE_OPTIONDIALOG";
 	public static final String ON_CART_ITEM_CHANGE_OPTIONDIALOG2 = "ON_CART_ITEM_CHANGE_OPTIONDIALOG2";
@@ -43,7 +43,7 @@ public class AppConstant {
 	public static final String SYNCUSERLOGINCANCLE   = "SYNCUSERLOGINCANCLE";
 	public static final String TAOCANSELCETDISHCOUNT = "TAOCANSELCETDISHCOUNT";
 	public static final String COMFIRM_ORDER         = "COMFIRM_ORDER";
-
+	public static final String    COMFIRM_PAY           = "COMFIRM_PAY";//确认支付
 
 	public static final int RESULT_FINISH = 100;
 
@@ -62,7 +62,10 @@ public class AppConstant {
 	public static final int VALIDATEMEMBER            = 21;
 	public static final int SYNC_RE_ACCEPT            = 22;
 	public static final int QUERYMEITUANPAY           = 23;
-	public static final int SET_START_CALL_NUMBER           = 23;
+	public static final int SET_START_CALL_NUMBER     = 23;
+	public static final int PRINT_TICKET_TYPE         = 24;
+	public static final int COMFIRM_ORDER_A           = 25;//判断KDS
+	public static final int COMFIRM_ORDER_B           = 26;//同步时的
 
 
 }

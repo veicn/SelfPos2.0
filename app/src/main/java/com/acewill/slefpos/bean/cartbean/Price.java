@@ -13,10 +13,13 @@ import com.acewill.slefpos.bean.uibean.UIPackageOptionItem;
 import com.acewill.slefpos.bean.uibean.UITasteOption;
 import com.acewill.slefpos.bean.wshbean.WshAccountCoupon;
 import com.acewill.slefpos.configure.SystemConfig;
+import com.acewill.slefpos.orderui.main.market.MarketController;
+import com.acewill.slefpos.orderui.main.uidataprovider.SmarantDataProvider;
 import com.acewill.slefpos.orderui.main.uidataprovider.SyncDataProvider;
 import com.acewill.slefpos.utils.priceutils.PriceUtil;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +34,7 @@ public class Price {
 	private static final String TAG = "Price";
 	private static Price mPrice;
 
+	private String actualCost;
 
 	/**
 	 * 获取价钱对象
@@ -91,10 +95,10 @@ public class Price {
 									.multiply(String.valueOf(bean.getPrice()), bean.getQuantity()));
 					}
 				}
-				if (SystemConfig.isSyncSystem ) {
+				if (SystemConfig.isSyncSystem) {
 					bigDecimal = PriceUtil.multiply(PriceUtil.add(bigDecimal, item.getPrice()), item
 							.getQuantity());
-				} else if (SystemConfig.isSmarantSystem|| SystemConfig.isCanXingJianSystem) {
+				} else if (SystemConfig.isSmarantSystem || SystemConfig.isCanXingJianSystem) {
 					bigDecimal = PriceUtil.multiply(PriceUtil
 							.add(bigDecimal, new BigDecimal(item.getExtraCost())), item
 							.getQuantity());
@@ -153,17 +157,24 @@ public class Price {
 	 */
 	public String getTotal() {
 		BigDecimal totalPrice = Price.getInstance().getDishTotalWithMix();
-		totalPrice = PriceUtil
-				.add(totalPrice, new BigDecimal(Price.getInstance().getTotalWaidai_Cost()));
+
+
+		/**
+		 * TODO 2018-11-20 外带打包费，这里影响到了微生活会员结账，暂时关闭
+		 * totalPrice = PriceUtil
+		 *				.add(totalPrice, new BigDecimal(Price.getInstance().getTotalWaidai_Cost()));
+		 */
+
 		// 减去优惠的价格
 		if (SystemConfig.isSyncSystem && Order.getInstance().isMember() && SyncDataProvider
 				.getSyncMemberAccount() != null) {
 			//同步时会员日活动,此项必须第一步执行，里面有可能涉及到全单的情况
 			totalPrice = syncDiscountAmount(totalPrice);
-			//			totalPrice = PriceUtil
-			//					.multiply(totalPrice, ));
-		} else {
 
+		} else if (SystemConfig.isSmarantSystem) {
+			BigDecimal specialPrice = smarantDiscountAmount();
+			totalPrice = PriceUtil.subtract(totalPrice, specialPrice);
+			setActualCost(totalPrice.toString());
 		}
 		//0、美团团购券
 		Map<String, Float> map = Price.getInstance().getDealsValueMap();
@@ -190,10 +201,54 @@ public class Price {
 		totalPrice = PriceUtil
 				.subtract(totalPrice, new BigDecimal(Price.getInstance().getBalance()));
 
+
 		Log.e(TAG, "totalPrice>" + Float.parseFloat(totalPrice.toString()));
 		if (totalPrice.floatValue() < 0)
 			return "0";
 		return totalPrice.toString();
+	}
+
+	/**
+	 * 智慧快餐的营销方案
+	 *
+	 * @return
+	 */
+	private BigDecimal smarantDiscountAmount() {
+		/**
+		 * 1、判断有没有满减活动
+		 * 2、如果有商品没有参加满减的，在购物车中减去这个，没有参加满减的原价
+		 * 3、这里应该有两个价格，一个是参加活动的价格，一个是不参加活动的价格
+		 */
+		BigDecimal specialPrice = new BigDecimal("0");//优惠的金额
+		//购物车中的商品，判断有没有某个单品有它自己的营销方案
+
+		/**
+		 * 购物车中的菜品需要进行营销方案计算了，但是呢，我又不想它的值被改变，因此我copy一个list去计算
+		 * 只要计算这个营销方案，那么得到的营销方案计算的结果都是一个新的
+		 */
+		List<CartDish> dishes   = Cart.getInstance().getCartDishes();
+		List<CartDish> dishList = new ArrayList<>();
+		for (CartDish cartDish : dishes) {
+			CartDish cloneDish = cartDish.myclone();
+			dishList.add(cloneDish);
+		}
+		for (CartDish item : dishList) {
+			if (item.isCalculate()) {
+				item.setCalculate(false); //重置所有的状态，下面将重新计算
+			}
+		}
+		BigDecimal[] danPinSumPrice;
+		if (SmarantDataProvider.getMarketList() == null || SmarantDataProvider.getMarketList()
+				.getContent() == null || SmarantDataProvider.getMarketList()
+				.getContent().size() == 0)
+			danPinSumPrice = null;//计算单品的营销方案
+		else
+			danPinSumPrice = MarketController.excuteMarketPlan();//计算单品的营销方案,涉及到拆分和重组购物车数据的操作
+
+		if (danPinSumPrice != null) {
+			specialPrice = danPinSumPrice[1];
+		}
+		return specialPrice;
 	}
 
 	/**
@@ -537,6 +592,10 @@ public class Price {
 					.add(totalDiscountAmount, PriceUtil.multiply(new BigDecimal(String
 							.valueOf(cartDish.getDiscountAmount())), cartDish.getQuantity()));
 		}
+		if (Price.getInstance().getActualCost()!=null)
+		totalDiscountAmount = PriceUtil
+				.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+						.getActualCost());
 		if (totalDiscountAmount != null && totalDiscountAmount.floatValue() != 0) {
 			return totalDiscountAmount.floatValue();
 		}
@@ -589,5 +648,14 @@ public class Price {
 
 	public WshAccountCoupon getWshCoupon() {
 		return mWshCoupon;
+	}
+
+
+	public String getActualCost() {
+		return actualCost;
+	}
+
+	public void setActualCost(String actualCost) {
+		this.actualCost = actualCost;
 	}
 }

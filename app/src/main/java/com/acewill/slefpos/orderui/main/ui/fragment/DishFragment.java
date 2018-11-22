@@ -20,8 +20,8 @@ import com.acewill.slefpos.bean.uibean.UIDish;
 import com.acewill.slefpos.bean.uibean.UIDishKind;
 import com.acewill.slefpos.configure.SystemConfig;
 import com.acewill.slefpos.orderui.main.trasition.DetailsTransition;
-import com.acewill.slefpos.orderui.main.ui.dialog.RecomendPackageDialog;
 import com.acewill.slefpos.orderui.main.ui.dialog.OptionDialog;
+import com.acewill.slefpos.orderui.main.ui.dialog.RecomendPackageDialog;
 import com.acewill.slefpos.orderui.main.ui.eventbus.RecommandEvent;
 import com.acewill.slefpos.orderui.main.uidataprovider.SmarantDataProvider;
 import com.acewill.slefpos.orderui.main.uidataprovider.UIDataProvider;
@@ -97,34 +97,65 @@ public class DishFragment extends BaseFragment implements OnLoadMoreListener, On
 
 			@Override
 			public void convert(ViewHolderHelper helper, final UIDish dish) {
-				final ImageView imageView            = helper.getView(R.id.dish_photo);
-				final ImageView statu_iv             = helper.getView(R.id.statu_iv);
-				final TextView  dish_price           = helper.getView(R.id.dish_price);
-				final TextView  dish_memberprice     = helper.getView(R.id.dish_memberprice);
-				final TextView  dish_memberprice_vip = helper.getView(R.id.dish_memberprice_vip);
-				final View      selectView           = helper.getView(R.id.view);
+				final ImageView imageView        = helper.getView(R.id.dish_photo);
+				final ImageView statu_iv         = helper.getView(R.id.statu_iv);
+				final TextView  dish_price       = helper.getView(R.id.dish_price);
+				final TextView  dish_memberprice = helper.getView(R.id.dish_memberprice);
+				final View      selectView       = helper.getView(R.id.view);
 				final FrameLayout order_right_shouqinlayout = helper
 						.getView(R.id.order_right_shouqinlayout);
-				TextColorUtils.setLeftTextColorAndSize("￥" + dish.getPrice(), "/" + dish
-						.getDishUnit(), dish_price);
-				//				dish_price.setText("￥" + dish.getPrice()+);
-				if ((SystemConfig.isSmarantSystem||SystemConfig.isCanXingJianSystem )&& dish
-						.getMemberPrice() != null && Float
-						.parseFloat(dish.getMemberPrice()) != 0 && !dish.getMemberPrice()
-						.equals(dish.getPrice())) {
-					if (Order.getInstance().isMember() || SmarantDataProvider
-							.getSelfposConfigurationdata().getContent().isDisplayMember()) {
+
+				if ((SystemConfig.isSmarantSystem || SystemConfig.isCanXingJianSystem) && dish
+						.getMemberPrice() != null) {
+					if (Float.parseFloat(dish.getMemberPrice()) != 0 && !dish.getMemberPrice()
+							.equals(dish.getPrice())) {
 						dish_memberprice.setVisibility(View.VISIBLE);
-						dish_memberprice_vip.setVisibility(View.VISIBLE);
-						dish_memberprice.setText(dish.getMemberPrice());
+						if (Order.getInstance().isMember()) {
+							TextColorUtils.setDishPrice("￥" + dish.getMemberPrice(), "/" + dish
+									.getDishUnit(), dish_price);
+							dish_memberprice
+									.setText("原价 " + dish.getPrice() + "/" + dish.getDishUnit());
+						} else {
+							TextColorUtils.setDishPrice("￥" + dish.getPrice(), "/" + dish
+									.getDishUnit(), dish_price);
+							if (SmarantDataProvider.getSelfposConfigurationdata().getContent().isDisplayMember()){
+								dish_memberprice.setVisibility(View.VISIBLE);
+								dish_memberprice
+										.setText("会员价 " + dish.getMemberPrice() + "/" + dish
+												.getDishUnit());
+							}else {
+								dish_memberprice.setVisibility(View.GONE);
+							}
+						}
 					} else {
 						dish_memberprice.setVisibility(View.GONE);
-						dish_memberprice_vip.setVisibility(View.GONE);
+						TextColorUtils.setDishPrice("￥" + dish.getPrice(), "/" + dish
+								.getDishUnit(), dish_price);
 					}
-				} else {
+				}else{
 					dish_memberprice.setVisibility(View.GONE);
-					dish_memberprice_vip.setVisibility(View.GONE);
+					TextColorUtils.setDishPrice("￥" + dish.getPrice(), "/" + dish
+							.getDishUnit(), dish_price);
 				}
+
+
+				//				TextColorUtils.setMemberPrice("￥" + dish.getMemberPrice(), "/" + dish
+				//						.getDishUnit(), dish_price);
+				//				if ((SystemConfig.isSmarantSystem || SystemConfig.isCanXingJianSystem) && dish
+				//						.getMemberPrice() != null && Float
+				//						.parseFloat(dish.getMemberPrice()) != 0 && !dish.getMemberPrice()
+				//						.equals(dish.getPrice())) {
+				//					if (Order.getInstance().isMember() || SmarantDataProvider
+				//							.getSelfposConfigurationdata().getContent().isDisplayMember()) {
+				//						dish_memberprice.setVisibility(View.VISIBLE);
+				//						dish_memberprice
+				//								.setText("会员 " + dish.getMemberPrice() + "/" + dish.getDishUnit());
+				//					} else {
+				//						dish_memberprice.setVisibility(View.GONE);
+				//					}
+				//				} else {
+				//					dish_memberprice.setVisibility(View.GONE);
+				//				}
 
 				if (dish.getDealId() != null && dish.getDealId() != 0) {
 					statu_iv.setVisibility(View.VISIBLE);

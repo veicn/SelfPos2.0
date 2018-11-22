@@ -43,6 +43,14 @@ public class Cart {
 		return mCart;
 	}
 
+	public List<CartDish> getDepartItemList() {
+		return mDepartItemList;
+	}
+
+	public void setDepartItemList(List<CartDish> departItemList) {
+		mDepartItemList = departItemList;
+	}
+
 	/**
 	 * 获取购物车商品包含mix价格
 	 *
@@ -329,7 +337,7 @@ public class Cart {
 		cartDish.setKindId(dish.getDishKind());
 		cartDish.setDishKindStr(dish.getDishKindStr());
 		cartDish.setQuantity(dish.getQuantity());
-		cartDish.setPrice(dish.getPrice());
+		cartDish.setPrice(dish.getPrice());//这里，这个cartDish的实际价格应该从营销方案和会员还有原价里面取一个值
 		cartDish.setCost(Price.getInstance().getDishCost(dish));//这里应该是实收
 		cartDish.setOptionList(dish.getOptionList());
 		cartDish.setImageName(dish.getImageName());
@@ -342,6 +350,7 @@ public class Cart {
 		return cartDish;
 	}
 
+	private List<CartDish> mDepartItemList;
 
 	/**
 	 * 获取购物车商品的列表
@@ -553,8 +562,6 @@ public class Cart {
 	}
 
 
-
-
 	public String getCartDisheStr() {
 		StringBuilder builder = new StringBuilder();
 		for (int i = 0; i < Cart.getInstance().getCartDishes().size(); i++) {
@@ -605,5 +612,173 @@ public class Cart {
 			}
 		}
 		return null;
+	}
+
+
+	/**
+	 * 执行营销方案的时候需要把菜品拆分，现在把菜品再次合并
+	 */
+	public List<CartDish> combineDishList() {
+
+		//合并菜品列表、
+		List<CartDish> departItemList = Cart.getInstance().getDepartItemList();
+		if (departItemList == null || departItemList.size() == 0) {
+			//			Cart.getInstance().saveOderItemList(Cart.getInstance().getAllItems());
+			return null;
+		}
+		List<CartDish> dishList = new ArrayList<>();
+		for (CartDish model : departItemList) {
+			//				model.cost = model.price;
+			boolean                   isSame      = false;
+			boolean                   sameOption  = true;//默认是相同的定制项
+			boolean                   samePackage = true;//默认是相同的套餐
+			boolean                   sameMarket  = false;//默认是不同的营销方案
+			List<UIPackageOptionItem> items       = model.getSubItemList();
+			//			if (items != null) {
+			//				for (PackageBean mPackageBean : items)
+			//					mPackageBean.quantity = mPackageBean.quantity;
+			//			}
+			List<UITasteOption> list = model.getOptionList();
+			for (CartDish bean : dishList) {
+
+				List<UIPackageOptionItem> items1 = bean.getSubItemList();
+
+				if (items != null && items1 != null)
+					samePackage = equalUIPackageOptionItemList(items, items1);
+
+				List<UITasteOption> list1 = bean.getOptionList();
+				if (list != null && list1 != null)
+					sameOption = equalUITasteOptionList(list, list1);
+
+
+				sameMarket = equalMarket(model, bean);
+
+				if (model.getDishID().equals(bean.getDishID()) && model.getPrice()
+						.equals(bean
+								.getPrice()) && samePackage && sameOption && sameMarket) {
+					//这是相同项的
+					isSame = true;
+					bean.setQuantity(bean.getQuantity() + 1);
+					break;
+				}
+			}
+			if (!isSame) {
+				CartDish dd = model.myclone();
+				dishList.add(dd);
+			}
+		}
+		for (CartDish abc : dishList) {
+			if (abc.getMarketList() != null && abc.getMarketList().size() > 0) {
+				abc.getMarketList().get(0).setReduceCash(PriceUtil
+						.multiply(abc.getMarketList().get(0)
+								.getReduceCash(), new BigDecimal(abc.getQuantity())));
+			}
+		}
+		return dishList;
+		//		Cart.getInstance().saveOderItemList(dishList);
+	}
+
+	private boolean equalList(List list1, List list2) {
+		if (list1.size() != list2.size())
+			return false;
+		for (Object object : list1) {
+			if (!list2.contains(object))
+				return false;
+		}
+		return true;
+	}
+
+	private boolean equalUIPackageOptionItemList(List<UIPackageOptionItem> list1, List<UIPackageOptionItem> list2) {
+		if (list1.size() != list2.size())
+			return false;
+		ArrayList<String> list1OptionIds = new ArrayList<>();
+		ArrayList<String> list2OptionIds = new ArrayList<>();
+
+		for (UIPackageOptionItem item1 : list1) {
+			list1OptionIds.add(item1.getDishID());
+		}
+		for (UIPackageOptionItem item2 : list2) {
+			list1OptionIds.add(item2.getDishID());
+		}
+		for (String object : list1OptionIds) {
+			if (!list2OptionIds.contains(object))
+				return false;
+		}
+
+
+		//如果是相同的套餐项，那么继续判断是不是相同的定制项
+		for (UIPackageOptionItem item1 : list1) {
+			for (UIPackageOptionItem item2 : list2) {
+				if (item2.getDishID() == item1.getDishID()) {
+					if (!equalUITasteOptionList(item1.getOptionList(), item2.getOptionList())) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * 判断两个菜的订制项是否相同
+	 *
+	 * @param list1
+	 * @param list2
+	 * @return
+	 */
+	private boolean equalUITasteOptionList(List<UITasteOption> list1, List<UITasteOption> list2) {
+		if (list1.size() != list2.size())
+			return false;
+		ArrayList<String> list1OptionIds = new ArrayList<>();
+		ArrayList<String> list2OptionIds = new ArrayList<>();
+
+		for (UITasteOption item1 : list1) {
+			list1OptionIds.add(item1.getId());
+		}
+		for (UITasteOption item2 : list2) {
+			list2OptionIds.add(item2.getId());
+		}
+
+
+		for (String object : list1OptionIds) {
+			if (!list2OptionIds.contains(object))
+				return false;
+		}
+		return true;
+	}
+
+
+	private boolean equalMarket(CartDish model, CartDish bean) {
+		if (model.getMarketList() != null && bean.getMarketList() != null) {
+			if (model.getMarketList().size() > 0 && bean.getMarketList().size() > 0) {
+				boolean sameMarketName = model.getMarketList().get(0).getMarketName()
+						.equals(bean.getMarketList().get(0).getMarketName());
+				boolean sameMarketType = model.getMarketList().get(0).getMarketType()
+						.equals(bean.getMarketList().get(0).getMarketType());
+				boolean sameReduce;
+				if (model.getMarketList().get(0).getReduceCash() != null) {
+					sameReduce = model.getMarketList().get(0).getReduceCash()
+							.floatValue() == bean.getMarketList().get(0).getReduceCash()
+							.floatValue();
+				} else {
+					sameReduce = model.getMarketList().get(0).getReduceCash()
+							.floatValue() == bean.getMarketList().get(0).getReduceCash()
+							.floatValue();
+				}
+
+				if (sameMarketName && sameMarketType && sameReduce) {
+					return true;
+				}
+			} else if (model.getMarketList().size() == 0 && bean.getMarketList().size() == 0) {
+				return true;
+			} else {
+				return false;
+			}
+		} else if (model.getMarketList() == null && bean.getMarketList() == null) {
+			return true;
+		} else {
+			return false;
+		}
+		return false;
 	}
 }

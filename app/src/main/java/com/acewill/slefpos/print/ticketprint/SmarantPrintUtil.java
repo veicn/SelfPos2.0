@@ -527,11 +527,23 @@ public class SmarantPrintUtil {
 		//		if (order.packingCost != null) {
 		//			sb.append(appendTwoParam("打包盒", PriceUtil.formatPrice(order.packingCost)));
 		//		}
-		//		if (order.discountPrice != null) {
-		//			sb.append(appendTwoParam("优惠", PriceUtil.formatPrice(order.discountPrice)));
-		//		}
-		sb.append(appendTwoParam("实收", String
-				.valueOf(Price.getInstance().getDishTotalWithMix())));
+
+		if (Price.getInstance().getActualCost() != null && PriceUtil
+				.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+						.getActualCost()).floatValue() != 0) {
+			sb.append(appendTwoParam("优惠","-"+ PriceUtil
+					.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+							.getActualCost()).toString()));
+		}
+		if (Price.getInstance().getActualCost() != null && Float
+				.parseFloat(Price.getInstance().getActualCost()) != 0) {
+			sb.append(appendTwoParam("实收", String
+					.valueOf(Price.getInstance().getActualCost())));
+		} else {
+			sb.append(appendTwoParam("实收", String
+					.valueOf(Price.getInstance().getDishTotalWithMix())));
+		}
+
 		return sb.toString();
 	}
 
@@ -615,18 +627,6 @@ public class SmarantPrintUtil {
 		for (int i = 0; i < Order.getInstance().getPaymentList().size(); i++) {
 			Payment payment            = Order.getInstance().getPaymentList().get(i);
 			String  paymentTypeNameStr = payment.getPaymentTypeName();
-			if (payment.getPaymentTypeName().equals("威富通")) {
-				//				switch (OrderDetailActivity.clickPosition) {
-				//					case R.id.orderdetail_pay_method_wechat:
-				//						paymentTypeNameStr = paymentTypeNameStr + " (微信)";
-				//						break;
-				//					case R.id.orderdetail_pay_method_zhifubao:
-				//						paymentTypeNameStr = paymentTypeNameStr + " (支付宝)";
-				//						break;
-				//				}
-
-			}
-
 			sb.append(appendTwoParam(paymentTypeNameStr, PriceUtil
 					.formatPrice(payment.getValue())));
 		}

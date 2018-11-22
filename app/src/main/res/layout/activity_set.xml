@@ -267,7 +267,24 @@
                 <View
                     style="@style/vertical_divide_view"
                     android:visibility="gone"/>
+                <LinearLayout
+                    android:id="@+id/ll_set_inner_print"
+                    style="@style/system_set_linear"
+                    >
 
+                    <TextView
+                        style="@style/system_set_text"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/inner_printer_set"/>
+
+                    <TextView
+                        android:id="@+id/tv_inner_print_id"
+                        style="@style/system_set_text_select"/>
+                </LinearLayout>
+
+                <View
+                    style="@style/vertical_divide_view"/>
 
                 <LinearLayout
                     android:id="@+id/btn_set_print"
@@ -289,8 +306,10 @@
                     style="@style/vertical_divide_view"/>
 
 
+
+
                 <LinearLayout
-                    android:id="@+id/ll_set_inner_print"
+                    android:id="@+id/ll_set_printticket_type"
                     style="@style/system_set_linear"
                     >
 
@@ -298,10 +317,10 @@
                         style="@style/system_set_text"
                         android:layout_width="0dp"
                         android:layout_weight="1"
-                        android:text="@string/inner_printer_set"/>
+                        android:text="@string/printticket_type"/>
 
                     <TextView
-                        android:id="@+id/tv_inner_print_id"
+                        android:id="@+id/tv_printticket_type"
                         style="@style/system_set_text_select"/>
                 </LinearLayout>
 

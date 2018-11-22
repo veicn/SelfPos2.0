@@ -109,6 +109,7 @@ public interface ApiService {
 			@Query("appid") String appid,
 			@Query("brandid") int brandid,
 			@Query("storeid") int storeid,
+			@Query("sourcetype") String sourcetype,
 			@Query("token") String token);
 
 	@POST("api/kichenStalls/getPrinters")
@@ -279,7 +280,7 @@ public interface ApiService {
 			@Query("storeId") int storeId,
 			@Query("token") String token);
 
-
+	@Headers({"Content-Type: application/json", "Accept: application/json"})
 	@POST("/api/orders")
 	Observable<NewOrderRes> pushOrder(
 			@Header("Cache-Control") String cacheControl,
@@ -288,6 +289,21 @@ public interface ApiService {
 			@Query("storeId") int storeId,
 			@Query("order") String order,
 			@Query("token") String token);
+
+
+
+	@Headers({"Content-Type: application/json", "Accept: application/json"})
+	@POST("/api/orders/create")
+	Observable<NewOrderRes> pushOrder2(
+			@Header("Cache-Control") String cacheControl,
+			@Query("appId") String appId,
+			@Query("brandId") int brandId,
+			@Query("storeId") int storeId,
+			@Body RequestBody route);
+
+
+
+
 
 	@POST("/AcewillKDS/newOrder.do")
 	Observable<KDSRes> notiKDS(

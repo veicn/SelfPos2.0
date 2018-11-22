@@ -20,7 +20,8 @@
     <string name="sync_system">同步时</string>
     <string name="smarant_system">智慧快餐</string>
     <string name="canxingjian_system">餐行健</string>
-    <string name="inner_printer_set">小票打印机类型</string>
+    <string name="inner_printer_set">打印机类型</string>
+    <string name="printticket_type">打印机小票类型</string>
 
     <!-- 2017.11.07 多语言 -->
     <string name="system_name">智慧快餐</string>
@@ -205,6 +206,14 @@
         <item>文字滚动</item>
         <item>文字不滚动</item>
     </string-array>
+
+
+    <string-array name="printtickettype">
+        <item>80格式</item>
+        <item>58格式</item>
+    </string-array>
+
+
     <string-array name="validate_member">
         <item>可以</item>
         <item>不可以</item>

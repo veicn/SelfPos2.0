@@ -113,8 +113,15 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// 设置竖屏
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-		// 默认着色状态栏
-		SetStatusBarColor();
+
+//		if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP_MR1) {
+			//去掉Activity上面的状态栏
+			getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+					WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//		} else {
+//			// 默认着色状态栏
+//			SetStatusBarColor();
+//		}
 		//隐藏底下操作按钮
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		getWindow().getDecorView()

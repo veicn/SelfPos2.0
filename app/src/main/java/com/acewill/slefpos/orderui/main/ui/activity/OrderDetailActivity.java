@@ -82,6 +82,7 @@ import com.acewill.slefpos.orderui.main.model.OrderModel;
 import com.acewill.slefpos.orderui.main.presenter.OrderPresenter;
 import com.acewill.slefpos.orderui.main.ui.adapter.OrderDialogAdapter;
 import com.acewill.slefpos.orderui.main.ui.dialog.ComfirmDialog;
+import com.acewill.slefpos.orderui.main.ui.dialog.ComfirmPayDialog;
 import com.acewill.slefpos.orderui.main.ui.dialog.MemberPwdInputDialog;
 import com.acewill.slefpos.orderui.main.ui.dialog.NumberInputDialog;
 import com.acewill.slefpos.orderui.main.ui.dialog.PayDialog;
@@ -265,11 +266,12 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 
 				break;
 			case R.id.orderdetail_pay_method_zhifubao:
-				aliPay();
-
+				//				aliPay();
+				showComfirmPayDialog(PayMethod.ALI);
 				break;
 			case R.id.orderdetail_pay_method_wechat:
-				wechatPay();
+				//				wechatPay();
+				showComfirmPayDialog(PayMethod.WECHAT);
 				break;
 			case R.id.btn_cancel:
 				onPayCancle();
@@ -418,7 +420,16 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			//							.createSyncPayRequest(mContext, edit_input.getText().toString().trim()));
 			payType = PayMethod.ALI;
 			goPay();//点击支付宝
+
 		}
+	}
+
+	/**
+	 * 当会员抵扣金额等于订单金额时,弹出对话框让用户确认
+	 */
+	private void showComfirmPayDialog(int type) {
+		ComfirmPayDialog dialog = ComfirmPayDialog.getInstance(type);
+		dialog.show(getSupportFragmentManager(), "ComfirmPayDialog");
 	}
 
 	/**
@@ -437,6 +448,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 		} else if (SystemConfig.isSyncSystem) {
 			payType = PayMethod.WECHAT;
 			goPay();//点击微信
+
 		}
 	}
 
@@ -495,17 +507,8 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 		sync_use_coupon_value.setText("-￥" + Price.getInstance().getCouponValue());
 		sync_use_coupon_name.setText(memberCoupon.getTitle());
 		if (Float.parseFloat(Price.getInstance().getTotal()) == 0) {
-			if (SystemConfig.isSmarantSystem)
-				connectKDS();//使用代金券的时候，刚好满足金额
-			else if (SystemConfig.isCanXingJianSystem) {
-				startProgressDialog("正在支付...");
-				Log.e(TAG, "餐行健会员优惠券支付-startProgressDialog");
-				//直接下单
-				ToastUitl.showLong(mContext, "餐行健会员优惠券支付");
-				//				mPresenter.writeTouchText(new Gson()
-				//						.toJson(CxjOrderProvider.getInstance().getWriteTouchTextBeanList()));
-				mPresenter.goLogin();
-			}
+			showComfirmDialog(AppConstant.COMFIRM_ORDER_A);
+			Log.e(TAG, "useSyncCoupon-syncMemberPay");
 		}
 	}
 
@@ -516,8 +519,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 		sync_use_coupon_value.setText("-￥" + Price.getInstance().getCouponValue());
 		sync_use_coupon_name.setText(memberCoupon.getCouponName());
 		if (Float.parseFloat(Price.getInstance().getTotal()) == 0) {
-			showComfirmDialog();
-			//			syncMemberPay();//使用代金券的时候，刚好满足金额
+			showComfirmDialog(AppConstant.COMFIRM_ORDER_B);
 			Log.e(TAG, "useSyncCoupon-syncMemberPay");
 		}
 	}
@@ -525,8 +527,8 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 	/**
 	 * 当会员抵扣金额等于订单金额时,弹出对话框让用户确认
 	 */
-	private void showComfirmDialog() {
-		ComfirmDialog dialog = ComfirmDialog.getInstance();
+	private void showComfirmDialog(int type) {
+		ComfirmDialog dialog = ComfirmDialog.getInstance(type);
 		dialog.show(getSupportFragmentManager(), "ComfirmDialog");
 	}
 
@@ -564,7 +566,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				mPresenter.commitWshDeal(Order.getInstance().getBiz_id(), SPUtils
 						.getSharedStringData(mContext, "tempMemberPassword"));
 			} else if (SystemConfig.isSyncSystem) {
-				showComfirmDialog();
+				showComfirmDialog(AppConstant.COMFIRM_ORDER_B);
 			} else if (SystemConfig.isCanXingJianSystem) {
 				//				ToastUitl.showShort(mContext, "餐行健会员支付");
 				LoadingDialog.setLoadingText("正在下单...");
@@ -1062,19 +1064,10 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			}
 			sync_use_point.setText("-￥" + Price.getInstance().getPointValue());
 			total_price.setText("￥" + String.valueOf(Price.getInstance().getTotal()));
+
 			if (Float.parseFloat(Price.getInstance().getTotal()) == 0) {
-				if (SystemConfig.isSmarantSystem)
-					connectKDS();//使用积分的时候，刚好满足金额
-				else if (SystemConfig.isCanXingJianSystem) {
-					startProgressDialog("正在支付...");
-					Log.e(TAG, "餐行健积分支付-startProgressDialog");
-					ToastUitl.showLong(mContext, "餐行健积分支付");
-					//					mPresenter.writeTouchText(new Gson()
-					//							.toJson(CxjOrderProvider.getInstance().getWriteTouchTextBeanList()));
-
-					mPresenter.goLogin();
-				}
-
+				showComfirmDialog(AppConstant.COMFIRM_ORDER_A);
+				Log.e(TAG, "useSyncCoupon-syncMemberPay");
 			}
 		} else {
 			SPUtils.setSharedStringData(mContext, "tempMemberPassword", "");
@@ -1123,16 +1116,8 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			}
 			total_price.setText("￥" + String.valueOf(Price.getInstance().getTotal()));
 			if (Float.parseFloat(Price.getInstance().getTotal()) == 0) {
-				if (SystemConfig.isSmarantSystem)
-					connectKDS();//使用储值的时候，刚好满足金额
-				else if (SystemConfig.isCanXingJianSystem) {
-					startProgressDialog("正在支付...");
-					Log.e(TAG, "餐行健储值支付-startProgressDialog");
-					ToastUitl.showLong(mContext, "餐行健储值支付");
-					//					mPresenter.writeTouchText(new Gson()
-					//							.toJson(CxjOrderProvider.getInstance().getWriteTouchTextBeanList()));
-					mPresenter.goLogin();
-				}
+				showComfirmDialog(AppConstant.COMFIRM_ORDER_A);
+				Log.e(TAG, "useSyncCoupon-syncMemberPay");
 			}
 		} else {
 			SPUtils.setSharedStringData(mContext, "tempMemberPassword", "");
@@ -1156,8 +1141,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			}
 			total_price.setText("￥" + String.valueOf(Price.getInstance().getTotal()));
 			if (Float.parseFloat(Price.getInstance().getTotal()) == 0) {
-				//				syncMemberPay();//使用储值的时候，刚好满足金额
-				showComfirmDialog();
+				showComfirmDialog(AppConstant.COMFIRM_ORDER_B);
 				Log.e(TAG, "useSyncBalance-syncMemberPay");
 			}
 		} else {
@@ -1197,8 +1181,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			sync_use_point.setText("-￥" + actulUsePoint);
 			total_price.setText("￥" + String.valueOf(Price.getInstance().getTotal()));
 			if (Float.parseFloat(Price.getInstance().getTotal()) == 0) {
-				//				syncMemberPay();//使用积分的时候，刚好满足金额
-				showComfirmDialog();
+				showComfirmDialog(AppConstant.COMFIRM_ORDER_B);
 				Log.e(TAG, "useSyncPoint-syncMemberPay");
 			}
 		} else {
@@ -1216,10 +1199,42 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				returnWeChatPayResult(result);
 			}
 		});
-		mRxManager.on(AppConstant.COMFIRM_ORDER, new Action1<Object>() {
+		mRxManager.on(AppConstant.COMFIRM_PAY, new Action1<Integer>() {
 			@Override
-			public void call(Object result) {
-				syncMemberPay();//确认框确认会员支付
+			public void call(Integer o) {
+				switch (o) {
+					case PayMethod.ALI:
+						aliPay();
+						break;
+					case PayMethod.WECHAT:
+						wechatPay();
+				}
+			}
+		});
+		mRxManager.on(AppConstant.COMFIRM_ORDER, new Action1<Integer>() {
+			@Override
+			public void call(Integer result) {
+				switch (result) {
+					case AppConstant.COMFIRM_ORDER_A:
+						if (Float.parseFloat(Price.getInstance().getTotal()) == 0) {
+							if (SystemConfig.isSmarantSystem)
+								connectKDS();//使用代金券的时候，刚好满足金额
+							else if (SystemConfig.isCanXingJianSystem) {
+								startProgressDialog("正在支付...");
+								Log.e(TAG, "餐行健会员优惠券支付-startProgressDialog");
+								//直接下单
+								ToastUitl.showLong(mContext, "餐行健会员优惠券支付");
+								//				mPresenter.writeTouchText(new Gson()
+								//						.toJson(CxjOrderProvider.getInstance().getWriteTouchTextBeanList()));
+								mPresenter.goLogin();
+							}
+						}
+						break;
+					case AppConstant.COMFIRM_ORDER_B:
+						syncMemberPay();//确认框确认会员支付
+						break;
+
+				}
 			}
 		});
 		mRxManager.on(AppConstant.MEITUANYANQUAN, new Action1<String>() {
@@ -1258,13 +1273,25 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 		fra_orderdetail_total_count.setText(String.valueOf(Cart.getInstance().getCartCount()));
 		price_danju.setText("￥" + String.valueOf(Price.getInstance().getDishTotalWithMix()));
 		total_price.setText("￥" + String.valueOf(Price.getInstance().getTotal()));
-		if (Price.getInstance().getTotalDiscountAmount() != 0) {
-			discount_amount_ly.setVisibility(View.VISIBLE);
-			discountAmount.setText("-￥" + PriceUtil
-					.formatPrice(Price.getInstance().getTotalDiscountAmount()));
+		if (SystemConfig.isSyncSystem) {
+			if (Price.getInstance().getTotalDiscountAmount() != 0) {
+				discount_amount_ly.setVisibility(View.VISIBLE);
+				discountAmount.setText("-￥" + PriceUtil
+						.formatPrice(Price.getInstance().getTotalDiscountAmount()));
+			}
+		} else if (SystemConfig.isSmarantSystem) {
+			if (Price.getInstance().getActualCost() != null && PriceUtil
+					.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+							.getActualCost()).floatValue() != 0) {
+				discount_amount_ly.setVisibility(View.VISIBLE);
+				discountAmount.setText("-￥" + PriceUtil
+						.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+								.getActualCost()).toString());
+			}
 		}
+
 		if (Price.getInstance().getTotalWaidai_Cost() != 0) {
-			waidai_cost_ly.setVisibility(View.VISIBLE);
+			waidai_cost_ly.setVisibility(View.GONE);
 			waidai_cost_tv.setText("+￥" + PriceUtil
 					.formatPrice(Price.getInstance().getTotalWaidai_Cost()));
 		}
@@ -1323,6 +1350,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			FileLog.log("手机测试，不去获取打印权限!");
 		} else {
 			PrintManager.init(this);
+			SmarantTicketPrintHandler.getInstance().initdotLint();
 		}
 	}
 
@@ -1872,7 +1900,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			showPaySuccessView(orderRes.getContent().getCallNumber());
 			new Thread(new Runnable() {
 				@Override
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       				public void run() {
+				public void run() {
 					try {
 						SmarantTicketPrintHandler.getInstance()
 								.printSmarantTicket(mContext, orderRes);
@@ -2023,7 +2051,8 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				@Override
 				public void onConfirm(String tableNo) {
 					Order.getInstance().setTableId(tableNo);
-					goPay();//选好桌台，开始支付
+					//					goPay();//选好桌台，开始支付
+					showComfirmDialog(payType);
 				}
 			});
 			dialog.setOnCancleListener(new NumberInputDialog.OnCancleListener() {
@@ -2041,6 +2070,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			dialog.show(getSupportFragmentManager(), "NumberInputDialog");
 		} else {
 			goPay();//不显示桌台，直接支付
+
 		}
 	}
 
@@ -2505,6 +2535,8 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 					} else {
 						stopProgressDialog();
 					}
+
+
 				} else {
 					showAleartDialog("验券异常", "美团团购项目ID设置不正确,请检查!");
 				}

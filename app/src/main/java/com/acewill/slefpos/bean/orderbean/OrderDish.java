@@ -2,6 +2,7 @@ package com.acewill.slefpos.bean.orderbean;
 
 import com.acewill.slefpos.bean.uibean.UIPackageOptionItem;
 import com.acewill.slefpos.bean.uibean.UITasteOption;
+import com.acewill.slefpos.orderui.main.market.MarketObject;
 
 import java.util.List;
 
@@ -23,6 +24,7 @@ public class OrderDish {
 	private String                    memberPrice;
 	private String                    dishUnit;
 	private String                    kindId;
+	private List<MarketObject>        marketList;
 
 	public String getKindId() {
 		return kindId;
@@ -118,5 +120,13 @@ public class OrderDish {
 
 	public void setDishUnit(String dishUnit) {
 		this.dishUnit = dishUnit;
+	}
+
+	public List<MarketObject> getMarketList() {
+		return marketList;
+	}
+
+	public void setMarketList(List<MarketObject> marketList) {
+		this.marketList = marketList;
 	}
 }

@@ -76,8 +76,8 @@ public class Market implements Parcelable, Cloneable {
 	private boolean dateAvailable;
 	private boolean timeAvailable;
 	private boolean weekAvailable;
-	private int     startDate;
-	private int     endDate;
+	private long     startDate;
+	private long     endDate;
 	private String  startTime;
 	private String  endTime;
 	private String  week;
@@ -171,15 +171,15 @@ public class Market implements Parcelable, Cloneable {
 		this.weekAvailable = weekAvailable;
 	}
 
-	public int getStartDate() {
+	public long getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(int startDate) {
+	public void setStartDate(long startDate) {
 		this.startDate = startDate;
 	}
 
-	public int getEndDate() {
+	public long getEndDate() {
 		return endDate;
 	}
 
@@ -411,11 +411,11 @@ public class Market implements Parcelable, Cloneable {
 		this.storeList = storeList;
 	}
 
-	public List<Integer> getGradeList() {
+	public List<Long> getGradeList() {
 		return gradeList;
 	}
 
-	public void setGradeList(List<Integer> gradeList) {
+	public void setGradeList(List<Long> gradeList) {
 		this.gradeList = gradeList;
 	}
 
@@ -440,7 +440,7 @@ public class Market implements Parcelable, Cloneable {
 	private List<Integer> marketDishList;
 	private List<Integer> triggerDishList;
 	private List<Integer> storeList;
-	private List<Integer> gradeList;
+	private List<Long>    gradeList;
 
 	@Override
 	public int describeContents() {
@@ -458,8 +458,8 @@ public class Market implements Parcelable, Cloneable {
 		dest.writeByte(this.dateAvailable ? (byte) 1 : (byte) 0);
 		dest.writeByte(this.timeAvailable ? (byte) 1 : (byte) 0);
 		dest.writeByte(this.weekAvailable ? (byte) 1 : (byte) 0);
-		dest.writeInt(this.startDate);
-		dest.writeInt(this.endDate);
+		dest.writeLong(this.startDate);
+		dest.writeLong(this.endDate);
 		dest.writeString(this.startTime);
 		dest.writeString(this.endTime);
 		dest.writeString(this.week);
@@ -537,7 +537,7 @@ public class Market implements Parcelable, Cloneable {
 		in.readList(this.triggerDishList, Integer.class.getClassLoader());
 		this.storeList = new ArrayList<Integer>();
 		in.readList(this.storeList, Integer.class.getClassLoader());
-		this.gradeList = new ArrayList<Integer>();
+		this.gradeList = new ArrayList<Long>();
 		in.readList(this.gradeList, Integer.class.getClassLoader());
 	}
 

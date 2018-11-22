@@ -1,5 +1,6 @@
 package com.acewill.slefpos.orderui.main.ui.dialog;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import com.acewill.slefpos.app.AppConstant;
 import com.acewill.slefpos.bean.cartbean.Price;
 import com.acewill.slefpos.bean.orderbean.Order;
 import com.acewill.slefpos.bean.syncbean.syncorder.SyncAcceptReq;
+import com.acewill.slefpos.configure.SystemConfig;
 import com.acewill.slefpos.dialog.BaseDialog;
 import com.acewill.slefpos.utils.priceutils.PriceUtil;
 import com.aspsine.irecyclerview.IRecyclerView;
@@ -31,8 +33,11 @@ public class ComfirmDialog extends BaseDialog implements OnLoadMoreListener, OnR
 	private IRecyclerView                                               irc;
 	private CommonRecycleViewAdapter<SyncAcceptReq.DataBean.PromosBean> mAdapter;
 
-	public static ComfirmDialog getInstance() {
+	public static ComfirmDialog getInstance(int type) {
 		ComfirmDialog dialog = new ComfirmDialog();
+		Bundle        bundle = new Bundle();
+		bundle.putInt("type", type);
+		dialog.setArguments(bundle);
 		return dialog;
 	}
 
@@ -44,6 +49,7 @@ public class ComfirmDialog extends BaseDialog implements OnLoadMoreListener, OnR
 		if (isInit) {
 			return view;
 		}
+		final int type = getArguments().getInt("type");
 		view = View.inflate(mcontext, R.layout.dialog_comfirm, null);
 		irc = (IRecyclerView) view.findViewById(R.id.irc);
 		TextView total_price = (TextView) view.findViewById(R.id.total_price);
@@ -58,7 +64,7 @@ public class ComfirmDialog extends BaseDialog implements OnLoadMoreListener, OnR
 			@Override
 			public void onClick(View v) {
 				dismiss();
-				mRxManager.post(AppConstant.COMFIRM_ORDER, 1);
+				mRxManager.post(AppConstant.COMFIRM_ORDER, type);
 			}
 		});
 		view.findViewById(R.id.iv_cancer).setOnClickListener(new View.OnClickListener() {
@@ -86,12 +92,63 @@ public class ComfirmDialog extends BaseDialog implements OnLoadMoreListener, OnR
 		irc.setRefreshEnabled(false);
 		irc.setLoadMoreEnabled(false);
 		//		adapter.initAnimation(irc);//初始化刚进入界面时候的动画
-		mAdapter.addAll(getData());
+		List<SyncAcceptReq.DataBean.PromosBean> data = null;
+		if (SystemConfig.isSyncSystem) {
+			data = getSyncData();
+		} else {
+			data = getSmarantData();
+		}
+		mAdapter.addAll(data);
 		isInit = true;
 		return view;
 	}
 
-	private List<SyncAcceptReq.DataBean.PromosBean> getData() {
+	private List<SyncAcceptReq.DataBean.PromosBean> getSmarantData() {
+
+		ArrayList<SyncAcceptReq.DataBean.PromosBean> actualList = new ArrayList<>();
+
+		if (PriceUtil
+				.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+						.getActualCost()).floatValue() > 0) {
+			SyncAcceptReq.DataBean.PromosBean bean = new SyncAcceptReq.DataBean.PromosBean();
+			bean.setPromoName("折扣优惠");
+			bean.setPromoAmount(PriceUtil
+					.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+							.getActualCost()).toString());
+			actualList.add(bean);
+		}
+
+		if (Price.getInstance().getPointValue() > 0) {
+			SyncAcceptReq.DataBean.PromosBean bean = new SyncAcceptReq.DataBean.PromosBean();
+			bean.setPromoName("积分抵扣");
+			bean.setPromoAmount(PriceUtil.formatPrice(String
+					.valueOf(Price.getInstance().getPointValue())));
+			actualList.add(bean);
+		}
+		if (Price.getInstance().getCouponValue() > 0) {
+			SyncAcceptReq.DataBean.PromosBean bean = new SyncAcceptReq.DataBean.PromosBean();
+			bean.setPromoName("代金券抵扣");
+			bean.setPromoAmount(PriceUtil
+					.formatPrice(String.valueOf(Price.getInstance().getCouponValue())));
+			actualList.add(bean);
+		}
+		if (Price.getInstance().getBalance() > 0) {
+			SyncAcceptReq.DataBean.PromosBean bean = new SyncAcceptReq.DataBean.PromosBean();
+			bean.setPromoName("会员储值");
+			bean.setPromoAmount(PriceUtil
+					.formatPrice(String.valueOf(Price.getInstance().getBalance())));
+			actualList.add(bean);
+		}
+
+		//		SyncAcceptReq.DataBean.PromosBean bean = new SyncAcceptReq.DataBean.PromosBean();
+		//		bean.setPromoName("订单金额");
+		//		bean.setPromoAmount(String.valueOf(Price.getInstance().getDishTotalWithMix()));
+		//		actualList.add(bean);
+
+		return actualList;
+	}
+
+	private List<SyncAcceptReq.DataBean.PromosBean> getSyncData() {
 		List<SyncAcceptReq.DataBean.PromosBean> list = new ArrayList<>();
 		for (SyncAcceptReq.DataBean.PromosBean bean : Order.getInstance().getSyncPromosList()) {
 			if (bean.getPromoName().equals("会员价")) {

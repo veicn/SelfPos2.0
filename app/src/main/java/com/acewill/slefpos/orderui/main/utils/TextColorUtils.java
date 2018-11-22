@@ -15,8 +15,28 @@ import android.widget.TextView;
 public class TextColorUtils {
 	public static void setLeftTextColorAndSize(String leftText, String rightText, TextView textView) {
 		SpannableStringBuilder style = new SpannableStringBuilder(leftText + rightText);
-		style.setSpan(new RelativeSizeSpan(1.5f), 0, leftText.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-		style.setSpan(new ForegroundColorSpan(Color.RED), 0,leftText
+		style.setSpan(new RelativeSizeSpan(1.5f), 0, leftText
+				.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+		style.setSpan(new ForegroundColorSpan(Color.RED), 0, leftText
+				.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+		textView.setText(style);
+	}
+
+
+	public static void setDishPrice(String leftText, String rightText, TextView textView) {
+		SpannableStringBuilder style = new SpannableStringBuilder(leftText + rightText);
+		style.setSpan(new RelativeSizeSpan(1.5f), 1, leftText
+				.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+		style.setSpan(new ForegroundColorSpan(Color.RED), 0, leftText
+				.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+		textView.setText(style);
+	}
+
+	public static void setMemberPrice(String leftText, String rightText, TextView textView) {
+		SpannableStringBuilder style = new SpannableStringBuilder(leftText + rightText);
+		style.setSpan(new RelativeSizeSpan(1.5f), 1, leftText
+				.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+		style.setSpan(new ForegroundColorSpan(Color.RED), 0, leftText
 				.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
 		textView.setText(style);
 	}

@@ -284,7 +284,7 @@ public class Order {
 		//原总价
 		orderReq.setTotal(String.valueOf(Price.getInstance().getDishTotalWithMix()));
 		//这是计算优惠方案之后实际支付的价格
-		orderReq.setCost(String.valueOf(Price.getInstance().getDishTotalWithMix()));
+		orderReq.setCost(Price.getInstance().getActualCost());
 		orderReq.setBusinessId(Order.getInstance().getBiz_id());
 		orderReq.setComment("");
 		orderReq.setCustomerAmount("0");
@@ -850,19 +850,28 @@ public class Order {
 	 */
 	public List<OrderDish> getOrderList() {
 		List<OrderDish> cartDishes = new ArrayList<>();
-		for (CartDish cartDish : Cart.getInstance().getCartDishes()) {
+
+		List<CartDish> orderDishs = null;//智慧快餐的dish可能要合并得到
+		if (Cart.getInstance().getDepartItemList() != null) {
+			orderDishs = Cart.getInstance().combineDishList();
+		} else {
+			orderDishs = Cart.getInstance().getCartDishes();
+		}
+		for (CartDish cartDish : orderDishs) {
 			OrderDish orderDish = new OrderDish();
 			orderDish.setDishName(cartDish.getDishName());
 			orderDish.setDishID(cartDish.getDishID());
 			orderDish.setKindId(cartDish.getDishKind());
 			orderDish.setDishKindStr(cartDish.getDishKindStr());
 			orderDish.setQuantity(cartDish.getQuantity());
-			orderDish.setPrice(cartDish.getPrice());
+			orderDish.setPrice(Order.getInstance().isMember() ? cartDish.getMemberPrice() : cartDish
+					.getPrice());
 			orderDish.setCost(cartDish.getCost());//这里应该是实收
 			orderDish.setOptionList(cartDish.getOptionList());
 			orderDish.setSubItemList(cartDish.getSubItemList());
 			orderDish.setMemberPrice(cartDish.getMemberPrice());
 			orderDish.setDishUnit(cartDish.getDishUnit());
+			orderDish.setMarketList(cartDish.getMarketList());
 			cartDishes.add(orderDish);
 		}
 		return cartDishes;
@@ -1104,7 +1113,8 @@ public class Order {
 		bean.setAccountNo(accountNo);
 		bean.setOutTradeNo(outTradeNo);
 		bean.setBizNo(bizNo);
-		bean.setShopDiscountAmount(PriceUtil.divide(new BigDecimal(shopDiscountAmount), new BigDecimal("100"))
+		bean.setShopDiscountAmount(PriceUtil
+				.divide(new BigDecimal(shopDiscountAmount), new BigDecimal("100"))
 				.floatValue());
 		Order.getInstance().getSyncPaymentList().add(bean);
 	}

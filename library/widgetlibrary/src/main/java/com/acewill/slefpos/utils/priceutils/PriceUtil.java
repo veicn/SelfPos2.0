@@ -82,4 +82,7 @@ public class PriceUtil {
 				.subtract(new BigDecimal(10), new BigDecimal(rate)), new BigDecimal(10));
 	}
 
+	public static int compare(String cost1, String cost2) {
+		return subtract(multiply(cost1, 100), multiply(cost2, 100)).intValue();
+	}
 }

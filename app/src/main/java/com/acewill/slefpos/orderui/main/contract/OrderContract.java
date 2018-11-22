@@ -70,6 +70,9 @@ public interface OrderContract {
 
 		public abstract Observable<NewOrderRes> pushOrder(NewOrderReq req);
 
+		public abstract Observable<NewOrderRes> pushOrderToJYJ(NewOrderReq req);
+
+
 		public abstract Observable<KDSRes> connectKds();
 
 		public abstract Observable<KDSRes> notityKDS(KdsOrderBean req);
@@ -127,6 +130,8 @@ public interface OrderContract {
 		public abstract Observable<ResponseBody> closeNewOrder(long orderidentity);
 
 		public abstract  Observable<ResponseBody> cxjPrecheck(String jsondata);
+
+
 	}
 
 	interface View extends BaseView {

@@ -14,6 +14,7 @@ import com.acewill.slefpos.orderui.main.ui.fragment.MainFragment;
 import com.acewill.slefpos.print.Global;
 import com.acewill.slefpos.print.PrintManager;
 import com.acewill.slefpos.print.WorkService;
+import com.acewill.slefpos.print.ticketprint.SmarantTicketPrintHandler;
 import com.jaydenxiao.common.commonutils.SPUtils;
 import com.jaydenxiao.common.utils.logutil.FileLog;
 
@@ -52,6 +53,7 @@ public class MainActivity extends BaseActivity {
 		startService(new Intent(this, WorkService.class));
 		mhandler = new MHandler();
 		PrintManager.init(mContext);
+		SmarantTicketPrintHandler.getInstance().initdotLint();
 	}
 
 	class MHandler

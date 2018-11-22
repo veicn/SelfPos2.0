@@ -114,7 +114,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/y10"
                 android:text="￥123.00"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/role_yellow_gray"
                 android:textSize="@dimen/x28"/>
 
             <LinearLayout
