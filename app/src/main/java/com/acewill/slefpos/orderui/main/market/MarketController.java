@@ -429,6 +429,7 @@ public class MarketController {
 					int drawable = getMarketDrawable(market);
 					bean.setMarketImg(drawable);
 					marketBeenList.add(bean);
+					
 				}
 			}
 		}
