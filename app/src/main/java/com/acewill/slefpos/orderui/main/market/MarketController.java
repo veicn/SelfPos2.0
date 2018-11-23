@@ -441,8 +441,9 @@ public class MarketController {
 		int markettype = market.getMarketType();
 		int drawable   = 0;
 		switch (markettype) {
-			
+
 			case 0:
+				
 				drawable = R.mipmap.icon_zhekou;
 				break;
 			case 1:
