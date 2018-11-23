@@ -266,12 +266,21 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 
 				break;
 			case R.id.orderdetail_pay_method_zhifubao:
-				//				aliPay();
-				showComfirmPayDialog(PayMethod.ALI);
+				if (SPUtils.getSharedIntData(mContext, "payType") == 0) {
+					showComfirmPayDialog(PayMethod.ALI);
+				} else {
+					//扫码支付，弹出二维码
+					aliPay();
+				}
+
 				break;
 			case R.id.orderdetail_pay_method_wechat:
-				//				wechatPay();
-				showComfirmPayDialog(PayMethod.WECHAT);
+				if (SPUtils.getSharedIntData(mContext, "payType") == 0) {
+					showComfirmPayDialog(PayMethod.WECHAT);
+				} else {
+					//扫码支付，弹出二维码
+					wechatPay();
+				}
 				break;
 			case R.id.btn_cancel:
 				onPayCancle();
@@ -2051,8 +2060,8 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				@Override
 				public void onConfirm(String tableNo) {
 					Order.getInstance().setTableId(tableNo);
-					//					goPay();//选好桌台，开始支付
-					showComfirmDialog(payType);
+					goPay();//选好桌台，开始支付
+					//					showComfirmDialog(payType);
 				}
 			});
 			dialog.setOnCancleListener(new NumberInputDialog.OnCancleListener() {
@@ -2466,8 +2475,10 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				mPresenter.getNewOrderId();//会员支付成功后下单
 			} else if (res.getResult() == 3056) {
 				stopProgressDialog();
-				SPUtils.setSharedStringData(mContext, "tempMemberPassword", "");
 				ToastUitl.showLong(mContext, res.getErrmsg());
+				//				useWshBalance(false);
+				sync_balance_swift.setChecked(false);
+				sync_point_swift.setChecked(false);
 			} else {
 				stopProgressDialog();
 				ToastUitl.showLong(mContext, res.getErrmsg());

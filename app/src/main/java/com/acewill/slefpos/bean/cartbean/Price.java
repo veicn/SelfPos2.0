@@ -273,72 +273,7 @@ public class Price {
 						//特价
 						if (cartDish.getDishID().equals(itemBean.getSkuOuid()) && itemBean
 								.getDiscountType().equals("V")) {
-							//							if (!TextUtils.isEmpty(SyncDataProvider
-							//									.getSyncCompanySetByConfigKey("MIX.SINGLE.DISCOUNT")) && SyncDataProvider
-							//									.getSyncCompanySetByConfigKey("MIX.SINGLE.DISCOUNT")
-							//									.equals("Y")) {
-							//								//这个控制商品优惠是否加料也一起优惠？是getCost  还是getPrice
-							//								if (Float.parseFloat(cartDish.getCost()) - itemBean
-							//										.getDiscountValue() >= 0) {
-							//									//正常情况，菜品的价格比特价的要高
-							//
-							//									/**
-							//									 * 以下计算表示的是总价减去商品原价和特价的差价
-							//									 * （差价就是优惠的价格，如果有多份，就要乘以数量）
-							//									 */
-							//									totalPrice = PriceUtil
-							//											.subtract(totalPrice, PriceUtil
-							//													.multiply(new BigDecimal(Float
-							//															.parseFloat(cartDish
-							//																	.getCost()) - itemBean
-							//															.getDiscountValue()), cartDish
-							//															.getQuantity()));
-							//
-							//									//记录商品的优惠金额
-							//									cartDish.setDiscountAmount(Float
-							//											.parseFloat(cartDish
-							//													.getCost()) - itemBean
-							//											.getDiscountValue());
-							//
-							//									Discount.getInstance().getDiscountAmountList()
-							//											.add(new DiscountAmount("会员价", PriceUtil
-							//													.multiply(new BigDecimal(cartDish
-							//															.getDiscountAmount()), cartDish
-							//															.getQuantity()).floatValue(), itemBean
-							//													.getDiscountType(), itemBean
-							//													.getDiscountValue(), cartDish));
-							//
-							//								} else {
-							//									//异常情况，菜品的价格比特价的要低
-							//									/**
-							//									 * 以下计算表示的是，如果商品的特价比原价的高，那么
-							//									 * 总价就要把差额加上去，差价就不是优惠金额了，而是
-							//									 * 补充金额
-							//									 */
-							//									totalPrice = PriceUtil
-							//											.add(totalPrice, PriceUtil
-							//													.multiply(new BigDecimal(itemBean
-							//															.getDiscountValue() - Float
-							//															.parseFloat(cartDish
-							//																	.getCost())), cartDish
-							//															.getQuantity()));
-							//									//记录商品的优惠金额
-							//									cartDish.setDiscountAmount(Float
-							//											.parseFloat(cartDish
-							//													.getCost()) - itemBean
-							//											.getDiscountValue());
-							//
-							//									Discount.getInstance().getDiscountAmountList()
-							//											.add(new DiscountAmount("会员价", PriceUtil
-							//													.multiply(new BigDecimal(cartDish
-							//															.getDiscountAmount()), cartDish
-							//															.getQuantity()).floatValue(), itemBean
-							//													.getDiscountType(), itemBean
-							//													.getDiscountValue(), cartDish));
-							//
-							//
-							//								}
-							//							} else {
+
 							if (Float.parseFloat(cartDish.getPrice()) - itemBean
 									.getDiscountValue() >= 0) {
 								//正常情况，菜品的价格比特价的要高
@@ -360,8 +295,7 @@ public class Price {
 										.add(new DiscountAmount("会员价", PriceUtil
 												.multiply(new BigDecimal(cartDish
 														.getDiscountAmount()), cartDish
-														.getQuantity()).floatValue(), itemBean
-												.getDiscountType(), itemBean
+														.getQuantity()).floatValue(), "R", itemBean
 												.getDiscountValue(), cartDish));
 							} else {
 								//异常情况，菜品的价格比特价的要低
@@ -382,8 +316,7 @@ public class Price {
 										.add(new DiscountAmount("会员价", PriceUtil
 												.multiply(new BigDecimal(cartDish
 														.getDiscountAmount()), cartDish
-														.getQuantity()).floatValue(), itemBean
-												.getDiscountType(), itemBean
+														.getQuantity()).floatValue(), "R", itemBean
 												.getDiscountValue(), cartDish));
 							}
 							//							}

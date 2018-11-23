@@ -852,12 +852,13 @@ public class Order {
 		List<OrderDish> cartDishes = new ArrayList<>();
 
 		List<CartDish> orderDishs = null;//智慧快餐的dish可能要合并得到
-		if (Cart.getInstance().getDepartItemList() != null) {
-			orderDishs = Cart.getInstance().combineDishList();
+		if (Cart.getInstance().getMarketDishList() != null) {
+			orderDishs = Cart.getInstance().getMarketDishList();
 		} else {
 			orderDishs = Cart.getInstance().getCartDishes();
 		}
-		for (CartDish cartDish : orderDishs) {
+
+		for (CartDish cartDish :  orderDishs) {
 			OrderDish orderDish = new OrderDish();
 			orderDish.setDishName(cartDish.getDishName());
 			orderDish.setDishID(cartDish.getDishID());

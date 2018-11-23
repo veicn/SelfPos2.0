@@ -43,13 +43,13 @@ public class Cart {
 		return mCart;
 	}
 
-	public List<CartDish> getDepartItemList() {
-		return mDepartItemList;
-	}
-
-	public void setDepartItemList(List<CartDish> departItemList) {
-		mDepartItemList = departItemList;
-	}
+	//	public List<CartDish> getDepartItemList() {
+	//		return mDepartItemList;
+	//	}
+	//
+	//	public void setDepartItemList(List<CartDish> departItemList) {
+	//		mDepartItemList = departItemList;
+	//	}
 
 	/**
 	 * 获取购物车商品包含mix价格
@@ -350,7 +350,7 @@ public class Cart {
 		return cartDish;
 	}
 
-	private List<CartDish> mDepartItemList;
+	//	private List<CartDish> mDepartItemList;
 
 	/**
 	 * 获取购物车商品的列表
@@ -358,11 +358,14 @@ public class Cart {
 	 * @return
 	 */
 	public List<CartDish> getCartDishes() {
+
 		if (mCartDishList == null) {
 			mCartDishList = new ArrayList<>();
 		}
 		return mCartDishList;
+
 	}
+
 
 	/**
 	 * 清除购物车
@@ -576,7 +579,13 @@ public class Cart {
 	}
 
 	public CartDish getCartDishById(String s) {
-		for (CartDish cartDish : Cart.getInstance().getCartDishes()) {
+		List<CartDish> orderDishs = null;//智慧快餐的dish可能要合并得到
+		if (Cart.getInstance().getMarketDishList() != null) {
+			orderDishs = Cart.getInstance().getMarketDishList();
+		} else {
+			orderDishs = Cart.getInstance().getCartDishes();
+		}
+		for (CartDish cartDish : orderDishs) {
 			if (cartDish.getDishID().equals(s)) {
 				return cartDish;
 			}
@@ -618,14 +627,14 @@ public class Cart {
 	/**
 	 * 执行营销方案的时候需要把菜品拆分，现在把菜品再次合并
 	 */
-	public List<CartDish> combineDishList() {
+	public List<CartDish> combineDishList(List<CartDish> departItemList) {
 
 		//合并菜品列表、
-		List<CartDish> departItemList = Cart.getInstance().getDepartItemList();
-		if (departItemList == null || departItemList.size() == 0) {
-			//			Cart.getInstance().saveOderItemList(Cart.getInstance().getAllItems());
-			return null;
-		}
+		//		List<CartDish> departItemList = Cart.getInstance().getDepartItemList();
+		//		if (departItemList == null || departItemList.size() == 0) {
+		//			//			Cart.getInstance().saveOderItemList(Cart.getInstance().getAllItems());
+		//			return null;
+		//		}
 		List<CartDish> dishList = new ArrayList<>();
 		for (CartDish model : departItemList) {
 			//				model.cost = model.price;
@@ -674,8 +683,9 @@ public class Cart {
 								.getReduceCash(), new BigDecimal(abc.getQuantity())));
 			}
 		}
+
+		setMarketDishList(dishList);
 		return dishList;
-		//		Cart.getInstance().saveOderItemList(dishList);
 	}
 
 	private boolean equalList(List list1, List list2) {
@@ -780,5 +790,15 @@ public class Cart {
 			return false;
 		}
 		return false;
+	}
+
+	public List<CartDish> getMarketDishList() {
+		return marketDishList;
+	}
+
+	private List<CartDish> marketDishList;
+
+	public void setMarketDishList(List<CartDish> marketDishList) {
+		this.marketDishList = marketDishList;
 	}
 }

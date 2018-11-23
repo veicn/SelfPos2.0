@@ -63,6 +63,7 @@ public class UIDish implements Serializable, Parcelable {
 	 * showPackageItemsFlag : false
 	 */
 
+	private float                 temp_price;
 	private String                 dishID;
 	private String                 skuId;//同步时平台独有的字段，在下单的接口用到
 	private String                 dishName;
@@ -368,7 +369,6 @@ public class UIDish implements Serializable, Parcelable {
 	}
 
 
-
 	public String getEnglishName() {
 		return englishName;
 	}
@@ -582,5 +582,13 @@ public class UIDish implements Serializable, Parcelable {
 
 	public void setDealId(Integer dealId) {
 		this.dealId = dealId;
+	}
+
+	public float getTemp_price() {
+		return temp_price;
+	}
+
+	public void setTemp_price(float temp_price) {
+		this.temp_price = temp_price;
 	}
 }

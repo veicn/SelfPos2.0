@@ -22,8 +22,8 @@ package com.acewill.slefpos.emuee;
 public class HostType {
 
 
-	public static final boolean IS_SMARANT_DEBUG = true;
-	public static final boolean IS_SYNC_DEBUG    = true;
+	public static final boolean IS_SMARANT_DEBUG = false;
+	public static final boolean IS_SYNC_DEBUG    = false;
 	/**
 	 * 多少种Host类型
 	 */

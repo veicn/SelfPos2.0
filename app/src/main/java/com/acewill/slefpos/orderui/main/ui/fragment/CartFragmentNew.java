@@ -116,6 +116,16 @@ public class CartFragmentNew extends BaseFragment {
 
 	private List<GroupEntity> initData() {
 		datas.clear();
+		if (Cart.getInstance().getMarketDishList() != null) {
+			for (CartDish cartDish : Cart.getInstance().getMarketDishList()) {
+				for (CartDish cartDish2 : Cart.getInstance().getCartDishes()) {
+					if (cartDish.getDishID().equals(cartDish2.getDishID())) {
+						cartDish2.setTemp_price(cartDish.getDiscountAmount());
+					}
+				}
+			}
+		}
+
 		for (CartDish cartDish : Cart.getInstance().getCartDishes()) {
 			boolean isAdd = false;
 			for (GroupEntity entity : datas) {

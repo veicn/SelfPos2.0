@@ -316,7 +316,8 @@ public class MarketController {
 			//两个金额相加等于原总价
 		}
 
-		Cart.getInstance().setDepartItemList(departItemList);
+		//		Cart.getInstance().setDepartItemList(departItemList);
+		Cart.getInstance().combineDishList(departItemList);
 		return totalPriceArray;
 	}
 

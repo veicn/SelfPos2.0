@@ -274,7 +274,10 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 						.getSelfposConfigurationdata().getContent().isCheckMember()) {
 					startMain(false);
 				} else if (SmarantDataProvider
-						.getSelfposConfigurationdata().getContent().isCheckMember())
+						.getSelfposConfigurationdata() != null && SmarantDataProvider
+						.getSelfposConfigurationdata().getContent() != null &&
+						SmarantDataProvider.getSelfposConfigurationdata().getContent()
+								.isCheckMember())
 					showMemberLoginDialog();
 				else
 					startMain(false);
@@ -297,7 +300,8 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 		} else {
 			fra_main_tel_iv.setImageDrawable(getResources().getDrawable(R.mipmap.bottom_ad));
 		}
-		tv_version.setText(TerminalConfigure.getTerminalmac() +" "+ DownLoadAPPUtils.getInstance(this)
+		tv_version.setText(TerminalConfigure.getTerminalmac() + " " + DownLoadAPPUtils
+				.getInstance(this)
 				.getAPPVersionCode2());
 		initListener();
 	}

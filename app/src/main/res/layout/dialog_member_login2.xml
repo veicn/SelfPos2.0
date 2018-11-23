@@ -142,13 +142,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="right"
+                    android:background="@color/main_color_white"
                     android:layout_weight="1"
-                    android:background="@drawable/selector_green"
                     android:gravity="center"
                     android:paddingLeft="@dimen/x40"
                     android:paddingRight="@dimen/x40"
                     android:text="我不是会员，跳过登录"
-                    android:textColor="@color/main_color_white"
+                    android:textColor="@color/color_999999"
                     android:textSize="@dimen/x38"/>
 
 
@@ -175,12 +175,12 @@
                     android:layout_height="0dp"
                     android:layout_gravity="right"
                     android:layout_weight="1"
-                    android:background="@drawable/selector_green"
                     android:gravity="center"
                     android:paddingLeft="@dimen/x40"
                     android:paddingRight="@dimen/x40"
+                    android:background="@color/main_color_white"
                     android:text="我不是会员，跳过登录"
-                    android:textColor="@color/main_color_white"
+                    android:textColor="@color/color_999999"
                     android:textSize="@dimen/x38"
                     android:visibility="gone"/>
             </LinearLayout>

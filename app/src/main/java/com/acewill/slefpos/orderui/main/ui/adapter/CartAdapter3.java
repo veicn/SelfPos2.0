@@ -163,6 +163,12 @@ public class CartAdapter3 extends GroupedRecyclerViewAdapter {
 							.getQuantity()) + ")");
 		else
 			dishDiscountAmount.setText("");
+//		if (cartDish.getTemp_price() != 0)
+//			dishDiscountAmount.setText("(优惠 -￥" + PriceUtil
+//					.multiply(String.valueOf(cartDish.getTemp_price()), cartDish
+//							.getQuantity()) + ")");
+//		else
+//			dishDiscountAmount.setText("");
 		dishQuantity.setText("x" + cartDish.getQuantity() + "");
 
 
