@@ -6,6 +6,7 @@
     <!--这里是类映射-->
     <list>
         <mapping class="com.acewill.slefpos.bean.syncbean.syncnumber.SyncOrderNumber"/>
+        <mapping class="com.acewill.slefpos.bean.syncbean.syncnumber.SyncOrderNumber"/>
     </list>
 </litepal>
 

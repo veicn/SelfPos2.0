@@ -167,6 +167,8 @@ public class Cart {
 	 */
 	public boolean equal(CartDish dish) {
 		boolean same = false;
+
+		//a                   b  c
 		for (CartDish cartDish2 : Cart.getInstance().getCartDishes()) {
 			if (!cartDish2.getDishID().equals(dish.getDishID())) {
 				continue;

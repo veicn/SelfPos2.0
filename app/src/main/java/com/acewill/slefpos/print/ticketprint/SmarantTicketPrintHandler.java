@@ -85,7 +85,9 @@ public class SmarantTicketPrintHandler {
 	 */
 	public void printSmarantTicket(Context context, NewOrderRes orderRes) {
 		//		FileLog.log(Common.Log, PrintManager.class, "printSmarantTicket", "print", "start-print");
-
+		orderRes.setBiz_id(Order.getInstance().getBiz_id());
+		orderRes.setCreate_time(format.format(new Date()));
+		SmarantPrintUtil.setPrintList(orderRes);
 
 		//店名
 		if (TextUtils.isEmpty(StoreConfigure.getJyjAddress())) {

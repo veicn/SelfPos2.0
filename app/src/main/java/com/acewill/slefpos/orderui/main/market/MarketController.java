@@ -443,7 +443,7 @@ public class MarketController {
 		switch (markettype) {
 
 			case 0:
-				
+
 				drawable = R.mipmap.icon_zhekou;
 				break;
 			case 1:

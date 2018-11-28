@@ -42,6 +42,7 @@ import com.acewill.slefpos.orderui.main.contract.MemberContract;
 import com.acewill.slefpos.orderui.main.model.MemberModel;
 import com.acewill.slefpos.orderui.main.presenter.MemberPresenter;
 import com.acewill.slefpos.orderui.main.ui.dialog.MemberLoginDialog2;
+import com.acewill.slefpos.orderui.main.ui.dialog.PrintOrderListDialog;
 import com.acewill.slefpos.orderui.main.ui.dialog.UserListDialog;
 import com.acewill.slefpos.orderui.main.uidataprovider.SmarantDataProvider;
 import com.acewill.slefpos.orderui.main.uidataprovider.SyncDataProvider;
@@ -318,6 +319,14 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 			@Override
 			public void call(Object memberid) {
 				startMain(false);
+			}
+		});
+
+		fra_main_tel_iv.setOnLongClickListener(new View.OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				showPrintOderListDialog();
+				return false;
 			}
 		});
 	}
@@ -639,5 +648,17 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 						SPUtils.setSharedStringData(mContext, "lastUploadTime", today);
 					}
 				});
+	}
+
+
+
+
+
+	/**
+	 * 补打小票
+	 */
+	private void showPrintOderListDialog() {
+		PrintOrderListDialog dialog = PrintOrderListDialog.newInstance();
+		dialog.show(getSupportFragmentManager(),"PrintOrderListDialog");
 	}
 }

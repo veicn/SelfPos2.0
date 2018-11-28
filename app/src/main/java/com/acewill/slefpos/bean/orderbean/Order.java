@@ -858,7 +858,7 @@ public class Order {
 			orderDishs = Cart.getInstance().getCartDishes();
 		}
 
-		for (CartDish cartDish :  orderDishs) {
+		for (CartDish cartDish : orderDishs) {
 			OrderDish orderDish = new OrderDish();
 			orderDish.setDishName(cartDish.getDishName());
 			orderDish.setDishID(cartDish.getDishID());
@@ -888,6 +888,8 @@ public class Order {
 		content.setId(orderNo);
 		content.setCallNumber(orderNo);
 		res1.setContent(content);
+		res1.setBiz_id(Order.getInstance().getBiz_id());
+		res1.setCreate_time(format2.format(new Date()));
 		return res1;
 	}
 	//	/**

@@ -84,6 +84,7 @@
     <string name="pay_tip2">② 将付款码对准扫码区</string>
     <string name="pay_tip3">③ 取走小票，完成支付</string>
     <string name="cancle">取消</string>
+    <string name="printticket">补打小票</string>
     <string name="preference_tv">优惠</string>
     <string name="eat_method">就餐方式</string>
     <string name="ali_pay">支付宝支付</string>

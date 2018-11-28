@@ -97,6 +97,7 @@ import com.acewill.slefpos.orderui.main.uihelper.Refund;
 import com.acewill.slefpos.print.Common;
 import com.acewill.slefpos.print.PrintManager;
 import com.acewill.slefpos.print.chikenprintlibrary.PosKitchenPrintAdapter;
+import com.acewill.slefpos.print.ticketprint.SmarantPrintUtil;
 import com.acewill.slefpos.print.ticketprint.SmarantTicketPrintHandler;
 import com.acewill.slefpos.utils.httputils.GsonUtils;
 import com.acewill.slefpos.utils.priceutils.PriceUtil;
@@ -2105,6 +2106,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 						try {
 							SmarantTicketPrintHandler.getInstance()
 									.printSmarantTicket(mContext, orderRes);
+							SmarantPrintUtil.setPrintList(orderRes);
 							PosKitchenPrintAdapter
 									.printChikenTicket(mContext, orderRes.getContent()
 											.getId(), orderRes
@@ -2676,19 +2678,22 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 					//成功了
 					//			SharedPreferencesUtil.setWid(mContext, 0);
 					//			SharedPreferencesUtil.saveTempMemberPassword(mContext, "");
-
+					CxjCheckOutRes bean  = GsonUtils.getSingleBean(json, CxjCheckOutRes.class);
+					final String   order = bean.getOrder();//取餐号
 					stopProgressDialog();
-					showPaySuccessView(String
-							.valueOf(CxjOrderProvider.getInstance().getOid()));//智慧快餐下单成功
+					showPaySuccessView(order);//下单成功
+
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
 							try {
+								NewOrderRes printOrder = Order.getInstance()
+										.getPrintOrder(order);
+								SmarantPrintUtil.setPrintList(printOrder);
 								SmarantTicketPrintHandler.getInstance()
-										.printCXJTicket(mContext, Order.getInstance()
-												.getPrintOrder(String
-														.valueOf(CxjOrderProvider.getInstance()
-																.getOid())));
+										.printCXJTicket(mContext, printOrder);
+
+
 							} catch (Exception e) {
 								FileUtil.saveCrashInfo2File(e);
 							}

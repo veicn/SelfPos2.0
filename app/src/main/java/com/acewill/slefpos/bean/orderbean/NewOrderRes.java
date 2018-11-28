@@ -11,6 +11,8 @@ public class NewOrderRes {
 	private int     result;
 	private String  errmsg;
 	private Content content;
+	private String create_time;
+	private String biz_id;
 
 	public int getResult() {
 		return result;
@@ -34,6 +36,22 @@ public class NewOrderRes {
 
 	public void setContent(Content content) {
 		this.content = content;
+	}
+
+	public String getCreate_time() {
+		return create_time;
+	}
+
+	public void setCreate_time(String create_time) {
+		this.create_time = create_time;
+	}
+
+	public String getBiz_id() {
+		return biz_id;
+	}
+
+	public void setBiz_id(String biz_id) {
+		this.biz_id = biz_id;
 	}
 
 	public static class Content {

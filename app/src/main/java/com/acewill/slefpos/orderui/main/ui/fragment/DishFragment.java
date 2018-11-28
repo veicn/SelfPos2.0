@@ -106,7 +106,7 @@ public class DishFragment extends BaseFragment implements OnLoadMoreListener, On
 						.getView(R.id.order_right_shouqinlayout);
 
 				if ((SystemConfig.isSmarantSystem || SystemConfig.isCanXingJianSystem) && dish
-						.getMemberPrice() != null) {
+						.getMemberPrice() != null && Float.parseFloat(dish.getMemberPrice()) > 0) {
 					if (Float.parseFloat(dish.getMemberPrice()) != 0 && !dish.getMemberPrice()
 							.equals(dish.getPrice())) {
 						dish_memberprice.setVisibility(View.VISIBLE);
@@ -118,12 +118,13 @@ public class DishFragment extends BaseFragment implements OnLoadMoreListener, On
 						} else {
 							TextColorUtils.setDishPrice("￥" + dish.getPrice(), "/" + dish
 									.getDishUnit(), dish_price);
-							if (SmarantDataProvider.getSelfposConfigurationdata().getContent().isDisplayMember()){
+							if (SmarantDataProvider.getSelfposConfigurationdata().getContent()
+									.isDisplayMember()) {
 								dish_memberprice.setVisibility(View.VISIBLE);
 								dish_memberprice
 										.setText("会员价 " + dish.getMemberPrice() + "/" + dish
 												.getDishUnit());
-							}else {
+							} else {
 								dish_memberprice.setVisibility(View.GONE);
 							}
 						}
@@ -132,7 +133,7 @@ public class DishFragment extends BaseFragment implements OnLoadMoreListener, On
 						TextColorUtils.setDishPrice("￥" + dish.getPrice(), "/" + dish
 								.getDishUnit(), dish_price);
 					}
-				}else{
+				} else {
 					dish_memberprice.setVisibility(View.GONE);
 					TextColorUtils.setDishPrice("￥" + dish.getPrice(), "/" + dish
 							.getDishUnit(), dish_price);
