@@ -1,6 +1,7 @@
 package com.acewill.slefpos.orderui.main.ui.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -58,7 +59,7 @@ public class TabAdapter extends BaseAdapter {
 		}
 		final UIPackageItem bean = datas.get(position);
 		hodler.item_tv
-				.setText(bean.getUserdefinedName() != null ? bean.getUserdefinedName() : bean
+				.setText(!TextUtils.isEmpty(bean.getUserdefinedName())?bean.getUserdefinedName() : bean
 						.getItemName());
 		hodler.tab_view.setVisibility(bean.isSelect() ? View.VISIBLE : View.INVISIBLE);
 		hodler.item_tv.setTextColor(bean.isSelect() ? mContext.getResources()

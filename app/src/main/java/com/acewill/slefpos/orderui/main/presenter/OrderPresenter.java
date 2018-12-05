@@ -1030,33 +1030,6 @@ public class OrderPresenter extends OrderContract.Presenter {
 	@Override
 	public void pushOrderToJYJ(NewOrderReq req) {
 
-
-
-
-
-
-
-
-//		OkHttpUtils.post()
-//				.url(StoreConfigure.getJyjAddress() + "/api/orders")
-//				.addParams("appId", BaseConfigure.getAppid())
-//				.addParams("brandId", String.valueOf(BaseConfigure.getBrandid()))
-//				.addParams("storeId", String.valueOf(BaseConfigure.getStoreid()))
-//				.addParams("order", new Gson().toJson(req)).build()
-//				.connTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)
-//				.writeTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS).
-//				readTimeOut(OkHttpUtils.DEFAULT_MILLISECONDS)
-//				.execute(new GenericsCallback<NewOrderRes>(new JsonGenericsSerializator()) {
-//					@Override
-//					public void onError(Call call, Exception e, int id) {
-//						mView.returnPushOrderToJYJ(null);
-//					}
-//
-//					@Override
-//					public void onResponse(NewOrderRes response, int id) {
-//						mView.returnPushOrderToJYJ(response);
-//					}
-//				});
 		mRxManage.add(mModel.pushOrderToJYJ(req)
 				.subscribe(new RxSubscriber<NewOrderRes>(mContext, false) {
 					@Override

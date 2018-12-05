@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.EditText;
 
 import com.acewill.slefpos.R;
-import com.acewill.slefpos.bean.syncbean.syncdish.FePosUser;
 import com.acewill.slefpos.dialog.BaseDialog;
 import com.jaydenxiao.common.commonutils.ToastUitl;
 
@@ -18,13 +17,11 @@ import com.jaydenxiao.common.commonutils.ToastUitl;
 public class UserLoginDialog extends BaseDialog {
 
 	/**
-	 * @param user
 	 * @return
 	 */
-	public static UserLoginDialog newInstance(FePosUser user) {
+	public static UserLoginDialog newInstance() {
 		UserLoginDialog fragment = new UserLoginDialog();
 		Bundle          bundle   = new Bundle();
-		bundle.putSerializable("user", user);
 		fragment.setArguments(bundle);
 		return fragment;
 	}
@@ -56,7 +53,8 @@ public class UserLoginDialog extends BaseDialog {
 						}
 						ToastUitl.showLong(mcontext, "pwd>" + pwd);
 						dismiss();
-						mYesClickListener.onYesClick(user, pwd);
+
+//						mYesClickListener.onYesClick(user, pwd);
 					}
 				});
 		view.findViewById(R.id.iv_cancer)

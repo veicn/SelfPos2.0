@@ -41,4 +41,9 @@ public class PayResultMsg {
 	 * 生成二维码失败
 	 */
 	public static final String FAIL_GENERATE_QR_CODE = "生成二维码失败";
+
+	/**
+	 * 支付完成
+	 */
+	public static final String PAY_COMPLETE = "支付完成";
 }

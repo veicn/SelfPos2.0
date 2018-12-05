@@ -7,8 +7,8 @@ android {
         applicationId "com.acewill.slefpos"
         minSdkVersion 17
         targetSdkVersion 24
-        versionCode 19
-        versionName "20181127"
+        versionCode 22
+        versionName "20181204"
         multiDexEnabled = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }

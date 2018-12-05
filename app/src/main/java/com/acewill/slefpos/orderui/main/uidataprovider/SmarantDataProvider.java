@@ -1,5 +1,7 @@
 package com.acewill.slefpos.orderui.main.uidataprovider;
 
+import android.text.TextUtils;
+
 import com.acewill.slefpos.bean.smarantbean.Dish;
 import com.acewill.slefpos.bean.smarantbean.DishKind;
 import com.acewill.slefpos.bean.smarantbean.DishKindData;
@@ -147,7 +149,8 @@ public class SmarantDataProvider {
 					uiDish.setDishName(dish.getDishName());
 					uiDish.setDishID(dish.getDishID() + "");
 					uiDish.setDishKind(dish.getDishKind());
-					uiDish.setDishKindStr(getKindStrByKindId(Integer.parseInt(dish.getDishKind())));
+					String kindNameStr = getKindStrByKindId(Integer.parseInt(dish.getDishKind()));
+					uiDish.setDishKindStr(kindNameStr);
 					uiDish.setRecommandList(getUIRecommanList(dish.getRecommandList()));
 					uiDish.setQuantity(dish.getQuantity());
 					uiDish.setDishCount(dish.getDishCount());
@@ -155,7 +158,7 @@ public class SmarantDataProvider {
 					uiDish.setPrice(String.valueOf(dish.getPrice()));
 					uiDish.setOptionCategoryList(toUIOptionCategory(dish.getOptionCategoryList()));
 					uiDish.setOptionList(toUITasteOption(dish.getOptionList()));
-					uiDish.setPackageItems(toUIPackageItem(dish.getPackageItems()));
+					uiDish.setPackageItems(toUIPackageItem(dish.getPackageItems(),kindNameStr));
 					uiDish.setImageName(dish.getImageName());
 					uiDish.setWaiDai_cost(dish.getWaiDai_cost());
 					uiDish.setSubItemList(null);
@@ -198,7 +201,7 @@ public class SmarantDataProvider {
 		return list1;
 	}
 
-	private static List<UIPackageItem> toUIPackageItem(List<PackageItem> items) {
+	private static List<UIPackageItem> toUIPackageItem(List<PackageItem> items, String kindNameStr) {
 		if (items == null) {
 			return null;
 		}
@@ -212,6 +215,10 @@ public class SmarantDataProvider {
 					.getIsMust(), toUIPackageOptionItem(packageItem
 					.getOptions()), packageItem.isExpanded, packageItem
 					.getSelectCount());
+			uiPackageItem.setDishKindStr(kindNameStr);
+			if (!TextUtils.isEmpty(packageItem.getUserdefinedName()))
+			uiPackageItem.setUserdefinedName(packageItem.getUserdefinedName() + "(" + packageItem
+					.getOptions().size() + "选" + packageItem.getItemCount() + ")");
 			uiPackageItems.add(uiPackageItem);
 		}
 		return uiPackageItems;
@@ -251,7 +258,7 @@ public class SmarantDataProvider {
 					.getOptionCategoryName(), category.getMinimalOptions(),
 					category.isMultipleOptions(), category
 					.getMaximalOptions(), toUITasteOption(category
-					.getOptionList()),"");
+					.getOptionList()), "");
 			categories.add(category1);
 		}
 		return categories;
@@ -322,8 +329,6 @@ public class SmarantDataProvider {
 	public static PrinterTemplatesData getPrinterTemplatesData() {
 		return printerTemplatesData;
 	}
-
-
 
 
 }

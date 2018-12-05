@@ -36,4 +36,6 @@
     <color name="sync_dialog_black">#262626</color>
     <color name="sync_dialog_gray">#3c3e40</color>
     <color name="color_e5e5e5">#e5e5e5</color>
+    <color name="color_444444">#444444</color>
+    <color name="half_color_black">#aa000000</color>
 </resources>

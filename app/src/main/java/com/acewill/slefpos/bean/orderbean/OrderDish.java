@@ -23,16 +23,9 @@ public class OrderDish {
 	private String                    cost;
 	private String                    memberPrice;
 	private String                    dishUnit;
-	private String                    kindId;
 	private List<MarketObject>        marketList;
 
-	public String getKindId() {
-		return kindId;
-	}
 
-	public void setKindId(String kindId) {
-		this.kindId = kindId;
-	}
 
 	public String getDishID() {
 		return dishID;

@@ -34,7 +34,7 @@ public class Price {
 	private static final String TAG = "Price";
 	private static Price mPrice;
 
-	private String actualCost;
+	private String actualCost;//这个是执行完优惠方案之后的所有菜品的价格，也就是实际要支付费money
 
 	/**
 	 * 获取价钱对象
@@ -159,12 +159,6 @@ public class Price {
 		BigDecimal totalPrice = Price.getInstance().getDishTotalWithMix();
 
 
-		/**
-		 * TODO 2018-11-20 外带打包费，这里影响到了微生活会员结账，暂时关闭
-		 * totalPrice = PriceUtil
-		 *				.add(totalPrice, new BigDecimal(Price.getInstance().getTotalWaidai_Cost()));
-		 */
-
 		// 减去优惠的价格
 		if (SystemConfig.isSyncSystem && Order.getInstance().isMember() && SyncDataProvider
 				.getSyncMemberAccount() != null) {
@@ -186,18 +180,20 @@ public class Price {
 		}
 
 
-		//1、同步时代金券
+		//1、代金券
 		totalPrice = PriceUtil
 				.subtract(totalPrice, new BigDecimal(Price.getInstance().getCouponValue()));
 
-		//2、同步时会员积分
-
-
+		//2、会员积分
 		totalPrice = PriceUtil
 				.subtract(totalPrice, new BigDecimal(Price.getInstance()
 						.getPointValue()));
 
-		//3、同步时储值
+//		//打包费，打包费只能使用储值或者微信支付宝支付
+//		totalPrice = PriceUtil
+//				.add(totalPrice, new BigDecimal(Price.getInstance().getTotalWaidai_Cost()));
+
+		//3、储值
 		totalPrice = PriceUtil
 				.subtract(totalPrice, new BigDecimal(Price.getInstance().getBalance()));
 
@@ -248,8 +244,12 @@ public class Price {
 		if (danPinSumPrice != null) {
 			specialPrice = danPinSumPrice[1];
 		}
+
+		setDisCountPrice(specialPrice);
 		return specialPrice;
 	}
+
+	private BigDecimal disCountPrice;//营销方案的价格
 
 	/**
 	 * 这部分是计算同步时的会员活动的营销活动
@@ -525,10 +525,10 @@ public class Price {
 					.add(totalDiscountAmount, PriceUtil.multiply(new BigDecimal(String
 							.valueOf(cartDish.getDiscountAmount())), cartDish.getQuantity()));
 		}
-		if (Price.getInstance().getActualCost()!=null)
-		totalDiscountAmount = PriceUtil
-				.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
-						.getActualCost());
+		if (Price.getInstance().getActualCost() != null)
+			totalDiscountAmount = PriceUtil
+					.subtract(Price.getInstance().getDishTotalWithMix(), Price.getInstance()
+							.getActualCost());
 		if (totalDiscountAmount != null && totalDiscountAmount.floatValue() != 0) {
 			return totalDiscountAmount.floatValue();
 		}
@@ -590,5 +590,16 @@ public class Price {
 
 	public void setActualCost(String actualCost) {
 		this.actualCost = actualCost;
+	}
+
+
+	public BigDecimal getDisCountPrice() {
+		if (disCountPrice == null)
+			disCountPrice = new BigDecimal("0");
+		return disCountPrice;
+	}
+
+	public void setDisCountPrice(BigDecimal disCountPrice) {
+		this.disCountPrice = disCountPrice;
 	}
 }

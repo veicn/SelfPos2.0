@@ -23,6 +23,7 @@ public class UIPackageOptionItem implements Serializable, Parcelable {
 	private String                 dishUnitId;
 	private String                 imageName;
 	private String                 dishKind;
+	private String                 dishKindStr;
 	private String                 printerStr;
 	private List<UITasteOption>    optionList;//这个菜的定制项
 	private List<UIOptionCategory> optionCategoryList;
@@ -185,6 +186,7 @@ public class UIPackageOptionItem implements Serializable, Parcelable {
 		this.unit = unit;
 		this.imageName = imageName;
 		this.dishKind = dishKind;
+		this.dishKindStr =
 		this.printerStr = printerStr;
 	}
 
@@ -261,5 +263,13 @@ public class UIPackageOptionItem implements Serializable, Parcelable {
 
 	public void setDishUnitId(String dishUnitId) {
 		this.dishUnitId = dishUnitId;
+	}
+
+	public String getDishKindStr() {
+		return dishKindStr;
+	}
+
+	public void setDishKindStr(String dishKindStr) {
+		this.dishKindStr = dishKindStr;
 	}
 }

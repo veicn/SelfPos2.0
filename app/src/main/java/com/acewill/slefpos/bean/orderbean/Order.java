@@ -213,6 +213,7 @@ public class Order {
 		Order.getInstance().setPayList(null);
 		CxjOrderProvider.getInstance().setOid(-1);
 		CxjOrderProvider.getInstance().setDiscountValue(-1);
+		Order.getInstance().setNewOrderRes(null);
 	}
 
 	/**
@@ -836,13 +837,6 @@ public class Order {
 	}
 
 
-	public NewOrderRes getNewOrderRes(int i) {
-		NewOrderRes         res     = new NewOrderRes();
-		NewOrderRes.Content content = new NewOrderRes.Content();
-		res.setContent(content);
-		return res;
-	}
-
 	/**
 	 * 创建智慧快餐下单菜品列表
 	 *
@@ -862,7 +856,7 @@ public class Order {
 			OrderDish orderDish = new OrderDish();
 			orderDish.setDishName(cartDish.getDishName());
 			orderDish.setDishID(cartDish.getDishID());
-			orderDish.setKindId(cartDish.getDishKind());
+			orderDish.setDishKind(cartDish.getDishKind());
 			orderDish.setDishKindStr(cartDish.getDishKindStr());
 			orderDish.setQuantity(cartDish.getQuantity());
 			orderDish.setPrice(Order.getInstance().isMember() ? cartDish.getMemberPrice() : cartDish
@@ -882,14 +876,13 @@ public class Order {
 	//		private String              callNumber;
 	//		private String              id;
 	//		private ArrayList<CartDish> itemList;
-	public NewOrderRes getPrintOrder(String orderNo) {
+	public NewOrderRes getNewOrderRes(String orderNo) {
 		NewOrderRes         res1    = new NewOrderRes();
 		NewOrderRes.Content content = new NewOrderRes.Content();
 		content.setId(orderNo);
 		content.setCallNumber(orderNo);
 		res1.setContent(content);
-		res1.setBiz_id(Order.getInstance().getBiz_id());
-		res1.setCreate_time(format2.format(new Date()));
+
 		return res1;
 	}
 	//	/**
@@ -1000,11 +993,11 @@ public class Order {
 	 * 是否需要会员支付
 	 */
 	public boolean isMemberPay() {
-		if (Price.getInstance().getPointValue() > 0 || Price.getInstance()
-				.getBalance() > 0 || Price.getInstance().getCouponValue() > 0) {
-			return true;
-		}
-		return false;
+//		if (Price.getInstance().getPointValue() > 0 || Price.getInstance()
+//				.getBalance() > 0 || Price.getInstance().getCouponValue() > 0) {
+//			return true;
+//		}
+		return true;
 	}
 
 	//	/**
@@ -1199,6 +1192,16 @@ public class Order {
 
 	public void setOrderseq_i(int orderseq_i) {
 		this.orderseq_i = orderseq_i;
+	}
+
+	private NewOrderRes newOrderRes;
+
+	public NewOrderRes getNewOrderRes() {
+		return newOrderRes;
+	}
+
+	public void setNewOrderRes(NewOrderRes newOrderRes) {
+		this.newOrderRes = newOrderRes;
 	}
 
 

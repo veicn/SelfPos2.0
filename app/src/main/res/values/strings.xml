@@ -10,7 +10,7 @@
     <string name="total2">总计&#160;:</string>
     <string name="comfirm_order">确认订单</string>
     <string name="shopping_cart">我的订单</string>
-    <string name="pay_method">支付方式</string>
+    <string name="pay_method">请选择支付方式</string>
     <string name="coupon_type">满减券</string>
     <string name="coupon_deadline_time">有效期</string>
     <string name="zhushi">主食</string>
@@ -42,8 +42,8 @@
     <string name="show_banner_or_video">显示轮播图</string>
     <string name="bind_status">未绑定</string>
     <string name="back">返回</string>
-    <string name="jiyejia_host_ip">吉野家服务器地址,点击编辑</string>
-    <string name="canxingjian_host_ip">餐行健服务器地址,点击编辑</string>
+    <string name="jiyejia_host_ip">吉野家服务器地址,点击编辑例(http://192.168.1.136:9090)</string>
+    <string name="canxingjian_host_ip">餐行健服务器地址,点击编辑 例(192.168.1.136)</string>
     <string name="update_version">版本更新</string>
     <string name="no_newversion">当前已是最新版本</string>
 

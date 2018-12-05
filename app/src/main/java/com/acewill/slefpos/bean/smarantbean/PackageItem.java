@@ -31,6 +31,8 @@ public class PackageItem implements Parcelable, Cloneable {
 	private int                     itemCount;
 	private int                     isMust;
 	private List<PackageOptionItem> options;
+	private String  userdefinedName;
+
 	public String getItemName() {
 		return itemName;
 	}
@@ -148,4 +150,11 @@ public class PackageItem implements Parcelable, Cloneable {
 	}
 
 
+	public String getUserdefinedName() {
+		return userdefinedName;
+	}
+
+	public void setUserdefinedName(String userdefinedName) {
+		this.userdefinedName = userdefinedName;
+	}
 }

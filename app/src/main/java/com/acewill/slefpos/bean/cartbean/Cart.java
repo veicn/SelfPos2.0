@@ -337,6 +337,7 @@ public class Cart {
 		cartDish.setDishID(dish.getDishID());
 		cartDish.setSkuId(dish.getSkuId());
 		cartDish.setKindId(dish.getDishKind());
+		cartDish.setDishKind(dish.getDishKind());
 		cartDish.setDishKindStr(dish.getDishKindStr());
 		cartDish.setQuantity(dish.getQuantity());
 		cartDish.setPrice(dish.getPrice());//这里，这个cartDish的实际价格应该从营销方案和会员还有原价里面取一个值

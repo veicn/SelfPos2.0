@@ -27,8 +27,39 @@
                 android:layout_height="match_parent"
                 android:layout_weight="9"></FrameLayout>
 
+
         </LinearLayout>
 
+      <FrameLayout
+          android:visibility="gone"
+          android:id="@+id/gesture_bg"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+          <LinearLayout
+              android:id="@+id/gesture_img"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="@dimen/y300"
+              android:layout_gravity="center_horizontal"
+              android:orientation="vertical">
+
+              <ImageView
+                  android:layout_gravity="center"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:src="@mipmap/gestrure"/>
+
+              <TextView
+                  android:visibility="gone"
+                  android:layout_marginTop="@dimen/y10"
+                  android:id="@+id/gesture_tv"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:textColor="#b6e2ea"
+                  android:text="上滑动发现更多惊喜"
+                  android:textSize="@dimen/x48"/>
+          </LinearLayout>
+      </FrameLayout>
 
         <RelativeLayout
             android:id="@+id/tablayout"
@@ -106,19 +137,21 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:visibility="gone"
                     android:id="@+id/special_money_ly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
                     android:layout_marginBottom="@dimen/y22"
-                    android:layout_marginLeft="@dimen/x15">
+                    android:layout_marginLeft="@dimen/x15"
+                    android:visibility="gone">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="("
                         android:textColor="@color/colorSecondaryText"
                         android:textSize="@dimen/x20"/>
+
                     <TextView
                         android:id="@+id/tv_2"
                         android:layout_width="wrap_content"

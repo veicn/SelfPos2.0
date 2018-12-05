@@ -5,14 +5,13 @@ import java.util.List;
 /**
  * Author：Anch
  * Date：2018/5/8 10:24
- * Desc：
+ * Desc：下单返回的数据
  */
 public class NewOrderRes {
 	private int     result;
 	private String  errmsg;
 	private Content content;
-	private String create_time;
-	private String biz_id;
+	private boolean isFail;
 
 	public int getResult() {
 		return result;
@@ -38,25 +37,18 @@ public class NewOrderRes {
 		this.content = content;
 	}
 
-	public String getCreate_time() {
-		return create_time;
+	public boolean isFail() {
+		return isFail;
 	}
 
-	public void setCreate_time(String create_time) {
-		this.create_time = create_time;
+	public void setFail(boolean fail) {
+		isFail = fail;
 	}
 
-	public String getBiz_id() {
-		return biz_id;
-	}
-
-	public void setBiz_id(String biz_id) {
-		this.biz_id = biz_id;
-	}
 
 	public static class Content {
-		private String         callNumber;
-		private String         id;
+		private String          callNumber;
+		private String          id;
 		private List<OrderDish> itemList;
 
 		public String getId() {

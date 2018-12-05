@@ -8,7 +8,7 @@ import java.util.List;
  * Desc：
  */
 public class WshAccountRes {
-	private int    result;
+
 
 	public int getResult() {
 		return result;
@@ -27,7 +27,7 @@ public class WshAccountRes {
 	}
 
 	private String errmsg;
-
+	private int    result;
 	public List<WshAccount> getWshAccountList() {
 		return content;
 	}

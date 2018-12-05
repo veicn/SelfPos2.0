@@ -48,6 +48,7 @@ import com.acewill.slefpos.orderui.main.uidataprovider.SmarantDataProvider;
 import com.acewill.slefpos.orderui.main.uidataprovider.SyncDataProvider;
 import com.acewill.slefpos.orderui.main.uidataprovider.WshDataProvider;
 import com.acewill.slefpos.orderui.main.uihelper.Refund;
+import com.acewill.slefpos.print.ticketprint.SmarantPrintUtil;
 import com.acewill.slefpos.system.ui.WelActivity;
 import com.acewill.slefpos.utils.DownLoadAPPUtils;
 import com.acewill.slefpos.utils.priceutils.PriceUtil;
@@ -325,7 +326,8 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 		fra_main_tel_iv.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				showPrintOderListDialog();
+				if (SmarantPrintUtil.getPrintOrderList().size() > 0)
+					showPrintOderListDialog();
 				return false;
 			}
 		});
@@ -435,6 +437,9 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
 		startActivity(new Intent(this, WelActivity.class));
+		if (!SystemConfig.showChooseEatMethod) {
+			finish();
+		}
 	}
 
 	//	private void showExitDialog() {
@@ -487,6 +492,7 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 
 	@Override
 	public void returnWshMemberLoginResult(WshAccountRes wshAccountRes) {
+//		FileLog.log("微生活登录的信息"+new Gson().toJson(wshAccountRes));
 		if (wshAccountRes != null && wshAccountRes.getWshAccountList() != null) {
 			disMissMemberDialog();
 			WshAccount account = wshAccountRes.getWshAccountList().get(0);
@@ -651,14 +657,11 @@ public class EatMethodActivity extends BaseActivity<MemberPresenter, MemberModel
 	}
 
 
-
-
-
 	/**
 	 * 补打小票
 	 */
 	private void showPrintOderListDialog() {
 		PrintOrderListDialog dialog = PrintOrderListDialog.newInstance();
-		dialog.show(getSupportFragmentManager(),"PrintOrderListDialog");
+		dialog.show(getSupportFragmentManager(), "PrintOrderListDialog");
 	}
 }

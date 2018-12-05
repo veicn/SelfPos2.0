@@ -20,6 +20,7 @@
             android:layout_height="match_parent"
             app:loadMoreEnabled="false"
             app:refreshEnabled="false"
+            android:scrollbars="vertical"
             app:refreshHeaderLayout="@layout/layout_irecyclerview_refresh_header" />
 
         <com.jaydenxiao.common.commonwidget.LoadingTip

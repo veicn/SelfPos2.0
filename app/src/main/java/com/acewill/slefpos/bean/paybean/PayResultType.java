@@ -38,4 +38,10 @@ public class PayResultType {
 	 */
 	public static final int USER_PAYING = 70000;
 
+
+	/**
+	 * 支付完成
+	 */
+	public static final int PAY_COMPLETE = 80000;
+
 }

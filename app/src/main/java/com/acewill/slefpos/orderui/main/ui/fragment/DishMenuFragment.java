@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -70,6 +71,10 @@ public class DishMenuFragment extends BaseFragment {
 	RelativeLayout shop_cart_ly;
 	@Bind(R.id.special_money_ly)
 	LinearLayout   special_money_ly;
+	@Bind(R.id.gesture_img)
+	LinearLayout   gesture_img;
+	@Bind(R.id.gesture_bg)
+	FrameLayout    gesture_bg;
 
 	@OnClick(R.id.shop_cart_ly)
 	public void onFabClick() {
@@ -106,6 +111,7 @@ public class DishMenuFragment extends BaseFragment {
 	@Override
 	protected void initView() {
 		initFragment();
+//		initGestureAnimation();
 		tabLayout.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
 		tabLayoutHeight = tabLayout.getMeasuredHeight();
 		mRxManager.on(AppConstant.MENU_SHOW_HIDE, new Action1<Boolean>() {
@@ -173,6 +179,42 @@ public class DishMenuFragment extends BaseFragment {
 		//				.createFromAsset(getActivity().getAssets(), "fonts/kaitifan.ttf");
 		//		payBtn.setTypeface(typeFace1);
 		//		tv_1.setTypeface(typeFace1);
+	}
+
+
+	private void initGestureAnimation() {
+
+		ObjectAnimator animator = ObjectAnimator.ofFloat(gesture_img, "translationY", 200, 0, 0);
+		animator.setInterpolator(new LinearInterpolator());
+		// 表示的是:
+		// 动画作用对象是mButton
+		// 动画作用的对象的属性是X轴平移（在Y轴上平移同理，采用属性"translationY"
+		// 动画效果是:从当前位置平移到 x=1500 再平移到初始位置
+		animator.setDuration(3000);
+		animator.addListener(new Animator.AnimatorListener() {
+			@Override
+			public void onAnimationStart(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationEnd(Animator animation) {
+				gesture_img.setVisibility(View.GONE);
+				gesture_bg.setVisibility(View.GONE);
+			}
+
+			@Override
+			public void onAnimationCancel(Animator animation) {
+
+			}
+
+			@Override
+			public void onAnimationRepeat(Animator animation) {
+
+			}
+		});
+		animator.start();
+
 	}
 
 	private boolean isFirstRefresh = true;

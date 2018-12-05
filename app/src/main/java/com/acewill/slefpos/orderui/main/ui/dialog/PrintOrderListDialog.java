@@ -2,11 +2,13 @@ package com.acewill.slefpos.orderui.main.ui.dialog;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.acewill.slefpos.R;
-import com.acewill.slefpos.bean.orderbean.NewOrderRes;
+import com.acewill.slefpos.bean.orderbean.PrintOrder;
 import com.acewill.slefpos.dialog.BaseDialog;
 import com.acewill.slefpos.print.ticketprint.SmarantPrintUtil;
 import com.acewill.slefpos.print.ticketprint.SmarantTicketPrintHandler;
@@ -27,9 +29,9 @@ import butterknife.ButterKnife;
 public class PrintOrderListDialog extends BaseDialog {
 	@Bind(R.id.irc)
 	IRecyclerView irc;
-	private boolean                               isPrepare;
-	private View                                  view;
-	private CommonRecycleViewAdapter<NewOrderRes> adapter;
+	private boolean                              isPrepare;
+	private View                                 view;
+	private CommonRecycleViewAdapter<PrintOrder> adapter;
 
 
 	/**
@@ -37,7 +39,7 @@ public class PrintOrderListDialog extends BaseDialog {
 	 */
 	public static PrintOrderListDialog newInstance() {
 		PrintOrderListDialog fragment = new PrintOrderListDialog();
-		Bundle      bundle   = new Bundle();
+		Bundle               bundle   = new Bundle();
 		fragment.setArguments(bundle);
 		return fragment;
 	}
@@ -55,29 +57,35 @@ public class PrintOrderListDialog extends BaseDialog {
 	}
 
 	private void initData() {
-		List<NewOrderRes> list = SmarantPrintUtil.getPrintOrderList();
+		List<PrintOrder> list = SmarantPrintUtil.getPrintOrderList();
 		initView(list);
 	}
 
-	private void initView(List<NewOrderRes> list) {
-		adapter = new CommonRecycleViewAdapter<NewOrderRes>(getActivity(), R.layout.item_printorder) {
+	private void initView(List<PrintOrder> list) {
+		adapter = new CommonRecycleViewAdapter<PrintOrder>(getActivity(), R.layout.item_printorder) {
 			@Override
-			public void convert(final ViewHolderHelper helper, final NewOrderRes printOrder) {
-				TextView tv_order_id   = helper.getView(R.id.tv_order_id);
-				TextView tv_order_time = helper.getView(R.id.tv_order_time);
-				TextView tv_order_oid  = helper.getView(R.id.tv_order_oid);
+			public void convert(final ViewHolderHelper helper, final PrintOrder printOrder) {
+				TextView       tv_order_callid        = helper.getView(R.id.tv_order_callid);
+				TextView       tv_order_eatmethod     = helper.getView(R.id.tv_order_eatmethod);
+				RelativeLayout tv_order_memberinfo_ly = helper.getView(R.id.tv_order_memberinfo_ly);
+				TextView       tv_order_memberinfo    = helper.getView(R.id.tv_order_memberinfo);
+				TextView       tv_order_time          = helper.getView(R.id.tv_order_time);
 
-
-				tv_order_id.setText("取餐号:" + printOrder.getContent().getCallNumber());
-				tv_order_time.setText("下单时间:" + printOrder.getCreate_time());
-				tv_order_oid.setText("支付流水号:" + printOrder.getBiz_id());
-
+				tv_order_callid.setText(printOrder.getCallId());
+				tv_order_eatmethod.setText(printOrder.getEatmethod());
+				if (printOrder.isMember() && !TextUtils
+						.isEmpty(printOrder.getMemberNameAndPhone())) {
+					tv_order_memberinfo_ly.setVisibility(View.VISIBLE);
+					tv_order_memberinfo.setText(printOrder.getMemberNameAndPhone());
+				}
+				tv_order_time.setText(printOrder.getCreateTime());
 
 				helper.getConvertView().setOnClickListener(new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
 						SmarantTicketPrintHandler.getInstance()
-								.printSmarantTicket(mContext, printOrder);
+								.printTicket(printOrder);
+						dismiss();
 					}
 				});
 			}
@@ -89,6 +97,11 @@ public class PrintOrderListDialog extends BaseDialog {
 		irc.setLoadMoreEnabled(false);
 		//		adapter.initAnimation(irc);//初始化刚进入界面时候的动画
 		adapter.addAll(list);
+	}
+
+	private void showUserLoginDialog() {
+		UserLoginDialog dialog = UserLoginDialog.newInstance();
+		dialog.show(getFragmentManager(), "UserLoginDialog");
 	}
 
 	@Override

@@ -7,7 +7,6 @@ import com.acewill.slefpos.bean.cartbean.Cart;
 import com.acewill.slefpos.bean.cartbean.CartDish;
 import com.acewill.slefpos.bean.cartbean.Price;
 import com.acewill.slefpos.bean.orderbean.Order;
-import com.acewill.slefpos.bean.wshbean.CXJWshCreateDeal;
 import com.acewill.slefpos.bean.wshbean.WshAccount;
 import com.acewill.slefpos.bean.wshbean.WshAccountCoupon;
 import com.acewill.slefpos.bean.wshbean.WshCreateDeal;

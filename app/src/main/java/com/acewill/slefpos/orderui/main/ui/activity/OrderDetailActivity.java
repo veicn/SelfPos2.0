@@ -97,7 +97,6 @@ import com.acewill.slefpos.orderui.main.uihelper.Refund;
 import com.acewill.slefpos.print.Common;
 import com.acewill.slefpos.print.PrintManager;
 import com.acewill.slefpos.print.chikenprintlibrary.PosKitchenPrintAdapter;
-import com.acewill.slefpos.print.ticketprint.SmarantPrintUtil;
 import com.acewill.slefpos.print.ticketprint.SmarantTicketPrintHandler;
 import com.acewill.slefpos.utils.httputils.GsonUtils;
 import com.acewill.slefpos.utils.priceutils.PriceUtil;
@@ -156,6 +155,11 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 	ImageView          tips_image;
 	@Bind(R.id.orderdetail_bottom_layout)
 	RelativeLayout     orderdetail_bottom_layout;
+
+	@Bind(R.id.sync_balance_layout)
+	RelativeLayout     sync_balance_layout;
+
+
 	@Bind(R.id.orderdetail_pay_success_layout)
 	LinearLayout       orderdetail_pay_success_layout;
 	@Bind(R.id.orderdetail_pay_layout)
@@ -578,12 +582,10 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			} else if (SystemConfig.isSyncSystem) {
 				showComfirmDialog(AppConstant.COMFIRM_ORDER_B);
 			} else if (SystemConfig.isCanXingJianSystem) {
-				//				ToastUitl.showShort(mContext, "餐行健会员支付");
 				LoadingDialog.setLoadingText("正在下单...");
 				CxjOrderProvider.getInstance().setCheackOutBean("");
 				mPresenter
 						.checkOut(new Gson().toJson(CxjOrderProvider.getInstance().getCheckBean()));
-				//				wshPay();//餐行健会员支付
 			}
 		} else {
 			if (SystemConfig.isSmarantSystem) {
@@ -595,16 +597,6 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			} else if (SystemConfig.isSyncSystem || SystemConfig.isCanXingJianSystem) {
 				resetPayStatu();//同步时需要进行支付宝或者微信支付
 			}
-			//			else if (SystemConfig.isCanXingJianSystem) {
-			//				Order.getInstance()
-			//						.createPayment(edit_input.getText().toString().trim(), Price.getInstance()
-			//								.getTotal(), String
-			//								.valueOf(payType), payType == PayMethod.WECHAT ? "微信支付" : "支付宝支付", Order
-			//								.getInstance().getBiz_id(), "");//创建餐行健的payment
-			//				mPresenter.checkOut(new Gson()
-			//						.toJson(CxjOrderProvider.getInstance().setCheackOutBean(edit_input.getText().toString().trim())));
-			//				ToastUitl.showLong(mContext, "餐行健在线支付");
-			//			}
 			//刷卡支付，跳转界面
 			if (SPUtils.getSharedIntData(mContext, "payType") == 0) {
 				changeToPayTipView();
@@ -1056,6 +1048,35 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 			else
 				sync_use_coupon_name.setText(MemberPayHelper.getCoupons()
 						.size() + "张优惠券");
+
+
+			WshAccount account = WshDataProvider.getWshAccount();
+
+			boolean usecredit     = account.isUsecredit();
+			boolean creditBoolean = account.getCredit() == 0;
+			boolean couponsBoolean = account.getCoupons() == null || account
+					.getCoponSize()
+					== 0;
+			boolean balanceBoolean = account.getBalance() == 0;
+			if (couponsBoolean && creditBoolean && balanceBoolean) {
+				sync_member_layout.setVisibility(View.GONE);
+			}
+
+			if (!usecredit || creditBoolean) {
+				sync_point_layout.setVisibility(View.GONE);
+			}
+			if (couponsBoolean) {
+				sync_coupon_layout.setVisibility(View.GONE);
+			}
+			if (balanceBoolean) {
+				sync_balance_layout.setVisibility(View.GONE);
+			}
+
+
+
+
+
+
 		} else {
 			sync_member_layout.setVisibility(View.GONE);
 		}
@@ -1107,8 +1128,8 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 									.valueOf(Price.getInstance().getBalance()),
 							Price.getInstance().getWshAccountCouponList(), String
 									.valueOf(Price.getInstance()
-											.getPointValue()), Price.getInstance()
-									.getDishTotalWithMix()));
+											.getPointValue()), PriceUtil.subtract(Price.getInstance()
+									.getDishTotalWithMix(),Price.getInstance().getDisCountPrice())));
 		}
 	}
 
@@ -1475,34 +1496,6 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 	@Override
 	public void returnAliShuaKaResult(SelfPosPayResult result) {
 		doOnLineShuaKaResult(result, PayMethod.ALI, "支付宝支付");
-		//		if (result
-		//				.getReslut() == PayResultType.PAY_INPROGRESS) {
-		//			LoadingDialog.setLoadingText("请输入支付密码!");
-		//			handler.postDelayed(queryPayResultRunnable, TimeConfigure.CLOSETIMESTART);//支付宝刷卡支付查询
-		//		} else if (result.getReslut() == PayResultType.PAY_UNKNOW) {
-		//			handler.postDelayed(queryPayResultRunnable, TimeConfigure.CLOSETIMESTART);//支付宝刷卡支付查询
-		//		} else if (result.getReslut() == PayResultType.PAY_SUCCESS) {
-		//			ToastUitl.showShort(mContext, result.getMsg());
-		//			Order.getInstance()
-		//					.createPayment("", String
-		//							.valueOf(Price.getInstance().getTotal()), String
-		//							.valueOf(PayMethod.ALI), "支付宝支付", Order
-		//							.getInstance().getBiz_id(), "");
-		//			Order.getInstance().getPayList().add(PayMethod.ALI);
-		//			if (Price.getInstance().getDealsValueMap().size() > 0) {
-		//				meiTuanQuanPay();//支付宝刷卡支付
-		//			} else if (Order.getInstance().isMember() && Order.getInstance().isMemberPay()) {
-		//				FileLog.log("returnAliShuaKaResult>" + "commitWshDeal");
-		//				mPresenter.commitWshDeal(Order.getInstance().getBiz_id(), SPUtils
-		//						.getSharedStringData(mContext, "tempMemberPassword"));
-		//			} else {
-		//				mPresenter.getNewOrderId();//支付宝刷卡成功下单
-		//			}
-		//		} else if (result.getReslut() == PayResultType.PAY_FAIL) {
-		//			stopProgressDialog();
-		//			changeToOrderView();
-		//			ToastUitl.showLong(mContext, result.getContent());
-		//		}
 	}
 
 	@Override
@@ -1521,7 +1514,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 							.valueOf(Price.getInstance().getTotal()), String
 							.valueOf(payType), payTypeName, Order
 							.getInstance().getBiz_id(), "");
-			Order.getInstance().getPayList().add(PayMethod.WECHAT);
+			Order.getInstance().getPayList().add(payType);
 			Refund.getInstance().addSmarantRevokeParam(String
 					.valueOf(Price.getInstance().getTotal()), Order
 					.getInstance().getBiz_id(), String
@@ -1721,7 +1714,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 							.valueOf(Price.getInstance().getTotal()), String
 							.valueOf(payType), payTypeName, Order
 							.getInstance().getBiz_id(), "");
-			Order.getInstance().getPayList().add(PayMethod.WECHAT);
+			Order.getInstance().getPayList().add(payType);
 			Refund.getInstance().addSmarantRevokeParam(String
 					.valueOf(Price.getInstance().getTotal()), Order
 					.getInstance().getBiz_id(), String
@@ -1860,7 +1853,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 					public void run() {
 						try {
 							SmarantTicketPrintHandler.getInstance()
-									.printSmarantTicket(mContext, orderRes);
+									.printSmarantTicket( orderRes);
 							PosKitchenPrintAdapter
 									.printChikenTicket(mContext, orderRes.getContent()
 											.getId(), orderRes
@@ -1913,7 +1906,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				public void run() {
 					try {
 						SmarantTicketPrintHandler.getInstance()
-								.printSmarantTicket(mContext, orderRes);
+								.printSmarantTicket( orderRes);
 						PosKitchenPrintAdapter
 								.printChikenTicket(mContext, orderRes.getContent().getId(), orderRes
 										.getContent().getCallNumber());
@@ -1929,7 +1922,11 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				@Override
 				public void run() {
 					try {
-						SmarantTicketPrintHandler.getInstance().printSmarantTicket(mContext, null);
+						NewOrderRes res = Order.getInstance()
+								.getNewOrderRes();
+						res.setFail(true);
+						SmarantTicketPrintHandler.getInstance()
+								.printSmarantTicket( res);
 					} catch (Exception e) {
 						FileUtil.saveCrashInfo2File(e);
 					}
@@ -2094,6 +2091,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				mPresenter.notifyKDS(KdsUtil.getInstance().getKdsOrderBaen(orderRes));
 			}
 			if (!TextUtils.isEmpty(StoreConfigure.getJyjAddress())) {
+				Order.getInstance().setNewOrderRes(orderRes);
 				mPresenter.pushOrderToJYJ(Order.getInstance()
 						.createNewOrderReq(Integer.parseInt(orderRes.getContent().getId()), orderRes
 								.getContent().getCallNumber()));
@@ -2105,8 +2103,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 					public void run() {
 						try {
 							SmarantTicketPrintHandler.getInstance()
-									.printSmarantTicket(mContext, orderRes);
-							SmarantPrintUtil.setPrintList(orderRes);
+									.printSmarantTicket( orderRes);
 							PosKitchenPrintAdapter
 									.printChikenTicket(mContext, orderRes.getContent()
 											.getId(), orderRes
@@ -2144,7 +2141,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				} else {
 					SmarantTicketPrintHandler.getInstance()
 							.printSyncTicket(mContext, Order.getInstance()
-									.getPrintOrder(res.getData().getOrdersNo()));
+									.getNewOrderRes(res.getData().getOrdersNo()));
 				}
 			} else if (res.getCode() == 502) {
 				//再次发起下单
@@ -2687,13 +2684,10 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 						@Override
 						public void run() {
 							try {
-								NewOrderRes printOrder = Order.getInstance()
-										.getPrintOrder(order);
-								SmarantPrintUtil.setPrintList(printOrder);
+								NewOrderRes newOrderRes = Order.getInstance()
+										.getNewOrderRes(order);
 								SmarantTicketPrintHandler.getInstance()
-										.printCXJTicket(mContext, printOrder);
-
-
+										.printCXJTicket(newOrderRes);
 							} catch (Exception e) {
 								FileUtil.saveCrashInfo2File(e);
 							}
@@ -2717,7 +2711,7 @@ public class OrderDetailActivity extends BaseActivity<OrderPresenter, OrderModel
 				//							try {
 				//								SmarantTicketPrintHandler.getInstance()
 				//										.printSmarantTicket(mContext, Order.getInstance()
-				//												.getPrintOrder(String
+				//												.getNewOrderRes(String
 				//														.valueOf(Order.getInstance().getOid())));
 				//							} catch (Exception e) {
 				//								FileUtil.saveCrashInfo2File(e);

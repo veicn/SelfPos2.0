@@ -3,6 +3,7 @@ package com.acewill.slefpos.orderui.main.ui.fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
@@ -58,7 +59,7 @@ public class PackageFragmentNew extends BaseFragment {
 				mTabAdapter.resetSelect(currentTab);
 				changeDishList(i, currentTab);
 				ToastUitl
-						.showLong(mActivity, bean.getUserdefinedName() != null ? bean
+						.showLong(mActivity, !TextUtils.isEmpty( bean.getUserdefinedName()) ? bean
 								.getUserdefinedName() : bean.getItemName() + "至少选" + bean
 								.getMinQty() + "项");
 				return;

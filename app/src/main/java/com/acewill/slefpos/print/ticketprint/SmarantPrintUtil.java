@@ -7,9 +7,9 @@ import com.acewill.slefpos.base.BaseApplication;
 import com.acewill.slefpos.bean.cartbean.Cart;
 import com.acewill.slefpos.bean.cartbean.CartDish;
 import com.acewill.slefpos.bean.cartbean.Price;
-import com.acewill.slefpos.bean.orderbean.NewOrderRes;
 import com.acewill.slefpos.bean.orderbean.Order;
 import com.acewill.slefpos.bean.orderbean.Payment;
+import com.acewill.slefpos.bean.orderbean.PrintOrder;
 import com.acewill.slefpos.bean.syncbean.Discount;
 import com.acewill.slefpos.bean.syncbean.DiscountAmount;
 import com.acewill.slefpos.bean.syncbean.syncorder.SyncAcceptReq;
@@ -61,7 +61,7 @@ public class SmarantPrintUtil {
 
 
 	private static List<String>      charArr        = new ArrayList<>();
-	private static List<NewOrderRes> printOrderList = null;
+	private static List<PrintOrder> printOrderList = null;
 
 	static {
 		charArr.add("(");
@@ -918,14 +918,14 @@ public class SmarantPrintUtil {
 		return sb.toString();
 	}
 
-	public static void setPrintList(NewOrderRes printOrder) {
+	public static void addPrintOrder(PrintOrder printOrder) {
 		if (printOrderList != null && printOrderList.size() == 3) {
 			printOrderList.remove(0);
 		}
-		printOrderList.add(printOrder);
+		getPrintOrderList().add(printOrder);
 	}
 
-	public static List<NewOrderRes> getPrintOrderList() {
+	public static List<PrintOrder> getPrintOrderList() {
 		if (printOrderList == null)
 			printOrderList = new ArrayList<>();
 		return printOrderList;

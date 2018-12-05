@@ -14,14 +14,19 @@ import android.widget.TextView;
 import com.acewill.slefpos.R;
 import com.acewill.slefpos.app.TimeConfigure;
 import com.acewill.slefpos.base.BaseActivity;
+import com.acewill.slefpos.bean.cartbean.Cart;
+import com.acewill.slefpos.bean.cartbean.Price;
+import com.acewill.slefpos.bean.orderbean.Order;
 import com.acewill.slefpos.bean.smarantstorebean.ImageEntity;
 import com.acewill.slefpos.bean.smarantstorebean.ImagesData;
 import com.acewill.slefpos.configure.SystemConfig;
 import com.acewill.slefpos.orderui.main.contract.WelContract;
 import com.acewill.slefpos.orderui.main.model.WelModel;
 import com.acewill.slefpos.orderui.main.presenter.WelPresenter;
+import com.acewill.slefpos.orderui.main.ui.activity.MainActivity;
 import com.acewill.slefpos.orderui.main.ui.services.ScreenProtectService;
 import com.acewill.slefpos.orderui.main.uidataprovider.SmarantDataProvider;
+import com.acewill.slefpos.orderui.main.uihelper.Refund;
 import com.bumptech.glide.Glide;
 import com.jaydenxiao.common.commonutils.SPUtils;
 import com.jaydenxiao.common.commonwidget.BannerImageLoader;
@@ -78,7 +83,11 @@ public class WelActivity extends BaseActivity<WelPresenter, WelModel> implements
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				finish();
+				if (!SystemConfig.showChooseEatMethod){
+					startMain(false);
+				}else{
+					finish();
+				}
 			}
 		});
 
@@ -133,7 +142,11 @@ public class WelActivity extends BaseActivity<WelPresenter, WelModel> implements
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				finish();
+				if (!SystemConfig.showChooseEatMethod){
+					startMain(false);
+				}else{
+					finish();
+				}
 			}
 		});
 
@@ -157,6 +170,18 @@ public class WelActivity extends BaseActivity<WelPresenter, WelModel> implements
 			}
 		}
 
+	}
+
+	private void startMain(boolean isMember) {
+		Order.getInstance().setTakeOut(0);
+		Cart.getInstance().clear();
+		Order.getInstance().clear();
+		Price.getInstance().clear();
+		Refund.getInstance().clear();
+		Price.getInstance().setDealsValueMap(null);
+		Order.getInstance().setDealsMap(null);
+		Order.getInstance().setMember(isMember);
+		startActivity(MainActivity.class);
 	}
 
 	@Bind(R.id.tv_1)

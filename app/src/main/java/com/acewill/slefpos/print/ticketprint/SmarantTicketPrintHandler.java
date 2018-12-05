@@ -4,9 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.acewill.slefpos.R;
+import com.acewill.slefpos.app.AppApplication;
 import com.acewill.slefpos.base.BaseApplication;
 import com.acewill.slefpos.bean.orderbean.NewOrderRes;
 import com.acewill.slefpos.bean.orderbean.Order;
+import com.acewill.slefpos.bean.orderbean.PrintOrder;
 import com.acewill.slefpos.configure.StoreConfigure;
 import com.acewill.slefpos.configure.SystemConfig;
 import com.acewill.slefpos.print.Common;
@@ -76,122 +78,6 @@ public class SmarantTicketPrintHandler {
 		PrintManager.printText(dotLine);
 	}
 
-
-	/**
-	 * 这个是智慧快餐的小票
-	 *
-	 * @param context
-	 * @param orderRes
-	 */
-	public void printSmarantTicket(Context context, NewOrderRes orderRes) {
-		//		FileLog.log(Common.Log, PrintManager.class, "printSmarantTicket", "print", "start-print");
-		orderRes.setBiz_id(Order.getInstance().getBiz_id());
-		orderRes.setCreate_time(format.format(new Date()));
-		SmarantPrintUtil.setPrintList(orderRes);
-
-		//店名
-		if (TextUtils.isEmpty(StoreConfigure.getJyjAddress())) {
-			//吉野家要求空多三行
-			PrintManager.printText("\n");
-			PrintManager.printText("\n");
-			PrintManager.printText("\n");
-		}
-		PrintManager.size1();
-		PrintManager.bold();
-		PrintManager.center();
-		if (orderRes == null) {
-			PrintManager.printlnText("***订单已支付,同步POS失败，请将该小票交给服务员处理！***" + "\n");
-		}
-
-		//		if (!orderRes.isOrderIsCorrect()) {
-		//			PrintManager.printlnText("***订单已支付,同步POS失败，请将该小票交给服务员处理！***" + "\n");
-		//		}
-		PrintManager.printlnText(SmarantPrintUtil.getWelcom() + "\n");
-		//桌牌号和堂食外带
-		PrintManager.size1();
-		PrintManager.left();
-		PrintManager.normal();
-
-		if (orderRes != null) {
-			String callId  = orderRes.getContent().getCallNumber();
-			String tableId = Order.getInstance().getTableId();
-			if (tableId != null)
-				callId = "餐牌号:" + tableId;
-			if (!callId.contains("餐")) {
-				PrintManager.printlnText(SmarantPrintUtil.getTitle());//取餐号
-				//			取餐号:
-				PrintManager.printlnText(context.getResources()
-						.getString(R.string.cardnum_tv) + callId + "        " + Order.getInstance()
-						.getTakeOutStr());
-			} else {
-				PrintManager
-						.printlnText(callId + "        " + Order.getInstance()
-								.getTakeOutStr());//桌牌号
-			}
-			//订单号，时间，收银员
-			PrintManager.printlnText(" ");
-			PrintManager.normal();
-			PrintManager.left();
-			PrintManager.size0();
-			PrintManager.printlnText(context.getResources()
-					.getString(R.string.order_num_tv) + orderRes.getContent().getId());//订单号 堂食or外带
-		}
-		//订单号，时间，收银员
-		PrintManager.normal();
-		PrintManager.left();
-		PrintManager.size0();
-		PrintManager.printlnText(context.getResources()
-				.getString(R.string.order_time_tv) + format.format(new Date()));
-		PrintManager.printlnText(SmarantPrintUtil.getCashier());//收银员
-
-		PrintManager.left();
-		printHalfDotLine();
-		//菜品 + 价格
-
-		PrintManager.bold();
-		printDishHeader();
-		PrintManager.normal();
-		PrintManager.printText((SmarantPrintUtil.getDishItemsString(
-		)));
-		PrintManager.left();
-		printHalfDotLine();
-		PrintManager.printText(SmarantPrintUtil.getCostInfoStr());
-		PrintManager.left();
-		printHalfDotLine();
-
-		//支付方式
-		PrintManager.bold();
-		PrintManager.printFormatText("支付方式" + "\n", 0);
-		PrintManager.normal();
-		PrintManager.printText(SmarantPrintUtil.getPayInfo());
-		printHalfDotLine();
-		if (Order.getInstance().isMember()) {
-			PrintManager.bold();
-			PrintManager.left();
-			PrintManager.printFormatText("会员消费详情" + "\n", 0);
-			PrintManager.normal();
-			PrintManager.printText(SmarantPrintUtil.getMemberPayInfo());
-			printHalfDotLine();
-		}
-		PrintManager.center();
-		//		if (orderReq.isPrintQr()) {
-		//			//0 表示订单号     1 表示菜单的密文
-		//			PrintManager.printlnText("\n");
-		//			PrintManager.printQr(orderReq.id);
-		//		}
-		//		if (Common.SHOP_INFO.printInvoiceQrcode) {
-		//			PrintManager.printlnText("\n");
-		//			PrintManager.printQr(getBarcodeUrl(orderReq.oid));
-		//		}
-
-		PrintManager.printlnText(SmarantPrintUtil.getWelcomFoot());
-		PrintManager.printlnText(SmarantPrintUtil.getAddress());
-		PrintManager.printlnText(" ");
-		PrintManager.printlnText(" ");
-		PrintManager.printlnText(" ");
-		//		FileLog.log(Common.Log, PrintManager.class, "printSmarantTicket", "print", "end-print");
-		PrintManager.cut();
-	}
 
 	/**
 	 * 这个是同步时的小票
@@ -348,50 +234,116 @@ public class SmarantTicketPrintHandler {
 
 	private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 用于格式化日期,作为日志文件名的一部分
 
-	public void printCXJTicket(Context context, NewOrderRes orderRes) {
+	/**
+	 * 获取打印的model
+	 *
+	 * @param orderRes
+	 * @return
+	 */
+	private PrintOrder getPrintOrder(NewOrderRes orderRes) {
+		PrintOrder printOrder = new PrintOrder();
+		if (orderRes != null) {
+			String callId  = orderRes.getContent().getCallNumber();//取餐号
+			String tableId = Order.getInstance().getTableId();//餐牌号
+			if (tableId != null)
+				callId = "餐牌号:" + tableId;
 
-		//店名
+			printOrder.setCallId(callId);
+			printOrder.setEatmethod(Order.getInstance().getTakeOutStr());
 
+			printOrder.setOrderId(AppApplication.getContext().getResources()
+					.getString(R.string.order_num_tv) + orderRes.getContent().getId());//订单号 堂食or外带
+		}
+		printOrder.setWelcome(SmarantPrintUtil.getWelcom());
+		printOrder.setCreateTime( format.format(new Date()));
+		printOrder.setCasher(SmarantPrintUtil.getCashier());
+		printOrder.setDishList(SmarantPrintUtil.getDishItemsString(
+		));
+		printOrder.setCostList(SmarantPrintUtil.getCostInfoStr());
+		printOrder.setPayInfoList(SmarantPrintUtil.getPayInfo());
+		if (Order.getInstance().isMember()){
+			printOrder.setMemberNameAndPhone();
+			printOrder.setMemberPayInfo(SmarantPrintUtil.getMemberPayInfo());
+		}
+		printOrder.setWelcomefood(SmarantPrintUtil.getWelcomFoot());
+		printOrder.setAddress(SmarantPrintUtil.getAddress());
+		printOrder.setMember(Order.getInstance().isMember());
+
+		/**
+		 * 以下是智慧快餐多出的部分
+		 */
+
+		printOrder.setJyj_address(StoreConfigure.getJyjAddress());
+
+
+		return printOrder;
+	}
+
+
+	/**
+	 * 打印餐行健的小票
+	 * @param orderRes
+	 */
+	public void printCXJTicket(NewOrderRes orderRes) {
+		PrintOrder printOrder = getPrintOrder(orderRes);
+		SmarantPrintUtil.addPrintOrder(printOrder);
+		printTicket(printOrder);
+	}
+
+
+	/**
+	 * 打印智慧快餐的小票
+	 * @param orderRes
+	 */
+	public void printSmarantTicket( NewOrderRes orderRes) {
+		PrintOrder printOrder = getPrintOrder(orderRes);
+		SmarantPrintUtil.addPrintOrder(printOrder);
+		if (orderRes.isFail()) {
+			PrintManager.printlnText("\n"+"***订单已支付,同步POS失败，请将该小票交给服务员处理！***" + "\n");
+		}
+		printTicket(printOrder);
+	}
+
+
+
+	/**
+	 * 智慧快餐和餐行健共用一套打印
+	 *
+	 * @param printOrder
+	 */
+	public void printTicket(PrintOrder printOrder) {
 		PrintManager.size1();
 		PrintManager.bold();
 		PrintManager.center();
-		PrintManager.printlnText(SmarantPrintUtil.getWelcom() + "\n");
+		PrintManager.printlnText(printOrder.getWelcome() + "\n");
 		//桌牌号和堂食外带
 		PrintManager.size1();
 		PrintManager.left();
 		PrintManager.normal();
-
-		if (orderRes != null) {
-			String callId  = orderRes.getContent().getCallNumber();
-			String tableId = Order.getInstance().getTableId();
-			if (tableId != null)
-				callId = "餐牌号:" + tableId;
-			if (!callId.contains("餐")) {
-				PrintManager.printlnText(SmarantPrintUtil.getTitle());//取餐号
-				//			取餐号:
-				PrintManager.printlnText(context.getResources()
-						.getString(R.string.cardnum_tv) + callId + "        " + Order.getInstance()
-						.getTakeOutStr());
-			} else {
-				PrintManager
-						.printlnText(callId + "        " + Order.getInstance()
-								.getTakeOutStr());//桌牌号
-			}
-			//订单号，时间，收银员
-			PrintManager.printlnText(" ");
-			PrintManager.normal();
-			PrintManager.left();
-			PrintManager.size0();
-			PrintManager.printlnText(context.getResources()
-					.getString(R.string.order_num_tv) + orderRes.getContent().getId());//订单号 堂食or外带
+		if (!printOrder.getCallId().contains("餐")) {
+			PrintManager.printlnText(SmarantPrintUtil.getTitle());//取餐号
+			//			取餐号:
+			PrintManager.printlnText(AppApplication.getContext().getResources()
+					.getString(R.string.cardnum_tv) + printOrder
+					.getCallId() + "        " + printOrder.getEatmethod());
+		} else {
+			PrintManager
+					.printlnText(printOrder.getCallId() + "        " + printOrder
+							.getEatmethod());//桌牌号
 		}
+		//订单号，时间，收银员
+		PrintManager.printlnText(" ");
+		PrintManager.normal();
+		PrintManager.left();
+		PrintManager.size0();
+		PrintManager.printlnText(printOrder.getOrderId());//订单号 堂食or外带
 		//订单号，时间，收银员
 		PrintManager.normal();
 		PrintManager.left();
 		PrintManager.size0();
-		PrintManager.printlnText(context.getResources()
-				.getString(R.string.order_time_tv) + format.format(new Date()));
-		PrintManager.printlnText(SmarantPrintUtil.getCashier());//收银员
+		PrintManager.printlnText(AppApplication.getContext().getResources()
+				.getString(R.string.order_time_tv) +printOrder.getCreateTime());
+		PrintManager.printlnText(printOrder.getCasher());//收银员
 
 		PrintManager.left();
 		printHalfDotLine();
@@ -400,11 +352,10 @@ public class SmarantTicketPrintHandler {
 		PrintManager.bold();
 		printDishHeader();
 		PrintManager.normal();
-		PrintManager.printText((SmarantPrintUtil.getDishItemsString(
-		)));
+		PrintManager.printText(printOrder.getDishList());
 		PrintManager.left();
 		printHalfDotLine();
-		PrintManager.printText(SmarantPrintUtil.getCostInfoStr());
+		PrintManager.printText(printOrder.getCostList());
 		PrintManager.left();
 		printHalfDotLine();
 
@@ -412,35 +363,23 @@ public class SmarantTicketPrintHandler {
 		PrintManager.bold();
 		PrintManager.printFormatText("支付方式" + "\n", 0);
 		PrintManager.normal();
-		PrintManager.printText(SmarantPrintUtil.getPayInfo());
+		PrintManager.printText(printOrder.getPayInfoList());
 		printHalfDotLine();
-		if (Order.getInstance().isMember()) {
+		if (printOrder.isMember()) {
 			PrintManager.bold();
 			PrintManager.left();
 			PrintManager.printFormatText("会员消费详情" + "\n", 0);
 			PrintManager.normal();
-			PrintManager.printText(SmarantPrintUtil.getMemberPayInfo());
+			PrintManager.printText(printOrder.getMemberPayInfo());
 			printHalfDotLine();
 		}
 		PrintManager.center();
-		//		if (orderReq.isPrintQr()) {
-		//			//0 表示订单号     1 表示菜单的密文
-		//			PrintManager.printlnText("\n");
-		//			PrintManager.printQr(orderReq.id);
-		//		}
-		//		if (Common.SHOP_INFO.printInvoiceQrcode) {
-		//			PrintManager.printlnText("\n");
-		//			PrintManager.printQr(getBarcodeUrl(orderReq.oid));
-		//		}
-
-		PrintManager.printlnText(SmarantPrintUtil.getWelcomFoot());
-		PrintManager.printlnText(SmarantPrintUtil.getAddress());
+		PrintManager.printlnText(printOrder.getWelcomefood());
+		PrintManager.printlnText(printOrder.getAddress());
 		PrintManager.printlnText(" ");
 		PrintManager.printlnText(" ");
 		PrintManager.printlnText(" ");
 		//		FileLog.log(Common.Log, PrintManager.class, "printSmarantTicket", "print", "end-print");
 		PrintManager.cut();
 	}
-
-
 }

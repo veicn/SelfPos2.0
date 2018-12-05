@@ -15,4 +15,6 @@ public class SystemConfig {
 	public static boolean isCanXingJianSystem;
 
 	public static boolean DEBUG = false;
+
+	public static boolean showChooseEatMethod = true;
 }
