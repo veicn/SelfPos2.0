@@ -24,9 +24,6 @@ public interface MainContract {
 
 	interface View extends BaseView {
 		void returnBindResult(BindEntity bindEntity);
-
-
-
 		void returnLoginResult(LoginEntity loginEntity);
 	}
 

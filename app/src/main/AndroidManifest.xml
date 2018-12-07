@@ -53,6 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
         <activity android:name=".orderui.main.ui.activity.SmarantCouponActivity"></activity>
         <activity android:name=".orderui.main.ui.activity.LoadDataActivity"></activity>
         <activity android:name=".orderui.main.ui.activity.EmptyActivity"></activity>

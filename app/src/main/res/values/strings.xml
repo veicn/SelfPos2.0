@@ -161,6 +161,9 @@
     <string name="caipinquan">菜品券</string>
     <string name="timeout">与服务器连接超时，请稍后重试!</string>
     <string name="showtable_paysuccess_tips">请找好座位，等待服务员送餐</string>
+
+
+
     <string-array name="scantype">
         <item>@string/use_inside</item>
         <item>@string/use_outside</item>

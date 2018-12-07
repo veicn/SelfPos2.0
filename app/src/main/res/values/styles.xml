@@ -112,4 +112,11 @@
         <item name="android:layout_margin">@dimen/x6</item>
         <item name="android:textColor">#111111</item>
     </style>
+
+    <!-- 下划线 -->
+    <style name="sty_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/y1</item>
+        <item name="android:background">@color/divider</item>
+    </style>
 </resources>
